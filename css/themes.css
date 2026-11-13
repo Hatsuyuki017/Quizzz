@@ -195,7 +195,7 @@ html[data-palette="zima-blue"] .spine {
   --rule-soft: color-mix(in srgb, var(--p-ink) 16%, var(--p-bg));
 }
 html[data-palette="zima-blue"] .spine__no { color: var(--ink); }
-html[data-palette="zima-blue"] .spine__motif svg { opacity: .5; }
+html[data-palette="zima-blue"] .spine__motif svg { opacity: .28; }
 html[data-palette="zima-blue"] .nav__item:hover { background: color-mix(in srgb, #fff 26%, var(--p-bg)); }
 html[data-palette="zima-blue"] .nav__item.is-on { background: #fff; --ink-38: color-mix(in srgb, var(--p-ink) 38%, #fff); }
 html[data-palette="zima-blue"] .panel,
