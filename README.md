@@ -36,7 +36,7 @@ The site currently holds three courses of 2026 Semester 2, 450 questions in tota
 - Data stays in the browser and can be exported and imported as a JSON backup.
 
 **Interface**
-- 26 palettes (25 light, 1 dark); hover to preview, click to keep.
+- 31 palettes (27 light, 4 dark); hover to preview, click to keep. Five of them take their colours from records and a film: *Mellon Collie and the Infinite Sadness* (the 1995 sleeve and the 2012 Deluxe Edition), *OK Computer*, Guns N' Roses and *Zima Blue*.
 - English and Chinese. The first visit follows the browser language, and Settings switches it.
 
 ## Layout

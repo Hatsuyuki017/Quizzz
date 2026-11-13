@@ -1,5 +1,5 @@
 /* palettes.js — palette metadata for the picker; the tokens themselves live in css/themes.css.
-   The 25 light palettes come from Study Ledger (Thomas Shang's Tufte-style book template). */
+   The first 25 palettes come from Study Ledger (Thomas Shang's Tufte-style book template). */
 (window.QL = window.QL || {}).PALETTES = [
   {id:'warm',                     name:'Warm (default)',            bg:'#f5f0eb', ink:'#2C2C2C', cats:['#8b1a1a','#1a5c8b','#1565c0','#c41230','#e65100']},
   {id:'ouc-default',              name:'OUC Default',               bg:'#EFF6FF', ink:'#1E293B', cats:['#1E3A8A','#2563EB','#4D85CA','#818B95','#1E293B']},
@@ -26,5 +26,10 @@
   {id:'france',                   name:'France',                    bg:'#E8DECD', ink:'#28437C', cats:['#B42028','#8F6C94','#7A7E84','#807834','#2C4A8A']},
   {id:'kyoto',                    name:'Kyoto',                     bg:'#EAE2D4', ink:'#222842', cats:['#505E44','#6E5440','#747E78','#867975','#222842']},
   {id:'siamese-dream',            name:'Siamese Dream',             bg:'#EEE2D0', ink:'#2A4430', cats:['#BC6928','#7A756E','#90732F','#55605B','#2A4430']},
+  {id:'mellon-collie',            name:'Mellon Collie (1995)',      bg:'#0F2A3A', ink:'#F2E7CC', cats:['#F0C25B','#E88668','#69C3C1','#E5A9B8','#B8C9DA'], title:'Mellon Collie and the Infinite Sadness, original 1995 cover'},
+  {id:'mellon-collie-deluxe',     name:'Mellon Collie (Deluxe)',    bg:'#1A1A3C', ink:'#F1E9DA', cats:['#DDB45C','#E982A7','#55B8BC','#B7A2E0','#E3A26E'], title:'Mellon Collie and the Infinite Sadness, 2012 Deluxe Edition cover'},
+  {id:'ok-computer',              name:'OK Computer',               bg:'#DCEEF5', ink:'#24292C', cats:['#3F5E8C','#5F7CA3','#4A5A6D','#75828C','#303333']},
+  {id:'guns-n-roses',             name:"Guns N' Roses",             bg:'#121110', ink:'#F1E7CF', cats:['#F5B921','#EC3A4C','#4DAA57','#E8792B','#A9B0B3']},
+  {id:'zima-blue',                name:'Zima Blue',                 bg:'#16B8F3', ink:'#0B0B0C', cats:['#D8262C','#16B8F3','#0B0B0C','#868C92','#4A5056']},
   {id:'lamplight',                name:'Lamplight (dark)',          bg:'#1E1C22', ink:'#ECE5D6', cats:['#E0A458','#7FB4C9','#C58AA6','#9FB07A','#D9CDB4']},
 ];

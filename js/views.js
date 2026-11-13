@@ -454,7 +454,7 @@
   function palette() {
     var cur = QL.store.pref('palette', 'warm');
     var body = '<div class="pad"><div class="pgrid">' + QL.PALETTES.map(function (p, i) {
-      return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '"><span class="pcard__chips"><i style="background:' + p.bg +
+      return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '" title="' + h(p.title || p.name) + '"><span class="pcard__chips"><i style="background:' + p.bg +
         '"></i>' + p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') + '</span><span class="pcard__foot"><span class="pcard__n">' + ('0' + i).slice(-2) +
         '</span><span class="pcard__name">' + h(p.name) + '</span>' + (p.id === cur ? '<span class="pcard__tick">✓</span>' : '') + '</span></button>';
     }).join('') + '</div></div>';
