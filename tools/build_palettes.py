@@ -30,7 +30,8 @@ Icon notation (24 x 24 box, parts separated by ';'):
   U set:name [x y size] [flip]   an icon from an open icon set (tools/palettes/lib.json,
                                  filled by tools/pull_icons.py); placed at x, y with the given size
   G name           a computed figure: wheel (colour circle), grid (a grid bent by a mass)
-  T x y size text  a word or character, centred on x, y
+  T x y size text  a word or character in the serif face, centred on x, y; M does the same in the
+                   monospace face; write the size as size:width to fit the text to a width
 A part may end in @a @b @c @d (a palette colour), @k (ink), @g (paper) or @#RRGGBB, and
 then in /0.4 for an opacity.
 """
@@ -206,11 +207,14 @@ def icon_svg(spec, where):
             piece = lib_icon(words[0], [w for w in words[1:] if w != "flip"], flip, colour, where)
             out.append(piece.replace("<g ", f"<g{opacity} ", 1) if opacity else piece)
             continue
-        if kind == "T":
+        if kind in "TM":
             x, y, size, text = rest.split(None, 3)
-            out.append(f'<text x="{x}" y="{y}" font-size="{size}" text-anchor="middle" dominant-baseline="central" '
-                       f'font-family="\'Noto Serif SC\',\'Songti SC\',\'Source Han Serif SC\',Georgia,serif" font-weight="700" '
-                       f'fill="{colour}" stroke="none"{opacity}>{text}</text>')
+            size, _, width = size.partition(":")
+            fit = f' textLength="{width}" lengthAdjust="spacingAndGlyphs"' if width else ""
+            family = ("'Noto Serif SC','Songti SC','Source Han Serif SC',Georgia,serif" if kind == "T"
+                      else "var(--mono, ui-monospace, 'SF Mono', Menlo, Consolas, monospace)")
+            out.append(f'<text x="{x}" y="{y}" font-size="{size}"{fit} text-anchor="middle" dominant-baseline="central" '
+                       f'style="font-family:{family}" font-weight="700" fill="{colour}" stroke="none"{opacity}>{text}</text>')
             continue
         if kind == "G":
             if rest not in GENERATORS:
