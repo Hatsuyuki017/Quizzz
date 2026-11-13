@@ -1,11 +1,11 @@
 # id | Name | 中文名 | source | bg a b c d | texture | icon | 小传
-black-figure | Black-figure Vase | 黑绘陶瓶 | Attic pottery, 6th century BC | #EFC9A0 #1E1A17 #9A3F1C #7A5A3A #5E2A1A | none | d M9 3h6M10 3c0 3-4 5-4 10 0 4 3 7 6 8 3-1 6-4 6-8 0-5-4-7-4-10; d M8 8c-3 0-3 4-1 5M16 8c3 0 3 4 1 5 | 陶土的橙红上用黑釉画出英雄与战车，细节靠刻线。雅典陶工的第一种语言。
-red-figure | Red-figure Vase | 红绘陶瓶 | Attic pottery, 5th century BC | #17120F #E08A4F #F0D2A8 #C75B39 #B89A6A | none | p 2,18 2,6 18,6 18,14 8,14 8,10 13,10; L 2 20.5 22 20.5 | 颜色反过来：底涂成黑，人物留出陶土本色。线条因此可以用笔画，身体有了转折。
-knossos | Frescoes of Knossos | 克诺索斯壁画 | Minoan Crete, c. 1500 BC | #F1E4C8 #1F6FA0 #B4432B #C9952B #2F8C8A | waves | d M4 4c0 8 3 12 8 12s8-4 8-12; L 3 20 21 20; L 12 16 12 20 | 米诺斯宫殿墙上的海蓝与赭红，海豚和跃过牛背的少年。三千五百年前的明亮。
-akrotiri | Spring Fresco of Akrotiri | 阿克罗蒂里春之壁画 | Thera, c. 1600 BC | #F4EBDD #B23A2A #D9952B #3F6FA0 #5F8C4A | none | L 12 22 12 12; d M12 12c-1-3-1-6 0-9 1 3 1 6 0 9z; d M12 12c-3-1-5-3-6-6 3 1 5 3 6 6z; d M12 12c3-1 5-3 6-6-3 1-5 3-6 6z | 红色的岩石上开着百合，燕子成对飞过。火山灰把这个春天完整地封存下来。
-villa-of-mysteries | Villa of the Mysteries | 秘仪别墅 | Pompeii, 1st century BC | #F0DDCB #A3241C #2A2320 #B8892B #5E7A4A | none | R 6 3 12 2.5; R 8 6 8 13; R 6 19.5 12 2.5; L 10.5 7 10.5 18@g; L 13.5 7 13.5 18@g | 一整面庞贝红，真人大小的人物绕墙一周，正在举行一场无人能解的仪式。
-livia-garden | Garden Room of Livia | 莉薇娅花园厅 | Rome, c. 30 BC | #DCE9E2 #2F7A6A #4F8F4A #C9862B #5F86A8 | none | d M5 20C9 14 13 9 19 4; D M9 15c-3 0-4-2-4-4 3 0 4 2 4 4z; D M12 12c0-3 2-4 4-4 0 3-2 4-4 4z; D M14 9c-3 0-4-2-4-4 3 0 4 2 4 4z | 地下餐厅的四壁画满月桂、石榴和飞鸟，蓝绿色的空气。一座永远不落叶的花园。
+black-figure | Black-figure Vase | 黑绘陶瓶 | Attic pottery, 6th century BC | #EFC9A0 #1E1A17 #9A3F1C #7A5A3A #5E2A1A | none | U gi:amphora | 陶土的橙红上用黑釉画出英雄与战车，细节靠刻线。雅典陶工的第一种语言。
+red-figure | Red-figure Vase | 红绘陶瓶 | Attic pottery, 5th century BC | #17120F #E08A4F #F0D2A8 #C75B39 #B89A6A | none | U fe:amphora | 颜色反过来：底涂成黑，人物留出陶土本色。线条因此可以用笔画，身体有了转折。
+knossos | Frescoes of Knossos | 克诺索斯壁画 | Minoan Crete, c. 1500 BC | #F1E4C8 #1F6FA0 #B4432B #C9952B #2F8C8A | waves | U gi:bull | 米诺斯宫殿墙上的海蓝与赭红，海豚和跃过牛背的少年。三千五百年前的明亮。
+akrotiri | Spring Fresco of Akrotiri | 阿克罗蒂里春之壁画 | Thera, c. 1600 BC | #F4EBDD #B23A2A #D9952B #3F6FA0 #5F8C4A | none | U ip:swallow | 红色的岩石上开着百合，燕子成对飞过。火山灰把这个春天完整地封存下来。
+villa-of-mysteries | Villa of the Mysteries | 秘仪别墅 | Pompeii, 1st century BC | #F0DDCB #A3241C #2A2320 #B8892B #5E7A4A | none | U mdi:pillar | 一整面庞贝红，真人大小的人物绕墙一周，正在举行一场无人能解的仪式。
+livia-garden | Garden Room of Livia | 莉薇娅花园厅 | Rome, c. 30 BC | #DCE9E2 #2F7A6A #4F8F4A #C9862B #5F86A8 | none | U lucide:bird | 地下餐厅的四壁画满月桂、石榴和飞鸟，蓝绿色的空气。一座永远不落叶的花园。
 alexander-mosaic | Alexander Mosaic | 亚历山大镶嵌画 | Pompeii, c. 100 BC | #E8DCC6 #7A4A2B #A8703A #5E5A4E #8C2F26 | tiles | R 4 4 4.5 4.5; R 9.75 4 4.5 4.5; R 15.5 4 4.5 4.5; R 4 9.75 4.5 4.5; r 9.75 9.75 4.5 4.5; R 15.5 9.75 4.5 4.5; R 4 15.5 4.5 4.5; R 9.75 15.5 4.5 4.5; r 15.5 15.5 4.5 4.5 | 一百多万块小石子拼出伊苏斯之战，只用土色：褐、赭、灰和一点暗红。
-fayum | Fayum Portraits | 法尤姆肖像 | Roman Egypt, 1st to 3rd century | #EAD9BC #6B3F23 #B8862B #8C5A3A #4A5A4A | none | P 12,2 20,12 12,22 4,12; p 12,7 16,12 12,17 8,12 12,7@g | 蜡画在木板上的面孔，暖褐的皮肤，金箔的花环，一双直视你的眼睛。
-flora-stabiae | Flora of Stabiae | 斯塔比亚的花神 | Roman fresco, 1st century | #D9E6CF #5E8A5A #C9A63A #B8707A #7A8C9A | none | L 12 22 12 6; d M12 9c-3 0-5-2-5-4M12 13c3 0 5-2 5-4M12 17c-3 0-5-2-5-4; C 12 4.5 2 | 淡绿的底上，一个背影伸手折花。画很小，却轻得像刚刚有人走过。
-tarquinia | Tombs of Tarquinia | 塔尔奎尼亚墓室壁画 | Etruscan, 5th century BC | #F2E6D0 #A8402B #2F7F86 #C99A3A #3A2A22 | blinds | d M7 4c-2 6-1 10 5 12 6-2 7-6 5-12; L 7 6 17 6; L 10 6 10 15; L 12 6 12 16; L 14 6 14 15; L 12 16 12 21 | 伊特鲁里亚人在墓室里画宴饮和舞蹈：砖红的皮肤，蓝绿的衣摆，琴声不断。
+fayum | Fayum Portraits | 法尤姆肖像 | Roman Egypt, 1st to 3rd century | #EAD9BC #6B3F23 #B8862B #8C5A3A #4A5A4A | none | U gi:egyptian-profile | 蜡画在木板上的面孔，暖褐的皮肤，金箔的花环，一双直视你的眼睛。
+flora-stabiae | Flora of Stabiae | 斯塔比亚的花神 | Roman fresco, 1st century | #D9E6CF #5E8A5A #C9A63A #B8707A #7A8C9A | none | U fe:bouquet | 淡绿的底上，一个背影伸手折花。画很小，却轻得像刚刚有人走过。
+tarquinia | Tombs of Tarquinia | 塔尔奎尼亚墓室壁画 | Etruscan, 5th century BC | #F2E6D0 #A8402B #2F7F86 #C99A3A #3A2A22 | blinds | U gi:lyre | 伊特鲁里亚人在墓室里画宴饮和舞蹈：砖红的皮肤，蓝绿的衣摆，琴声不断。

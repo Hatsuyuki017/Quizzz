@@ -1,11 +1,11 @@
 # id | Name | 中文名 | source | bg a b c d | texture | icon | 小传
-qingming | Along the River During the Qingming Festival | 清明上河图 | Zhang Zeduan, 12th century | #E6D5B0 #5E4A2B #7A8C5A #A8503A #3A332A | none | d M2 16c5-9 15-9 20 0; d M2 19c6-7 14-7 20 0; L 7 12 7 15.3; L 12 9.5 12 13.6; L 17 12 17 15.3 | 旧绢的茶色上，汴河两岸的市声一路铺开。虹桥上挤满了人，桥下一条船正要放倒桅杆。
-fuchun | Dwelling in the Fuchun Mountains | 富春山居图 | Huang Gongwang, 1350 | #ECE7D8 #33352F #6E7166 #8A8C7A #A8503A | none | d M2 18c3-1 4-6 7-6s3 3 5 3 3-7 6-7 2 6 2 10; L 2 21 22 21 | 只用水墨，浓淡干湿之间是一条江和它两岸的山。画了七年，后来被烧成两段。
-night-revels | Night Revels of Han Xizai | 韩熙载夜宴图 | Gu Hongzhong, 10th century | #E9D9BC #B8322A #2F6A52 #2A2622 #3F5F8C | none | d M12 22c-4 0-6-3-6-7 0-3 2-5 4-6V3h4v6c2 1 4 3 4 6 0 4-2 7-6 7z; L 9 3 15 3; L 12 9 12 18 | 朱红的袍、石绿的屏风和乌黑的家具。琵琶声里，主人的神情始终心不在焉。
-dunhuang | Dunhuang Murals | 敦煌壁画 | Mogao Caves, 4th to 14th century | #EAD8BE #2F7F7A #B4472B #3F6FA8 #C9982B | none | d M3 6c5 0 5 6 10 6s4-5 8-5; d M3 12c5 0 5 6 10 6s4-5 8-5; C 3 9 1.5 | 石青、石绿和土红画在沙漠边的洞窟里，飞天的飘带一千年没有落地。
-ru-ware | Ru Ware | 汝窑天青 | Northern Song, 12th century | #D9E8E6 #3F7F86 #6A9A9A #8A7A5A #5E6E72 | weave | d M10 3h4v4c3 2 5 5 5 8 0 3-2 6-7 6s-7-3-7-6c0-3 2-6 5-8z | 雨过天青云破处的那种颜色。釉面开着细碎的冰裂纹，传世不足百件。
-blue-and-white | Blue-and-white Porcelain | 青花瓷 | Yuan and Ming dynasties | #EEF2F6 #1F3F8C #3F66B8 #6A86C4 #2A3350 | none | c 12 12 9.5; c 12 12 6; d M9 12c0-2 3-2 3 0s3 2 3 0 | 白胎上只有一种钴蓝，浓处发紫，淡处如水。从景德镇一直卖到伊斯坦布尔。
+qingming | Along the River During the Qingming Festival | 清明上河图 | Zhang Zeduan, 12th century | #E6D5B0 #5E4A2B #7A8C5A #A8503A #3A332A | none | U gi:stone-bridge | 旧绢的茶色上，汴河两岸的市声一路铺开。虹桥上挤满了人，桥下一条船正要放倒桅杆。
+fuchun | Dwelling in the Fuchun Mountains | 富春山居图 | Huang Gongwang, 1350 | #ECE7D8 #33352F #6E7166 #8A8C7A #A8503A | none | D M1 19l5-8 3 3 4-8 4 7 2-2 4 8z/.3; D M1 21l4-5 3 2 5-6 4 5 3-2 3 6z | 只用水墨，浓淡干湿之间是一条江和它两岸的山。画了七年，后来被烧成两段。
+night-revels | Night Revels of Han Xizai | 韩熙载夜宴图 | Gu Hongzhong, 10th century | #E9D9BC #B8322A #2F6A52 #2A2622 #3F5F8C | none | U fe:banjo | 朱红的袍、石绿的屏风和乌黑的家具。琵琶声里，主人的神情始终心不在焉。
+dunhuang | Dunhuang Murals | 敦煌壁画 | Mogao Caves, 4th to 14th century | #EAD8BE #2F7F7A #B4472B #3F6FA8 #C9982B | none | U ph:flower-lotus | 石青、石绿和土红画在沙漠边的洞窟里，飞天的飘带一千年没有落地。
+ru-ware | Ru Ware | 汝窑天青 | Northern Song, 12th century | #D9E8E6 #3F7F86 #6A9A9A #8A7A5A #5E6E72 | weave | U temaki:vase | 雨过天青云破处的那种颜色。釉面开着细碎的冰裂纹，传世不足百件。
+blue-and-white | Blue-and-white Porcelain | 青花瓷 | Yuan and Ming dynasties | #EEF2F6 #1F3F8C #3F66B8 #6A86C4 #2A3350 | none | U gi:porcelain-vase | 白胎上只有一种钴蓝，浓处发紫，淡处如水。从景德镇一直卖到伊斯坦布尔。
 tang-sancai | Tang Sancai | 唐三彩 | Tang dynasty, 8th century | #F0E6C8 #B8792B #3F8A4A #7A4A2B #2F5F8C | none | d M8 4h8M9 4c-4 3-5 6-5 9 0 4 3 8 8 8s8-4 8-8c0-3-1-6-5-9; d M8 10v4M12 9v7M16 10v3 | 黄、绿、褐三色釉在窑里自己流淌，交界处晕成一片。盛唐的骆驼和胡人。
-nymph-of-luo | Nymph of the Luo River | 洛神赋图 | Gu Kaizhi (attributed), 4th century | #E8DEC8 #A8442F #3F7F6A #5E6A8C #7A6A4A | waves | L 9 22 9 6; d M9 6c4-3 8-2 10 2M9 6c3 1 5 4 5 9M9 6c5 0 8 3 9 8M9 6c-3 1-5 4-5 8 | 洛水边的柳树下，他看见她凌波而来。线条细得像春蚕吐丝，颜色淡得快要散去。
-auspicious-cranes | Auspicious Cranes | 瑞鹤图 | Emperor Huizong, 1112 | #CFE3E6 #2F6F86 #B8922B #B4432B #33383A | none | d M2 8c4 1 7 3 9 6 1-4 4-7 11-9-3 4-5 7-7 12l-3-2z; L 11 14 5 20 | 石青的天占满画面，二十只白鹤盘旋在宫门的金顶上。皇帝亲手画下那个正月的傍晚。
+nymph-of-luo | Nymph of the Luo River | 洛神赋图 | Gu Kaizhi (attributed), 4th century | #E8DEC8 #A8442F #3F7F6A #5E6A8C #7A6A4A | waves | U gi:swan | 洛水边的柳树下，他看见她凌波而来。线条细得像春蚕吐丝，颜色淡得快要散去。
+auspicious-cranes | Auspicious Cranes | 瑞鹤图 | Emperor Huizong, 1112 | #CFE3E6 #2F6F86 #B8922B #B4432B #33383A | none | U gi:heron | 石青的天占满画面，二十只白鹤盘旋在宫门的金顶上。皇帝亲手画下那个正月的傍晚。
 orchid-pavilion | Preface to the Orchid Pavilion | 兰亭序 | Wang Xizhi, 353 | #EFE9D9 #1F1D1A #B8322A #5E5A50 #8A8474 | none | r 4 4 16 16 2; d M8 8h8v4H8v4h8 | 墨、纸和后人盖满的朱红印章。暮春之初，曲水流觞，酒后写下的三百二十四个字。

@@ -30,7 +30,8 @@ Icon notation (24 x 24 box, parts separated by ';'):
   U set:name [x y size] [flip]   an icon from an open icon set (tools/palettes/lib.json,
                                  filled by tools/pull_icons.py); placed at x, y with the given size
   G name           a computed figure: wheel (colour circle), grid (a grid bent by a mass)
-A part may end in @a @b @c @d (a palette colour), @k (ink) or @g (paper), and
+  T x y size text  a word or character, centred on x, y
+A part may end in @a @b @c @d (a palette colour), @k (ink), @g (paper) or @#RRGGBB, and
 then in /0.4 for an opacity.
 """
 import colorsys
@@ -190,10 +191,11 @@ def icon_svg(spec, where):
     out = []
     for part in [p.strip() for p in spec.split(";") if p.strip()]:
         colour, opacity = "currentColor", ""
-        m = re.search(r"(?:@([abcdkg]))?(?:/(\d*\.?\d+))?$", part)
+        m = re.search(r"(?:@([abcdkg]|#[0-9A-Fa-f]{6}))?(?:/(\d*\.?\d+))?$", part)
         if m and (m.group(1) or m.group(2)):
             if m.group(1):
-                colour = {"k": "var(--p-ink)", "g": "var(--p-bg)"}.get(m.group(1), "var(--p-%s)" % m.group(1))
+                c = m.group(1)
+                colour = c if c[0] == "#" else {"k": "var(--p-ink)", "g": "var(--p-bg)"}.get(c, "var(--p-%s)" % c)
             if m.group(2):
                 opacity = f' opacity="{m.group(2)}"'
             part = part[:m.start()].strip()
@@ -203,6 +205,12 @@ def icon_svg(spec, where):
             flip = "flip" in words
             piece = lib_icon(words[0], [w for w in words[1:] if w != "flip"], flip, colour, where)
             out.append(piece.replace("<g ", f"<g{opacity} ", 1) if opacity else piece)
+            continue
+        if kind == "T":
+            x, y, size, text = rest.split(None, 3)
+            out.append(f'<text x="{x}" y="{y}" font-size="{size}" text-anchor="middle" dominant-baseline="central" '
+                       f'font-family="\'Noto Serif SC\',\'Songti SC\',\'Source Han Serif SC\',Georgia,serif" font-weight="700" '
+                       f'fill="{colour}" stroke="none"{opacity}>{text}</text>')
             continue
         if kind == "G":
             if rest not in GENERATORS:

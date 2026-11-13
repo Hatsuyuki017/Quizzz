@@ -1,249 +1,78 @@
-# Candidate icons, second round. One row per palette:  id | icon
-# A part that begins with U places an icon from an open icon set (see lib.json for sources and licences).
-# The first block replaces icons judged weak; the second block offers alternatives for icons that were liked.
+# Third-round candidates for the icons that were turned down twice. Two rows per palette:  id | icon
 # Nothing here is live until a row is copied into the palette tables.
-
-# ---- replacements -------------------------------------------------------
-warm | U fe:ledger
-ouc-default | U ph:anchor
-brunneophobia | U ph:coffee-bean
-van-dyke | U ph:paint-brush
-back-in-black | U ph:bell
-belle-of-the-ball | U gi:carnival-mask
-narcissus | U ph:flower
-roman-empire | U gi:laurels
-starry-night | U ph:moon-stars
-a-thousand-li | U gi:peaks
-and-quiet-flows-the-don | U gi:river
-grand-budapest-hotel | U lucide:concierge-bell
-renaissance-florence | U lucide:dome
-constantinople | U ph:mosque
-france | U tabler:building-eiffel-tower
-ok-computer | U ph:road-horizon
-guns-n-roses | U gi:rose
-velvet-underground | U tabler:banana
-electric-ladyland | U ph:guitar
-ziggy-stardust | U ph:planet
-dark-side-of-the-moon | U ph:triangle 4 3 16; L 1 14 8.5 12.5; L 15.5 11.5 23 12.5@b; L 15.8 13 23 15.5@c; L 16 14.5 23 18.5@d
-houses-of-the-holy | U tabler:hexagons
-animals | U ph:factory
-never-mind-the-bollocks | U fe:safety-pin
-london-calling | U fe:telephone
-ride-the-lightning | U ph:cloud-lightning
-the-queen-is-dead | U ph:flower-tulip
-nevermind | U tabler:fish-hook
-loveless | U lucide:audio-waveform
-kid-a | U lucide:mountain-snow
-zima-blue | r 2 2 20 20; r 6 6 12 12; R 10 10 4 4@a
-the-godfather | U ph:orange
-blade-runner | U lucide:origami
-farewell-my-concubine | U fe:folding-hand-fan
-space-odyssey | R 10 5 4 14@k; e 12 12 10 3.6; C 20.6 9.6 1.3@a; C 4.2 15.2 .8@a
-in-the-mood-for-love | U ph:lamp
-amelie | U fe:custard
-pulp-fiction | U ph:briefcase 2 5 20; L 12 1 12 3.5@b; L 6 2.5 7.5 4.5@b; L 18 2.5 16.5 4.5@b
-lawrence-of-arabia | U gi:camel 1 4 20; C 19.5 4.5 2.5@b
-the-shining | U temaki:maze
-apocalypse-now | U tabler:helicopter
-raise-the-red-lantern | U fe:red-paper-lantern
-hero | U gi:arrow-cluster
-crouching-tiger | U gi:bamboo
-mad-max-fury-road | U tabler:steering-wheel
-parasite | U fe:peach
-schindlers-list | U tabler:candle
-spirited-away | U fe:hot-springs
-totoro | U ph:acorn
-mononoke | U gi:stag-head
-howl | U ph:shooting-star
-ghost-in-the-shell | U lucide:brain-circuit
-cowboy-bebop | U fe:saxophone
-your-name | U fe:comet
-weathering-with-you | U lucide:cloud-sun-rain
-attack-on-titan | U ip:great-wall
-demon-slayer | U mdi:checkerboard
-fullmetal-alchemist | U gi:pocket-watch
-death-note | U gi:notebook
-one-piece | U lucide:ship-wheel
-naruto | U fe:fish-cake-with-swirl
-dragon-ball | U fe:dragon
-kiki | U fe:broom
-violet-evergarden | U fe:love-letter
-mushishi | U gi:fern
-samurai-champloo | U gi:sunflower
-jujutsu-kaisen | U gi:flame-spin
-spy-family | U fe:peanuts
-frieren | U fe:blossom
-made-in-abyss | U ph:spiral
-steins-gate | U tabler:clock-cog
-haikyu | U ph:volleyball
-slam-dunk | U gi:basketball-basket
-grave-of-the-fireflies | U ph:jar; C 10 14 1@b; C 13.5 11.5 .8@b; C 14 16.5 .9@b
-black-figure | U gi:amphora
-knossos | U gi:bull
-akrotiri | U ip:swallow
-livia-garden | U lucide:bird
-flora-stabiae | U fe:bouquet
-birth-of-venus | U gi:scallop
-mona-lisa | U fe:framed-picture
-creation-of-adam | U fe:backhand-index-pointing-left 12.5 6 11.5; U fe:backhand-index-pointing-left 0 6 11.5 flip; C 12 10.5 .9@b
-hunters-in-the-snow | U gi:dead-wood
-earthly-delights | U fe:strawberry
-qingming | U gi:stone-bridge
-fuchun | D M1 19l5-8 3 3 4-8 4 7 2-2 4 8z/.3; D M1 21l4-5 3 2 5-6 4 5 3-2 3 6z
-night-revels | U fe:banjo
-dunhuang | U ph:flower-lotus
-blue-and-white | U gi:porcelain-vase
-tang-sancai | U mdi:horse
-nymph-of-luo | U gi:swan
-auspicious-cranes | U gi:heron
-ohashi-rain | U lucide:umbrella 3 6 18; L 5 1 4 4@b; L 11 1 10 4@b; L 17 1 16 4@b; L 21.5 5 20.5 8@b
-irises | U gi:fleur-de-lys
-utamaro | U fe:mirror
-sharaku | U gi:oni
-pine-trees | U gi:bonsai-tree
-kano-gold | p 2,5 7,7 12,5 17,7 22,5; p 2,19 7,21 12,19 17,21 22,19; L 2 5 2 19; L 7 7 7 21; L 12 5 12 19; L 17 7 17 21; L 22 5 22 19; D M2 10.5c3-1.5 5 1 8 0s5-1.5 12 0v3.5c-7-1.5-9 1-12 0s-5 1-8 0z@a/.45
-tuscany | U gi:hill-fort
-iceland | U tabler:volcano
-patagonia | U fe:penguin
-havana | U mdi:car-convertible
-jaipur | U fe:elephant
-tibet | d M2 5c6 4 14 4 20 0; P 3.6,6.3 6.8,7.6 4.6,11@a; P 7.8,7.9 11,8.5 9,12@b; P 12.2,8.6 15.4,8.2 14,12@c; P 16.6,7.8 19.6,6.6 19,10.6@d; L 2 5 2 20; L 22 5 22 20
-nordic | U gi:wood-cabin
-dream-of-the-red-chamber | U gi:gem-pendant
-journey-to-the-west | U fe:monkey
-three-kingdoms | L 5 22 5 5; P 5,5 11,7 5,9@b; L 12 22 12 2; P 12,2 19,4.5 12,7@a; L 18.5 22 18.5 7; P 18.5,7 23.5,8.7 18.5,10.4@c
-water-margin | U gi:jug
-odyssey | U gi:trireme
-don-quixote | U ph:windmill
-pride-and-prejudice | U ph:feather
-les-miserables | U gi:lit-candelabra
-moby-dick | U gi:whale-tail
-crime-and-punishment | U ph:axe
-war-and-peace | U gi:cannon
-anna-karenina | U fe:locomotive
-great-gatsby | C 17 7 2@a; c 17 7 4.3@a/.55; c 17 7 6.6@a/.28; L 17 9 17 16; L 3 16 21 16; d M3 19.5c2-1 4-1 6 0s4 1 6 0 4-1 6 0
-hundred-years-of-solitude | U ph:butterfly
-little-prince | U lucide:rose 6.5 7.5 11@d; d M5 20v-8a7 7 0 0 1 14 0v8; L 3 20 21 20
-old-man-and-the-sea | U tabler:fish-bone
-metamorphosis | U ph:bug-beetle
-ulysses | U tabler:tower
-lost-time | U fe:teacup-without-handle
-catcher-in-the-rye | U fe:carousel-horse
-lord-of-the-rings | U gi:ring
-norwegian-wood | U ph:tree-evergreen 0 3 15@a; U ph:tree-evergreen 9 6 15@b
-snow-country | U ph:snowflake
-call-to-arms | U ph:megaphone
-things-fall-apart | U gi:djembe
-arabian-nights | U gi:magic-lamp
-red-dead-redemption | U ph:cowboy-hat
-elden-ring | U gi:oak
-breath-of-the-wild | U gi:hang-glider
-hollow-knight | U gi:lantern
-journey | U fe:scarf
-hades | U ph:fire
-laozi | U gi:yin-yang
-confucius | U ph:scroll
-socrates | U gi:chalice-drops
-aristotle | U gi:ionic-column
-alexander | U gi:spartan-helmet
-qu-yuan | U gi:reed
-caesar | U ph:dice-five
-cleopatra | U tabler:ankh
-zhuge-liang | U gi:feather
-wu-zetian | U fe:phoenix-bird
-li-bai | D M2 16h20c-1.2 3.2-4.5 5-10 5s-8.8-1.8-10-5z; C 9.6 7.6 1.8; D M6.6 16c.1-3.4 1.2-6 3.2-6 1.4 0 2.4.9 3.4 2.2l3.3-3.4 1 .9-3.7 4.900V16z; C 17.6 8.3 .9@b; C 20.5 3.5 2@b; d M3 23c2-.8 4-.8 6 0s4 .8 6 0 4-.8 6 0
-du-fu | U gi:hut
-su-shi | U ip:straw-hat 2 -2 20; L 6 15 5 18@b; L 12 16 11 19@b; L 18 15 17 18@b
-li-qingzhao | U gi:daisy
-saladin | U gi:sparkling-sabre
-genghis-khan | U mdi:yurt
-zheng-he | U ph:compass
-joan-of-arc | U gi:knight-banner
-leonardo-da-vinci | U gi:vitruvian-man
-elizabeth-i | U gi:queen-crown
-galileo | U tabler:telescope 0 4 20; C 17 4 1.1@b; C 20.5 5.5 .8@b; C 21.5 9 .7@b; C 13 2.5 .7@b
-newton | U tabler:apple
-goethe | G wheel
-napoleon | U fe:eagle
-darwin | U fe:turtle
-lincoln | U fe:top-hat
-dostoevsky | U gi:manacles
-tolstoy | U gi:birch-trees
-van-gogh | U fe:sunflower
-tagore | U fe:dove
-sun-yat-sen | U gi:rail-road
-marie-curie | U ph:flask
-gandhi | U gi:spinning-wheel
-einstein | G grid
-lu-xun | U ph:pen-nib
-chaplin | U ph:film-reel
-mao-zedong | U lucide:mountain 1 6 20@k; C 6.5 5.5 2.6@a
-hemingway | U mdi:typewriter
-frida-kahlo | U fe:hibiscus
-mandela | U ph:lock-open
-
-# ---- alternatives for icons that were liked ------------------------------
-greece | U gi:greek-temple
-cyberpunk-edgerunners | U ph:cpu
-qin-shi-huang | C 12 12 9.5; R 9 9 6 6@g
-kanagawa | U fe:water-wave
-wang-xizhi | U fe:paintbrush
-charlemagne | U fe:crown
-murasaki-shikibu | U fe:japanese-dolls
-shakespeare | U fe:performing-arts
-mozart | U ph:piano-keys
-beethoven | U ph:music-notes
-oppenheimer | U ph:atom
-turing | U lucide:binary
-audrey-hepburn | U gi:pearl-necklace
-tale-of-genji | U ip:fan
-divine-comedy | U ph:target
-hamlet | U ph:skull
-nineteen-eighty-four | U ph:eye
-akira | U ph:city
-evangelion | U mdi:hexagon-multiple
-sailor-moon | U fe:crescent-moon
-seven-samurai | U gi:samurai-helmet
-kill-bill | U gi:katana
-la-la-land | U gi:street-light
-the-matrix | U ph:terminal-window
-pine-tree | U ph:tree-evergreen
-provence-blue | U fe:hyacinth
-fresco-blue | U lucide:paint-roller
-monet | U fe:lotus
-soviet-avant-garde | U tabler:triangle-square-circle
-siamese-dream | U gi:linked-rings
-kyoto | U fa:torii-gate
-lamplight | U lucide:lamp-desk
-mellon-collie | U ph:star-four
-mellon-collie-deluxe | U tabler:stars
-abbey-road | U mdi:walk
-crimson-king | U ph:crown
-master-of-reality | U ph:waves
-close-to-the-edge | U gi:waterfall
-aladdin-sane | U fe:mirror-ball
-unknown-pleasures | U ph:pulse
-sgt-pepper | U fe:drum
-red-figure | U fe:amphora
-villa-of-mysteries | U mdi:pillar
-alexander-mosaic | U ph:squares-four
-fayum | U gi:egyptian-profile
-tarquinia | U gi:lyre
-primavera | U fe:cherry-blossom
-last-supper | U gi:holy-grail
-bacchus-and-ariadne | U fe:grapes
-school-of-athens | U fe:classical-building
-arnolfini | U lucide:mirror-round
-ru-ware | U temaki:vase
-orchid-pavilion | U ph:stamp
-red-fuji | U fe:mount-fuji
-plum-blossoms | U ip:blossom
-aizome | U ph:drop-half
-raku | U ph:bowl-steam
-santorini | U tabler:building-church
-marrakech | U gi:arabic-door
-jiangnan | U gi:pagoda
-ghost-of-tsushima | U fe:maple-leaf
-witcher-3 | U gi:crossed-swords
-disco-elysium | U ph:disco-ball
-monument-valley | U ph:stairs
+starry-night | D M4.6 22c-2.2-4.6-1.6-8.6 0-12.4.3 2 1 2.6 1.3.4 1 3.2 2 5.6 1.8 8.8-.1 1.6-1 2.6-3.1 3.2z@k; U ph:spiral 8 1 12@b; C 20.5 4 1.6@b; C 9 3 .8@b; C 21 12 .8@b; L 8 22 23 22@k
+starry-night | U fe:crescent-moon 12 0 12@b; U ph:wind 0 9 16
+ok-computer | U mdi:highway
+ok-computer | U fe:desktop-computer
+zima-blue | U lucide:waves-ladder
+zima-blue | U ph:swimming-pool
+cowboy-bebop | U gi:revolver
+cowboy-bebop | U gi:starfighter
+weathering-with-you | L 12 1 12 4; c 12 8 4.2; C 10.5 7.8 .6; C 13.5 7.8 .6; d M11 9.6c.6.5 1.4.5 2 0; d M8.6 11.6l-3.1 9.2c1.6-1 2.7-1 4.3 0 1.500-1 2.900-1 4.400 0 1.600-1 2.700-1 4.300 0l-3.100-9.200; L 8.5 12 15.5 12@b
+weathering-with-you | U ph:rainbow-cloud
+attack-on-titan | U gi:broken-wall
+attack-on-titan | U ph:key
+death-note | U gi:death-note
+death-note | U fa:book-skull
+kiki | U gi:witch-flight
+kiki | U fe:black-cat
+violet-evergarden | U gi:wax-seal
+violet-evergarden | U gi:viola
+spy-family | U tabler:spy
+spy-family | U ph:detective
+frieren | U gi:wizard-staff
+frieren | U gi:spell-book
+steins-gate | U lucide:microwave
+steins-gate | U ph:clock-counter-clockwise
+mona-lisa | U gi:mona-lisa
+mona-lisa | r 2.5 1.5 19 21 1; U gi:mona-lisa 5 4 14
+creation-of-adam | U mdi:hand-pointing-right 0 6 11.5; U mdi:hand-pointing-left 12.5 6 11.5; C 12 10.2 .8@b
+creation-of-adam | U tabler:hand-finger-right 0 5 12; U tabler:hand-finger-left 12 5 12
+earthly-delights | U gi:fountain
+earthly-delights | U fe:owl
+space-odyssey | P 9.3,22.5 10.6,8.5 13.4,8.5 14.7,22.5@k; C 12 4.2 1.5@a; d M8.8 4.2a3.4 3.4 0 0 0 6.4 0@k
+space-odyssey | c 12 12 9.5; c 12 12 6.6; c 12 12 2; L 12 2.5 12 10; L 12 14 12 21.5; L 2.5 12 10 12; L 14 12 21.5 12
+apocalypse-now | C 12 13 9@a; U fa:helicopter 4.5 6.5 13@g; L 1 22.5 23 22.5
+apocalypse-now | U ph:sun-horizon 1 6 22; U tabler:helicopter 1 0 12@k
+schindlers-list | L 4 4 20 4@k; L 4 8.5 20 8.5@k; L 4 13 20 13@a; L 4 17.5 20 17.5@k; L 4 22 13 22@k
+schindlers-list | R 9.5 10 5 11.5 1@k; D M12 1.5c2.3 2.5 2.3 4.800 0 6.700-2.300-1.900-2.300-4.200 0-6.700z@a; L 6 21.5 18 21.5@k
+tang-sancai | d M8.5 2.5h7M9.5 2.5c0 2.500-4.500 4-4.500 9.500 0 5.500 3 9.500 7 9.500s7-4 7-9.500c0-5.500-4.500-7-4.500-9.500; R 7.4 8.5 2 7.5 1@a; R 11 7.5 2 11.500 1@b; R 14.6 8.5 2 5.500 1@c
+tang-sancai | U tabler:horse
+patagonia | P 1,20 5,11 7,14 9.5,3.5 12,12.5 14.2,6.5 16.5,13.5 18.5,10 23,20; d M3 22.6c2-1 4-1 6 0s4 1 6 0 4-1 6 0@b
+patagonia | U gi:condor-emblem
+havana | U gi:cigar
+havana | U gi:maracas
+journey-to-the-west | U ph:cloud 1 8 22; P 3.5,7.2 20,2.2 20.5,3.8 4,8.8@k; P 3.5,7.2 6.6,6.3 7.1,7.9 4,8.8@b; P 16.9,3.1 20,2.2 20.5,3.8 17.4,4.7@b
+journey-to-the-west | U gi:monkey
+three-kingdoms | D M4 9h16v3c0 4.2-3.5 6.200-8 6.200S4 16.200 4 12z; R 5 4.5 2.6 4.5 .6; R 16.4 4.5 2.6 4.5 .6; L 7 17.5 6 22.5; L 12 18.5 12 22.5; L 17 17.5 18 22.5; L 6.5 12 17.5 12@g
+three-kingdoms | U gi:halberd
+water-margin | U gi:tiger-head
+water-margin | U gi:crossed-axes
+little-prince | U fe:rose
+little-prince | U fe:fox
+old-man-and-the-sea | U tabler:sailboat 6.5 0 11; U ph:fish-simple 2 10 20@b
+old-man-and-the-sea | U gi:fishing-boat
+norwegian-wood | R 3.5 4 7.5 17 1@a; R 13 4 7.5 17 1@b; L 5.5 8 9 8@g; L 15 8 18.5 8@g; L 5.5 10.5 9 10.5@g; L 15 10.5 18.5 10.5@g
+norwegian-wood | U ph:vinyl-record
+call-to-arms | R 3.5 1.5 17 21 1@b; R 7 5 10 6.5@a; T 12 8.4 4.4 呐喊@b
+call-to-arms | U gi:shouting
+ghost-of-tsushima | U gi:katana@k; U fe:maple-leaf 13 1 10@a
+ghost-of-tsushima | U tabler:torii 0 4 20; U fe:maple-leaf 15 0 9@a
+monument-valley | P 12.5,6.5 16.5,8.5 16.5,20.5 12.5,18.5@b; P 20.5,6.5 16.5,8.5 16.5,20.5 20.5,18.5@c; P 16.5,4.5 20.5,6.5 16.5,8.5 12.5,6.5@a; P 8,11 12,13 12,21 8,19@b; P 16,11 12,13 12,21 16,19@c; P 12,9 16,11 12,13 8,11@a; P 3.5,15.5 7.5,17.5 7.5,21.5 3.5,19.5@b; P 11.5,15.5 7.5,17.5 7.5,21.5 11.5,19.5@c; P 7.5,13.5 11.5,15.5 7.5,17.5 3.5,15.5@a
+monument-valley | U gi:cubes
+confucius | R 3 3 18 18 3@a; T 12 12.4 12.5 仁@g
+confucius | U gi:scroll-unfurled
+caesar | U gi:centurion-helmet
+caesar | U tabler:laurel-wreath
+su-shi | P 5.5,8.5 12,3.5 18.5,8.5; D M8.3 9.5h7.4l2 8.5H6.300z; L 10.3 18 9.500 22.5; L 13.7 18 14.500 22.5; L 19.5 9 20.5 22.5; L 3 2 2 5@b; L 21.5 2 20.5 5@b; L 3.5 13 2.5 16@b
+su-shi | U gi:bamboo 0 2 20; C 18.5 5.5 3.2@b
+genghis-khan | U gi:cavalry
+genghis-khan | U lucide:bow-arrow
+zheng-he | D M2 16.5h20l-2.5 5h-15z; D M10.5 2h7v12.5h-7z; D M4.5 5.5h4.5v9H4.500z; L 10.5 5.2 17.5 5.2@g; L 10.5 8.3 17.5 8.3@g; L 10.5 11.4 17.5 11.4@g; L 4.5 8.5 9 8.5@g; L 4.5 11.5 9 11.5@g; P 17.5,2 21,3.2 17.5,4.4@b
+zheng-he | U fe:giraffe
+newton | L 3 3 21 3; L 3 3 3 20; L 21 3 21 20; L 10 3 10 13.4; L 13.2 3 13.2 13.4; L 16.4 3 16.4 13.4; C 10 15 1.6; C 13.2 15 1.6; C 16.4 15 1.6; L 6.8 3 4.6 11.6; C 4.2 13.2 1.6@a; L 1.5 20 22.5 20
+newton | U fe:red-apple 5.5 7 15; L 12 1 12 4.5@k; L 8.5 2 8.5 5@k; L 15.5 2 15.5 5@k
+napoleon | D M1.5 16.5c2.5-7.2 6.5-10.5 10.5-10.5s8 3.300 10.5 10.500c-3.500-2.300-7-3.300-10.500-3.300S5 14.200 1.500 16.500z; C 12 9.8 1.4@b; d M5 19c4.5-2 9.5-2 14 0
+napoleon | U tabler:laurel-wreath; T 12 11.5 9.5 N
+mandela | U gi:breaking-chain
+mandela | U fe:dove

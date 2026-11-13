@@ -1,31 +1,31 @@
 # id | Name | 中文名 | source | bg a b c d | texture | icon | 小传
-spirited-away | Spirited Away | 千与千寻 | Hayao Miyazaki, 2001 | #F2E2C6 #B3261E #2F7D6B #C99A2E #2B3E6B | dots | e 12 12 6 7; L 12 2 12 5; L 12 19 12 22; L 8 6 16 6; L 8 18 16 18 | 汤屋的朱红栏杆、翡翠色的瓦和入夜后点起的灯。记住自己的名字。
-totoro | My Neighbor Totoro | 龙猫 | Hayao Miyazaki, 1988 | #DDEBCF #3F7A3A #4E8FB8 #8A6B3F #6E7C82 | none | d M7 10c0 6 2 10 5 11 3-1 5-5 5-11z; d M6 10c0-3 3-5 6-5s6 2 6 5z; L 12 5 12 2 | 樟树的绿、夏天的蓝和口袋里的橡果。乡下的雨来得快，去得也快。
-mononoke | Princess Mononoke | 幽灵公主 | Hayao Miyazaki, 1997 | #14251D #C8E6B0 #D9483B #E9DFC8 #7FB7A0 | dots | L 12 21 12 11; d M12 13c-4 0-6-3-6-6 4 0 6 3 6 6z; d M12 11c3 0 5-2 5-5-3 0-5 2-5 5z | 古森林深处的墨绿，苔上泛着微光，一道血红提醒人和山各有代价。
+spirited-away | Spirited Away | 千与千寻 | Hayao Miyazaki, 2001 | #F2E2C6 #B3261E #2F7D6B #C99A2E #2B3E6B | dots | U fe:hot-springs | 汤屋的朱红栏杆、翡翠色的瓦和入夜后点起的灯。记住自己的名字。
+totoro | My Neighbor Totoro | 龙猫 | Hayao Miyazaki, 1988 | #DDEBCF #3F7A3A #4E8FB8 #8A6B3F #6E7C82 | none | U ph:acorn | 樟树的绿、夏天的蓝和口袋里的橡果。乡下的雨来得快，去得也快。
+mononoke | Princess Mononoke | 幽灵公主 | Hayao Miyazaki, 1997 | #14251D #C8E6B0 #D9483B #E9DFC8 #7FB7A0 | dots | U gi:stag-head | 古森林深处的墨绿，苔上泛着微光，一道血红提醒人和山各有代价。
 howl | Howl's Moving Castle | 哈尔的移动城堡 | Hayao Miyazaki, 2004 | #E3EEDD #2F6DA8 #D9627A #C9952B #4F8A4C | none | P 16,3 17.5,7 21.5,7.5 18.5,10 19.5,14 16,11.8 12.5,14 13.5,10 10.5,7.5 14.5,7; L 9 13 3 19; L 11 16 7 20 | 花田的绿、天空的蓝和一颗坠落的星。门把手转一下，外面就换了地方。
 akira | Akira | 阿基拉 | Katsuhiro Otomo, 1988 | #120A0C #F03A2E #F2C230 #35C4D8 #E6E1D8 | bars | R 3 12 3 9; R 7 6 3 15; R 11 10 3 11; R 15 4 3 17; R 19 13 2 8 | 新东京的夜，尾灯拖出红色的线。霓虹的黄和青落在一片将要崩塌的楼群上。
-ghost-in-the-shell | Ghost in the Shell | 攻壳机动队 | Mamoru Oshii, 1995 | #0C1A1C #5FD3C0 #9BE08C #E9A65A #B7C9CC | grid | C 6 6 2; C 18 8 2; C 9 18 2; C 17 17 1.5; L 6 6 18 8; L 6 6 9 18; L 18 8 17 17; L 9 18 17 17 | 数据流的青绿浮在黑水一样的城市上。身体可以换，记忆可以改，剩下的那一点算什么。
-evangelion | Neon Genesis Evangelion | 新世纪福音战士 | Hideaki Anno, 1995 | #1B1230 #8FD14F #A070E0 #F28C28 #E0483E | tiles | p 12,2 20.5,7 20.5,17 12,22 3.5,17 3.5,7 12,2; p 12,7 16.3,9.5 16.3,14.5 12,17 7.7,14.5 7.7,9.5 12,7 | 紫与荧光绿的装甲，警报的橙。六边形的屏障一层层展开，里面是一个不想上车的少年。
+ghost-in-the-shell | Ghost in the Shell | 攻壳机动队 | Mamoru Oshii, 1995 | #0C1A1C #5FD3C0 #9BE08C #E9A65A #B7C9CC | grid | U lucide:brain-circuit | 数据流的青绿浮在黑水一样的城市上。身体可以换，记忆可以改，剩下的那一点算什么。
+evangelion | Neon Genesis Evangelion | 新世纪福音战士 | Hideaki Anno, 1995 | #1B1230 #8FD14F #A070E0 #F28C28 #E0483E | tiles | U mdi:hexagon-multiple | 紫与荧光绿的装甲，警报的橙。六边形的屏障一层层展开，里面是一个不想上车的少年。
 cowboy-bebop | Cowboy Bebop | 星际牛仔 | Shinichiro Watanabe, 1998 | #F2E6C8 #1F3A5F #C8372D #D9A21B #5B6770 | none | c 12 12 9; c 12 12 3; C 12 12 1 | 旧唱片封套的米黄，深蓝西装，一点红和芥末黄。爵士乐响起，赏金猎人又没吃上饭。
-your-name | Your Name | 你的名字 | Makoto Shinkai, 2016 | #151B3A #F29CB2 #6FB6F0 #F5B85A #B49BE8 | stars | C 17 7 3; L 15 9 4 20; L 13 6 5 11; L 18 11 13 19 | 黄昏之时的天，粉与蓝交在一起，彗星拖着尾巴划过。醒来就忘了的名字。
+your-name | Your Name | 你的名字 | Makoto Shinkai, 2016 | #151B3A #F29CB2 #6FB6F0 #F5B85A #B49BE8 | stars | U fe:comet | 黄昏之时的天，粉与蓝交在一起，彗星拖着尾巴划过。醒来就忘了的名字。
 weathering-with-you | Weathering with You | 天气之子 | Makoto Shinkai, 2019 | #D6E9F7 #2B6CB0 #E8A33A #5C8FB8 #5E6B7A | rain | c 9 9 4; d M9 2v2M2 9h2M4 4l1.5 1.5; d M8 19h10a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.5A3 3 0 0 0 8 19z | 连下了几个月的雨，云缝里漏下一束光。东京的蓝有很多层。
 attack-on-titan | Attack on Titan | 进击的巨人 | Hajime Isayama; anime 2013 | #E5DFCF #5B6B3A #8C4A2F #6F7275 #A62B2B | tiles | d M3 21V8h3V5h3v3h3V5h3v3h3V5h3v16z | 斗篷的橄榄绿、皮带的棕和城墙的灰。墙外是什么，要付出代价才看得到。
-demon-slayer | Demon Slayer | 鬼灭之刃 | Koyoharu Gotouge; anime 2019 | #151716 #4FB286 #B58AD8 #F0623C #F2D6A0 | checks | L 6 3 18 3; L 9 3 9 6; C 9 8 1.6; C 9 11.5 1.4; C 9 14.5 1.2; L 15 3 15 5; C 15 7 1.6; C 15 10.5 1.4; C 15 13.5 1.2; C 15 16.5 1 | 大正年间的夜，市松格的绿与黑。紫藤花开的地方，鬼不敢靠近。
-fullmetal-alchemist | Fullmetal Alchemist | 钢之炼金术师 | Hiromu Arakawa; Brotherhood 2009 | #EDE3D2 #A8231F #B8892B #5E6A75 #3D3A38 | none | c 12 14 7; L 12 14 12 10; L 12 14 15 15.5; r 10.5 3.5 3 3.5; C 12 14 .9 | 红色的外套、黄铜的怀表和钢铁的手臂。等价交换，一分不多一分不少。
+demon-slayer | Demon Slayer | 鬼灭之刃 | Koyoharu Gotouge; anime 2019 | #151716 #4FB286 #B58AD8 #F0623C #F2D6A0 | checks | U mdi:checkerboard | 大正年间的夜，市松格的绿与黑。紫藤花开的地方，鬼不敢靠近。
+fullmetal-alchemist | Fullmetal Alchemist | 钢之炼金术师 | Hiromu Arakawa; Brotherhood 2009 | #EDE3D2 #A8231F #B8892B #5E6A75 #3D3A38 | none | U gi:pocket-watch | 红色的外套、黄铜的怀表和钢铁的手臂。等价交换，一分不多一分不少。
 death-note | Death Note | 死亡笔记 | Tsugumi Ohba & Takeshi Obata; anime 2006 | #0E0E0F #D92B2B #E8E4DA #9A9A9A #C9A227 | none | d M12 7c-3-2-7 0-7 5 0 5 3 9 5 9 1 0 1-1 2-1s1 1 2 1c2 0 5-4 5-9 0-5-4-7-7-5z; d M12 7c0-2 1-4 3-5 | 黑色的封皮，白纸，一个红苹果。写下名字的人以为自己握着正义。
-one-piece | One Piece | 海贼王 | Eiichiro Oda; anime 1999 | #D9EEF5 #1B6FA8 #D8362F #C98F1A #2B4A6B | waves | c 12 12 6; C 12 12 1.5; d M12 2v20M2 12h20M5 5l14 14M19 5L5 19 | 伟大航路的海蓝，草帽的黄和背心的红。船舵一转，下一座岛就在前面。
+one-piece | One Piece | 海贼王 | Eiichiro Oda; anime 1999 | #D9EEF5 #1B6FA8 #D8362F #C98F1A #2B4A6B | waves | U lucide:ship-wheel | 伟大航路的海蓝，草帽的黄和背心的红。船舵一转，下一座岛就在前面。
 naruto | Naruto | 火影忍者 | Masashi Kishimoto; anime 2002 | #F6E3C4 #D9661F #25406E #4F8A3C #7A4B2A | none | P 12,2 14,10 22,12 14,14 12,22 10,14 2,12 10,10; C 12 12 1.5@g | 橙色的外套在人群里最显眼，护额的深蓝，村子的绿。吊车尾的孩子想让全村人记住他。
-dragon-ball | Dragon Ball | 龙珠 | Akira Toriyama; anime 1986 | #FBE9C2 #E0641A #24509A #C99A12 #C7352B | none | d M6 16h11a4 4 0 0 0 .5-8 6 6 0 0 0-11.3 1.6A3.3 3.3 0 0 0 6 16z; d M5 20h6M14 20h5 | 道服的橙与蓝，一朵听话的黄云。三十多年过去，少年还在往更强的地方去。
+dragon-ball | Dragon Ball | 龙珠 | Akira Toriyama; anime 1986 | #FBE9C2 #E0641A #24509A #C99A12 #C7352B | none | U fe:dragon | 道服的橙与蓝，一朵听话的黄云。三十多年过去，少年还在往更强的地方去。
 sailor-moon | Sailor Moon | 美少女战士 | Naoko Takeuchi; anime 1992 | #FBE3EC #D6336C #2F4FA8 #C9A227 #7A5BC0 | stars | D M16 3a9.5 9.5 0 1 0 5 16A8 8 0 0 1 16 3z | 水手服的粉与藏蓝，新月的金。九十年代的月光下，变身只要一句话。
 kiki | Kiki's Delivery Service | 魔女宅急便 | Hayao Miyazaki, 1989 | #E6EEF2 #23355F #C8312B #D99A2B #4F8FA8 | none | L 4 20 15 9; P 13,7 17,11 22,2 | 深蓝的裙子、红色的蝴蝶结和海边小城的屋顶。十三岁，一个人出门。
 violet-evergarden | Violet Evergarden | 紫罗兰永恒花园 | Kyoto Animation, 2018 | #E9EDF3 #1F3F75 #B8892B #1F7A5A #8C2F39 | none | r 3 6 18 13 1; p 3,7 12,14 21,7 | 普鲁士蓝的外套，祖母绿的胸针，信纸的白。替别人写信的人慢慢读懂了一句话。
-mushishi | Mushishi | 虫师 | Yuki Urushibara; anime 2005 | #E4E8DC #4F6B4A #7D8C6A #9A7B4F #5F7C86 | none | d M12 22V10a5 5 0 1 0-5 5; d M12 16c2 0 4-1 5-3; d M12 19c2 0 4-1 5-3 | 山雾里的灰绿，潮湿的土色。虫既非善也非恶，只是另一种活着的方式。
-samurai-champloo | Samurai Champloo | 混沌武士 | Shinichiro Watanabe, 2004 | #EFE4CC #26356B #D9A21B #B5382A #4E6B4A | hatch | C 12 10 3.2; c 12 10 6.5; L 12 17 12 22; d M12 20c-2 0-3-1-4-3 | 靛蓝的和服配向日葵的黄，江户的街上放着嘻哈。寻找一个有向日葵味道的武士。
-jujutsu-kaisen | Jujutsu Kaisen | 咒术回战 | Gege Akutami; anime 2020 | #10121F #9D86F5 #E5484D #5BC0EB #D8D4E8 | none | d M12 12a2 2 0 1 1 2 2 4 4 0 1 1-4-4 6 6 0 1 1 6 6 8 8 0 0 1-8-8 | 高专制服的藏青近乎黑，咒力是蓝紫色的，血是红的。诅咒从人心里长出来。
+mushishi | Mushishi | 虫师 | Yuki Urushibara; anime 2005 | #E4E8DC #4F6B4A #7D8C6A #9A7B4F #5F7C86 | none | U gi:fern | 山雾里的灰绿，潮湿的土色。虫既非善也非恶，只是另一种活着的方式。
+samurai-champloo | Samurai Champloo | 混沌武士 | Shinichiro Watanabe, 2004 | #EFE4CC #26356B #D9A21B #B5382A #4E6B4A | hatch | U gi:sunflower | 靛蓝的和服配向日葵的黄，江户的街上放着嘻哈。寻找一个有向日葵味道的武士。
+jujutsu-kaisen | Jujutsu Kaisen | 咒术回战 | Gege Akutami; anime 2020 | #10121F #9D86F5 #E5484D #5BC0EB #D8D4E8 | none | U gi:flame-spin | 高专制服的藏青近乎黑，咒力是蓝紫色的，血是红的。诅咒从人心里长出来。
 spy-family | Spy x Family | 间谍过家家 | Tatsuya Endo; anime 2022 | #FBEAEA #D9537A #2E8F7A #2B2B33 #C9952B | none | d M9 3a4 4 0 0 0-3 6c1 2 1 3 0 5a5 5 0 1 0 9 4c0-2 1-3 2-5a5 5 0 0 0-8-10z | 粉色的头发、薄荷绿的西装和一身黑的礼服。三个人各怀秘密，凑成一个家。
 frieren | Frieren: Beyond Journey's End | 葬送的芙莉莲 | Kanehito Yamada & Tsukasa Abe; anime 2023 | #E8F0F2 #3F7FA6 #5E9A6B #B8962E #8A6FB0 | none | C 12 12 1.8; c 12 6.5 2.5; c 17.2 10.3 2.5; c 15.2 16.4 2.5; c 8.8 16.4 2.5; c 6.8 10.3 2.5 | 银白与淡蓝，路边一小片花田。勇者死后，精灵才开始了解人类的五十年有多长。
-made-in-abyss | Made in Abyss | 来自深渊 | Akihito Tsukushi; anime 2017 | #0F2226 #F2B34F #5FC9B8 #E8795A #C9D8C0 | rings | e 12 6 9 3; e 12 11 6.5 2.3; e 12 15.5 4 1.6; e 12 19 2 1 | 大洞一层层往下，绿意渐暗，只剩提灯的琥珀色。越深越美，越深越回不来。
+made-in-abyss | Made in Abyss | 来自深渊 | Akihito Tsukushi; anime 2017 | #0F2226 #F2B34F #5FC9B8 #E8795A #C9D8C0 | rings | U ph:spiral | 大洞一层层往下，绿意渐暗，只剩提灯的琥珀色。越深越美，越深越回不来。
 steins-gate | Steins;Gate | 命运石之门 | 5pb. & Nitroplus; anime 2011 | #E6E3D3 #6B6B2A #C7662B #4F6A75 #8C3B2F | blinds | c 12 12 4; c 12 12 7.5; d M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2 | 秋叶原夏天的泛黄滤镜，显像管的橄榄绿。一条短信改写世界线。
-haikyu | Haikyu!! | 排球少年 | Haruichi Furudate; anime 2014 | #F4EDE2 #E0641A #1F1F24 #2F6BA8 #6F7275 | none | c 12 12 9; d M12 3c3 3 4 6 3 9M4 9c4-1 8 0 11 3M7 20c0-4 2-7 8-8 | 乌野的橙与黑，体育馆的木地板。球没落地，就还没输。
-slam-dunk | Slam Dunk | 灌篮高手 | Takehiko Inoue; anime 1993 | #F1E3CF #C0262D #1E1E22 #C98A3A #2F5FA8 | none | r 5 3 14 9 1; e 12 13 4.5 1.5; d M7.5 13l2 7M16.5 13l-2 7M12 14.5V20M9.5 20h5 | 湘北球衣的红，篮球的橙棕，海边的蓝。一个外行在四个月里学会了喜欢这件事。
-grave-of-the-fireflies | Grave of the Fireflies | 萤火虫之墓 | Isao Takahata, 1988 | #141410 #E6D65A #D9824F #9DB08A #E9DFC8 | stars | C 6 8 1.5; C 14 5 1; C 18 12 1.6; C 9 16 1.2; C 15 19 1; c 6 8 3.5; c 18 12 3.5 | 防空洞里的夜，萤火虫亮了又灭。1945 年的夏天，两个孩子。
+haikyu | Haikyu!! | 排球少年 | Haruichi Furudate; anime 2014 | #F4EDE2 #E0641A #1F1F24 #2F6BA8 #6F7275 | none | U ph:volleyball | 乌野的橙与黑，体育馆的木地板。球没落地，就还没输。
+slam-dunk | Slam Dunk | 灌篮高手 | Takehiko Inoue; anime 1993 | #F1E3CF #C0262D #1E1E22 #C98A3A #2F5FA8 | none | U gi:basketball-basket | 湘北球衣的红，篮球的橙棕，海边的蓝。一个外行在四个月里学会了喜欢这件事。
+grave-of-the-fireflies | Grave of the Fireflies | 萤火虫之墓 | Isao Takahata, 1988 | #141410 #E6D65A #D9824F #9DB08A #E9DFC8 | stars | U ph:jar; C 10 14 1@b; C 13.5 11.5 .8@b; C 14 16.5 .9@b | 防空洞里的夜，萤火虫亮了又灭。1945 年的夏天，两个孩子。
