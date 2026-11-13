@@ -5,7 +5,7 @@ night-revels | Night Revels of Han Xizai | 韩熙载夜宴图 | Gu Hongzhong, 10
 dunhuang | Dunhuang Murals | 敦煌壁画 | Mogao Caves, 4th to 14th century | #EAD8BE #2F7F7A #B4472B #3F6FA8 #C9982B | none | U ph:flower-lotus | 石青、石绿和土红画在沙漠边的洞窟里，飞天的飘带一千年没有落地。
 ru-ware | Ru Ware | 汝窑天青 | Northern Song, 12th century | #D9E8E6 #3F7F86 #6A9A9A #8A7A5A #5E6E72 | weave | U temaki:vase | 雨过天青云破处的那种颜色。釉面开着细碎的冰裂纹，传世不足百件。
 blue-and-white | Blue-and-white Porcelain | 青花瓷 | Yuan and Ming dynasties | #EEF2F6 #1F3F8C #3F66B8 #6A86C4 #2A3350 | none | U gi:porcelain-vase | 白胎上只有一种钴蓝，浓处发紫，淡处如水。从景德镇一直卖到伊斯坦布尔。
-tang-sancai | Tang Sancai | 唐三彩 | Tang dynasty, 8th century | #F0E6C8 #B8792B #3F8A4A #7A4A2B #2F5F8C | none | d M8 4h8M9 4c-4 3-5 6-5 9 0 4 3 8 8 8s8-4 8-8c0-3-1-6-5-9; d M8 10v4M12 9v7M16 10v3 | 黄、绿、褐三色釉在窑里自己流淌，交界处晕成一片。盛唐的骆驼和胡人。
+tang-sancai | Tang Sancai | 唐三彩 | Tang dynasty, 8th century | #F0E6C8 #B8792B #3F8A4A #7A4A2B #2F5F8C | none | d M8.5 2.5h7M9.5 2.5c0 2.500-4.500 4-4.500 9.500 0 5.500 3 9.500 7 9.500s7-4 7-9.500c0-5.500-4.500-7-4.500-9.500; R 7.4 8.5 2 7.5 1@a; R 11 7.5 2 11.500 1@b; R 14.6 8.5 2 5.500 1@c | 黄、绿、褐三色釉在窑里自己流淌，交界处晕成一片。盛唐的骆驼和胡人。
 nymph-of-luo | Nymph of the Luo River | 洛神赋图 | Gu Kaizhi (attributed), 4th century | #E8DEC8 #A8442F #3F7F6A #5E6A8C #7A6A4A | waves | U gi:swan | 洛水边的柳树下，他看见她凌波而来。线条细得像春蚕吐丝，颜色淡得快要散去。
 auspicious-cranes | Auspicious Cranes | 瑞鹤图 | Emperor Huizong, 1112 | #CFE3E6 #2F6F86 #B8922B #B4432B #33383A | none | U gi:heron | 石青的天占满画面，二十只白鹤盘旋在宫门的金顶上。皇帝亲手画下那个正月的傍晚。
 orchid-pavilion | Preface to the Orchid Pavilion | 兰亭序 | Wang Xizhi, 353 | #EFE9D9 #1F1D1A #B8322A #5E5A50 #8A8474 | none | r 4 4 16 16 2; d M8 8h8v4H8v4h8 | 墨、纸和后人盖满的朱红印章。暮春之初，曲水流觞，酒后写下的三百二十四个字。
