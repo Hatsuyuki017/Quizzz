@@ -1,0 +1,249 @@
+# Candidate icons, second round. One row per palette:  id | icon
+# 'U set:name [x y size]' places an icon from an open icon set (see lib.json for sources and licences).
+# The first block replaces icons judged weak; the second block offers alternatives for icons that were liked.
+# Nothing here is live until a row is copied into the palette tables.
+
+# ---- replacements -------------------------------------------------------
+warm | U fe:ledger
+ouc-default | U ph:anchor
+brunneophobia | U ph:coffee-bean
+van-dyke | U ph:paint-brush
+back-in-black | U ph:bell
+belle-of-the-ball | U gi:carnival-mask
+narcissus | U ph:flower
+roman-empire | U gi:laurels
+starry-night | U ph:moon-stars
+a-thousand-li | U gi:peaks
+and-quiet-flows-the-don | U gi:river
+grand-budapest-hotel | U lucide:concierge-bell
+renaissance-florence | U lucide:dome
+constantinople | U ph:mosque
+france | U tabler:building-eiffel-tower
+ok-computer | U ph:road-horizon
+guns-n-roses | U gi:rose
+velvet-underground | U tabler:banana
+electric-ladyland | U ph:guitar
+ziggy-stardust | U ph:planet
+dark-side-of-the-moon | U ph:triangle 4 3 16; L 1 14 8.5 12.5; L 15.5 11.5 23 12.5@b; L 15.8 13 23 15.5@c; L 16 14.5 23 18.5@d
+houses-of-the-holy | U tabler:hexagons
+animals | U ph:factory
+never-mind-the-bollocks | U fe:safety-pin
+london-calling | U fe:telephone
+ride-the-lightning | U ph:cloud-lightning
+the-queen-is-dead | U ph:flower-tulip
+nevermind | U tabler:fish-hook
+loveless | U lucide:audio-waveform
+kid-a | U lucide:mountain-snow
+zima-blue | r 2 2 20 20; r 6 6 12 12; R 10 10 4 4@a
+the-godfather | U ph:orange
+blade-runner | U lucide:origami
+farewell-my-concubine | U fe:folding-hand-fan
+space-odyssey | R 9.5 6 5 15; L 3 21 21 21; U ph:sun 14.5 1 8@b
+in-the-mood-for-love | U ph:lamp
+amelie | U fe:custard
+pulp-fiction | U ph:briefcase 2 5 20; L 12 1 12 3.5@b; L 6 2.5 7.5 4.5@b; L 18 2.5 16.5 4.5@b
+lawrence-of-arabia | U gi:camel 1 4 20; C 19.5 4.5 2.5@b
+the-shining | U temaki:maze
+apocalypse-now | U tabler:helicopter
+raise-the-red-lantern | U fe:red-paper-lantern
+hero | U gi:arrow-cluster
+crouching-tiger | U gi:bamboo
+mad-max-fury-road | U tabler:steering-wheel
+parasite | U fe:peach
+schindlers-list | U tabler:candle
+spirited-away | U fe:hot-springs
+totoro | U ph:acorn
+mononoke | U gi:stag-head
+howl | U ph:shooting-star
+ghost-in-the-shell | U lucide:brain-circuit
+cowboy-bebop | U fe:saxophone
+your-name | U fe:comet
+weathering-with-you | U lucide:cloud-sun-rain
+attack-on-titan | U ip:great-wall
+demon-slayer | U mdi:checkerboard
+fullmetal-alchemist | U gi:pocket-watch
+death-note | U gi:notebook
+one-piece | U lucide:ship-wheel
+naruto | U fe:fish-cake-with-swirl
+dragon-ball | U fe:dragon
+kiki | U fe:broom
+violet-evergarden | U fe:love-letter
+mushishi | U gi:fern
+samurai-champloo | U gi:sunflower
+jujutsu-kaisen | U gi:flame-spin
+spy-family | U fe:peanuts
+frieren | U fe:blossom
+made-in-abyss | U ph:spiral
+steins-gate | U tabler:clock-cog
+haikyu | U ph:volleyball
+slam-dunk | U gi:basketball-basket
+grave-of-the-fireflies | U ph:jar; C 10 14 1@b; C 13.5 11.5 .8@b; C 14 16.5 .9@b
+black-figure | U gi:amphora
+knossos | U gi:bull
+akrotiri | U ip:swallow
+livia-garden | U lucide:bird
+flora-stabiae | U fe:bouquet
+birth-of-venus | U gi:scallop
+mona-lisa | U fe:framed-picture
+creation-of-adam | U fe:backhand-index-pointing-left 12.5 6 11.5; U fe:backhand-index-pointing-left 0 6 11.5 flip; C 12 10.5 .9@b
+hunters-in-the-snow | U gi:dead-wood
+earthly-delights | U fe:strawberry
+qingming | U gi:stone-bridge
+fuchun | D M1 19l5-8 3 3 4-8 4 7 2-2 4 8z/.3; D M1 21l4-5 3 2 5-6 4 5 3-2 3 6z
+night-revels | U fe:banjo
+dunhuang | U ph:flower-lotus
+blue-and-white | U gi:porcelain-vase
+tang-sancai | U mdi:horse
+nymph-of-luo | U gi:swan
+auspicious-cranes | U gi:heron
+ohashi-rain | U lucide:umbrella 3 6 18; L 5 1 4 4@b; L 11 1 10 4@b; L 17 1 16 4@b; L 21.5 5 20.5 8@b
+irises | U gi:fleur-de-lys
+utamaro | U fe:mirror
+sharaku | U gi:oni
+pine-trees | U gi:bonsai-tree
+kano-gold | p 2,5 7,7 12,5 17,7 22,5; p 2,19 7,21 12,19 17,21 22,19; L 2 5 2 19; L 7 7 7 21; L 12 5 12 19; L 17 7 17 21; L 22 5 22 19; D M2 10.5c3-1.5 5 1 8 0s5-1.5 12 0v3.5c-7-1.5-9 1-12 0s-5 1-8 0z@a/.45
+tuscany | U gi:hill-fort
+iceland | U tabler:volcano
+patagonia | U fe:penguin
+havana | U mdi:car-convertible
+jaipur | U fe:elephant
+tibet | d M2 5c6 4 14 4 20 0; P 3.6,6.3 6.8,7.6 4.6,11@a; P 7.8,7.9 11,8.5 9,12@b; P 12.2,8.6 15.4,8.2 14,12@c; P 16.6,7.8 19.6,6.6 19,10.6@d; L 2 5 2 20; L 22 5 22 20
+nordic | U gi:wood-cabin
+dream-of-the-red-chamber | U gi:gem-pendant
+journey-to-the-west | U fe:monkey
+three-kingdoms | L 5 22 5 5; P 5,5 11,7 5,9@b; L 12 22 12 2; P 12,2 19,4.5 12,7@a; L 18.5 22 18.5 7; P 18.5,7 23.5,8.7 18.5,10.4@c
+water-margin | U gi:jug
+odyssey | U gi:trireme
+don-quixote | U ph:windmill
+pride-and-prejudice | U ph:feather
+les-miserables | U gi:lit-candelabra
+moby-dick | U gi:whale-tail
+crime-and-punishment | U ph:axe
+war-and-peace | U gi:cannon
+anna-karenina | U fe:locomotive
+great-gatsby | C 17 7 2@a; c 17 7 4.3@a/.55; c 17 7 6.6@a/.28; L 17 9 17 16; L 3 16 21 16; d M3 19.5c2-1 4-1 6 0s4 1 6 0 4-1 6 0
+hundred-years-of-solitude | U ph:butterfly
+little-prince | U lucide:rose 6.5 7.5 11@d; d M5 20v-8a7 7 0 0 1 14 0v8; L 3 20 21 20
+old-man-and-the-sea | U tabler:fish-bone
+metamorphosis | U ph:bug-beetle
+ulysses | U tabler:tower
+lost-time | U fe:teacup-without-handle
+catcher-in-the-rye | U fe:carousel-horse
+lord-of-the-rings | U gi:ring
+norwegian-wood | U ph:tree-evergreen 0 3 15@a; U ph:tree-evergreen 9 6 15@b
+snow-country | U ph:snowflake
+call-to-arms | U ph:megaphone
+things-fall-apart | U gi:djembe
+arabian-nights | U gi:magic-lamp
+red-dead-redemption | U ph:cowboy-hat
+elden-ring | U gi:oak
+breath-of-the-wild | U gi:hang-glider
+hollow-knight | U gi:lantern
+journey | U fe:scarf
+hades | U ph:fire
+laozi | U gi:yin-yang
+confucius | U ph:scroll
+socrates | U gi:chalice-drops
+aristotle | U gi:ionic-column
+alexander | U gi:spartan-helmet
+qu-yuan | U gi:reed
+caesar | U ph:dice-five
+cleopatra | U tabler:ankh
+zhuge-liang | U gi:feather
+wu-zetian | U fe:phoenix-bird
+li-bai | U gi:boat-fishing 0 5 19; U ph:moon 16 1 7@b
+du-fu | U gi:hut
+su-shi | U ip:straw-hat 2 -2 20; L 6 15 5 18@b; L 12 16 11 19@b; L 18 15 17 18@b
+li-qingzhao | U gi:daisy
+saladin | U gi:sparkling-sabre
+genghis-khan | U mdi:yurt
+zheng-he | U ph:compass
+joan-of-arc | U gi:knight-banner
+leonardo-da-vinci | U gi:vitruvian-man
+elizabeth-i | U gi:queen-crown
+galileo | U tabler:telescope 0 4 20; C 17 4 1.1@b; C 20.5 5.5 .8@b; C 21.5 9 .7@b; C 13 2.5 .7@b
+newton | U tabler:apple
+goethe | G wheel
+napoleon | U fe:eagle
+darwin | U fe:turtle
+lincoln | U fe:top-hat
+dostoevsky | U gi:manacles
+tolstoy | U gi:birch-trees
+van-gogh | U fe:sunflower
+tagore | U fe:dove
+sun-yat-sen | U gi:rail-road
+marie-curie | U ph:flask
+gandhi | U gi:spinning-wheel
+einstein | G grid
+lu-xun | U ph:pen-nib
+chaplin | U ph:film-reel
+mao-zedong | U lucide:mountain 1 6 20@k; C 6.5 5.5 2.6@a
+hemingway | U mdi:typewriter
+frida-kahlo | U fe:hibiscus
+mandela | U ph:lock-open
+
+# ---- alternatives for icons that were liked ------------------------------
+greece | U gi:greek-temple
+cyberpunk-edgerunners | U ph:cpu
+qin-shi-huang | C 12 12 9.5; R 9 9 6 6@g
+kanagawa | U fe:water-wave
+wang-xizhi | U fe:paintbrush
+charlemagne | U fe:crown
+murasaki-shikibu | U fe:japanese-dolls
+shakespeare | U fe:performing-arts
+mozart | U ph:piano-keys
+beethoven | U ph:music-notes
+oppenheimer | U ph:atom
+turing | U lucide:binary
+audrey-hepburn | U gi:pearl-necklace
+tale-of-genji | U ip:fan
+divine-comedy | U ph:target
+hamlet | U ph:skull
+nineteen-eighty-four | U ph:eye
+akira | U ph:city
+evangelion | U mdi:hexagon-multiple
+sailor-moon | U fe:crescent-moon
+seven-samurai | U gi:samurai-helmet
+kill-bill | U gi:katana
+la-la-land | U gi:street-light
+the-matrix | U ph:terminal-window
+pine-tree | U ph:tree-evergreen
+provence-blue | U fe:hyacinth
+fresco-blue | U lucide:paint-roller
+monet | U fe:lotus
+soviet-avant-garde | U tabler:triangle-square-circle
+siamese-dream | U gi:linked-rings
+kyoto | U fa:torii-gate
+lamplight | U lucide:lamp-desk
+mellon-collie | U ph:star-four
+mellon-collie-deluxe | U tabler:stars
+abbey-road | U mdi:walk
+crimson-king | U ph:crown
+master-of-reality | U ph:waves
+close-to-the-edge | U gi:waterfall
+aladdin-sane | U fe:mirror-ball
+unknown-pleasures | U ph:pulse
+sgt-pepper | U fe:drum
+red-figure | U fe:amphora
+villa-of-mysteries | U mdi:pillar
+alexander-mosaic | U ph:squares-four
+fayum | U gi:egyptian-profile
+tarquinia | U gi:lyre
+primavera | U fe:cherry-blossom
+last-supper | U gi:holy-grail
+bacchus-and-ariadne | U fe:grapes
+school-of-athens | U fe:classical-building
+arnolfini | U lucide:mirror-round
+ru-ware | U temaki:vase
+orchid-pavilion | U ph:stamp
+red-fuji | U fe:mount-fuji
+plum-blossoms | U ip:blossom
+aizome | U ph:drop-half
+raku | U ph:bowl-steam
+santorini | U tabler:building-church
+marrakech | U gi:arabic-door
+jiangnan | U gi:pagoda
+ghost-of-tsushima | U fe:maple-leaf
+witcher-3 | U gi:crossed-swords
+disco-elysium | U ph:disco-ball
+monument-valley | U ph:stairs
