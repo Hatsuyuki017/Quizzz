@@ -470,7 +470,8 @@
   function palNote(p) { return QL.lang === 'zh' ? p.bio : p.be; }
 
   function palName(p) { return QL.lang === 'zh' ? p.z : p.n; }
-  function palAlt(p) { return QL.lang === 'zh' ? (p.n === p.z ? p.src : p.n) : (p.src === p.n ? p.z : p.src); }
+  /* The line under a palette's name: its English name in the Chinese interface, its source in the English one. */
+  function palAlt(p) { return QL.lang === 'zh' ? (p.n === p.z ? p.src : p.n) : (p.src === p.n ? '' : p.src); }
   /* The hover sample: the interface in miniature, drawn in palette p. */
   QL.palettePeek = function (p) {
     return '<div class="peek__spine"><div class="peek__mark">' + QL.icon(p) + '<b>Quiz Ledger</b></div><div class="peek__nav"><i></i><i class="on"></i><i></i><i></i></div><div class="peek__motif">' + QL.icon(p) +
