@@ -61,7 +61,7 @@
     'app.name': 'Quiz Ledger', 'app.tagline': 'questions, kept', 'ui.skip': 'Skip to content',
     'nav.home': 'Banks', 'nav.quiz': 'Practice', 'nav.wrong': 'Mistakes', 'nav.stats': 'Statistics', 'nav.history': 'History',
     'nav.palette': 'Palette', 'nav.contribute': 'Add a bank',
-    'ui.settings': 'Backup & settings', 'ui.help': 'Help', 'ui.close': 'Close', 'ui.cancel': 'Cancel', 'ui.confirm': 'Confirm',
+    'ui.settings': 'Settings', 'ui.help': 'Help', 'ui.close': 'Close', 'ui.cancel': 'Cancel', 'ui.confirm': 'Confirm',
     'ui.copy': 'Copy', 'ui.copied': 'Copied', 'ui.copyFail': 'Copy failed; select the text by hand', 'ui.all': 'All', 'ui.back': 'Back',
     'ui.loading': 'Loading banks…', 'ui.prev': 'Previous', 'ui.next': 'Next', 'ui.page': 'Page {a} of {b}',
     'meter.done': 'Done', 'meter.acc': 'Accuracy', 'meter.note': '{n} mistakes to review',
