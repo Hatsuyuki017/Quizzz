@@ -1,0 +1,2642 @@
+{
+  "schema": "quiz-ledger/bank@1",
+  "id": "statx303-2026s2",
+  "course": {
+    "code": "STATX 303",
+    "title": "Stochastic Processes",
+    "institution": "Adelaide University",
+    "language": {
+      "question": "en",
+      "explanation": "zh"
+    }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "updated": "2026-11-13",
+    "source": "Forums 1-9, Workshops 1-9 and the practice examination",
+    "note": "Non-examinable material is excluded: proofs, code, coupling, total variation distance, speed of convergence, product-form systems."
+  },
+  "figure_preamble": "\\documentclass[tikz,border=4pt]{standalone}\n\\usepackage{amsmath}\n\\usetikzlibrary{arrows.meta}\n",
+  "units": [
+    {
+      "id": "F1",
+      "title": "Forum 1: Markov chains and n-step probabilities",
+      "group": "DTMC"
+    },
+    {
+      "id": "F2",
+      "title": "Forum 2: Class structure, hitting probabilities and hitting times",
+      "group": "DTMC"
+    },
+    {
+      "id": "F3",
+      "title": "Forum 3: Strong Markov property, recurrence and transience",
+      "group": "DTMC"
+    },
+    {
+      "id": "F4",
+      "title": "Forum 4: Stationary distributions and positive recurrence",
+      "group": "DTMC"
+    },
+    {
+      "id": "F5",
+      "title": "Forum 5: Reversibility and detailed balance",
+      "group": "DTMC"
+    },
+    {
+      "id": "F6",
+      "title": "Forum 6: Periodicity and convergence to equilibrium",
+      "group": "DTMC"
+    },
+    {
+      "id": "F7",
+      "title": "Forum 7: Exponential distribution and the Poisson process",
+      "group": "CTMC"
+    },
+    {
+      "id": "F8",
+      "title": "Forum 8: Continuous-time chains: Q-matrices and transition functions",
+      "group": "CTMC"
+    },
+    {
+      "id": "F9",
+      "title": "Forum 9: Invariant distributions and queues",
+      "group": "CTMC"
+    }
+  ],
+  "questions": [
+    {
+      "id": "TF01",
+      "type": "true_false",
+      "unit": "F1",
+      "topic": "transition matrix",
+      "question": "Every column of a transition matrix $P$ must sum to $1$.",
+      "answer": false,
+      "explanation": "转移矩阵要求每一行非负且行和为 1（stochastic matrix）。列和不一定为 1；列和也都为 1 时称为 doubly stochastic。",
+      "figure": null
+    },
+    {
+      "id": "TF02",
+      "type": "true_false",
+      "unit": "F1",
+      "topic": "Markov property",
+      "question": "For a Markov chain with transition matrix $P$, $\\mathbb{P}(X_{n+1}=j \\mid X_n=i,\\ X_{n-1}=k)=p_{ij}$, whatever the value of $k$.",
+      "answer": true,
+      "explanation": "这正是 Markov property：给定当前状态 $X_n=i$，下一步的分布只由 $i$ 决定，与更早的历史无关。",
+      "figure": null
+    },
+    {
+      "id": "TF03",
+      "type": "true_false",
+      "unit": "F1",
+      "topic": "n-step distribution",
+      "question": "If the initial distribution is the row vector $\\lambda$, then the distribution of $X_n$ is the row vector $\\lambda P^n$.",
+      "answer": true,
+      "explanation": "$\\mathbb{P}(X_n=j)=\\sum_i \\lambda_i p^{(n)}_{ij}=(\\lambda P^n)_j$，其中 $p^{(n)}_{ij}$ 是 $P^n$ 的 $(i,j)$ 元。",
+      "figure": null
+    },
+    {
+      "id": "TF04",
+      "type": "true_false",
+      "unit": "F1",
+      "topic": "time homogeneity",
+      "question": "A Markov chain is called time-homogeneous if the distribution of $X_n$ is the same for every $n$.",
+      "answer": false,
+      "explanation": "Time-homogeneous 指转移概率 $\\mathbb{P}(X_{n+1}=j\\mid X_n=i)=p_{ij}$ 不随 $n$ 变化。$X_n$ 的分布一般随 $n$ 变化，只有从 stationary distribution 出发时才保持不变。",
+      "figure": null
+    },
+    {
+      "id": "TF05",
+      "type": "true_false",
+      "unit": "F1",
+      "topic": "modelling / enlarging the state space",
+      "question": "Suppose tomorrow's weather depends on both today's and yesterday's weather. Then no choice of state space can turn this weather process into a Markov chain.",
+      "answer": false,
+      "explanation": "把状态取为（昨天, 今天）的有序对即可：下一步的状态（今天, 明天）只依赖当前的有序对。这是扩大状态空间以保存必要历史的标准做法。",
+      "figure": null
+    },
+    {
+      "id": "TF06",
+      "type": "true_false",
+      "unit": "F2",
+      "topic": "class structure",
+      "question": "In the chain shown in the figure, states $1$ and $2$ communicate, and $\\{1,2\\}$ is a closed class.",
+      "answer": false,
+      "explanation": "$1\\leftrightarrow 2$ 成立，所以 $\\{1,2\\}$ 是一个 communicating class。但 $2\\to 3$ 的概率为 $\\tfrac12$，链可以离开该类，因此它不是 closed。",
+      "figure": {
+        "id": "fig-01",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.6,0) {2}; \\node[st] (3) at (5.2,0) {3};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$\\frac12$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$\\frac12$} (1);\n\\draw[->] (2) to node[above,lab]{$\\frac12$} (3);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$\\frac12$} (1);\n\\draw[->] (3) to[out=30,in=-30,looseness=6] node[right,lab]{$1$} (3);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "TF07",
+      "type": "true_false",
+      "unit": "F2",
+      "topic": "class structure",
+      "question": "The relation $i\\to j$ ($i$ leads to $j$) is symmetric: if $i\\to j$ then $j\\to i$.",
+      "answer": false,
+      "explanation": "leads to 不对称。例如 $j$ 是吸收态而 $i$ 能到达 $j$ 时，$i\\to j$ 成立但 $j\\to i$ 不成立。对称的是 communicate 关系 $i\\leftrightarrow j$。",
+      "figure": null
+    },
+    {
+      "id": "TF08",
+      "type": "true_false",
+      "unit": "F2",
+      "topic": "hitting times",
+      "question": "For a state $i\\in A$, the expected hitting time $k^A_i=\\mathbb{E}_i(H^A)$ is equal to $1$.",
+      "answer": false,
+      "explanation": "$H^A=\\inf\\{n\\ge 0: X_n\\in A\\}$ 从时刻 0 算起，$X_0=i\\in A$ 时 $H^A=0$，所以 $k^A_i=0$。对应的 hitting probability 才是 $h^A_i=1$。",
+      "figure": null
+    },
+    {
+      "id": "TF09",
+      "type": "true_false",
+      "unit": "F2",
+      "topic": "irreducibility",
+      "question": "If a Markov chain is irreducible, then $p_{ij}>0$ for all states $i$ and $j$.",
+      "answer": false,
+      "explanation": "Irreducible 只要求对任意 $i,j$ 存在某个 $n$ 使 $p^{(n)}_{ij}>0$，不要求一步可达。例如环 $1\\to2\\to3\\to1$ 是 irreducible，但 $p_{13}=0$。",
+      "figure": null
+    },
+    {
+      "id": "TF10",
+      "type": "true_false",
+      "unit": "F2",
+      "topic": "class structure",
+      "question": "If $i\\to j$ and $j\\to k$, then $i\\to k$.",
+      "answer": true,
+      "explanation": "若 $p^{(m)}_{ij}>0$ 且 $p^{(n)}_{jk}>0$，由 Chapman–Kolmogorov，$p^{(m+n)}_{ik}\\ge p^{(m)}_{ij}p^{(n)}_{jk}>0$。传递性使 communicate 成为等价关系。",
+      "figure": null
+    },
+    {
+      "id": "TF11",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "stopping times",
+      "question": "The first passage time $T_j=\\inf\\{n\\ge 1: X_n=j\\}$ is a stopping time.",
+      "answer": true,
+      "explanation": "事件 $\\{T_j=n\\}=\\{X_1\\ne j,\\dots,X_{n-1}\\ne j,\\ X_n=j\\}$ 只由 $X_0,\\dots,X_n$ 决定，符合 stopping time 的定义。",
+      "figure": null
+    },
+    {
+      "id": "TF12",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "number of visits",
+      "question": "If state $i$ is transient with return probability $f_i<1$, then starting from $i$ the number of visits $V_i$ (counting time $0$) satisfies $\\mathbb{P}_i(V_i=k)=f_i^{\\,k-1}(1-f_i)$ for $k\\ge 1$.",
+      "answer": true,
+      "explanation": "每次回到 $i$ 之后，链以概率 $f_i$ 再次返回（strong Markov property），所以 $\\mathbb{P}_i(V_i>r)=f_i^{\\,r}$，$V_i$ 服从几何分布。",
+      "figure": null
+    },
+    {
+      "id": "TF13",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "recurrence",
+      "question": "If state $i$ is recurrent, then starting from $i$ the chain visits $i$ a random but finite number of times with probability one.",
+      "answer": false,
+      "explanation": "Recurrent 表示 $f_i=1$，于是 $\\mathbb{P}_i(V_i=\\infty)=\\lim_r f_i^{\\,r}=1$，链无穷多次回到 $i$。访问次数有限是 transient 的特征。",
+      "figure": null
+    },
+    {
+      "id": "TF14",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "recurrence in finite chains",
+      "question": "In a Markov chain with finitely many states, a communicating class is recurrent if and only if it is closed.",
+      "answer": true,
+      "explanation": "Recurrent class 一定 closed；有限的 closed class 一定 recurrent。两者合起来，在有限链中 closed 与 recurrent 等价，不 closed 的类都是 transient。",
+      "figure": null
+    },
+    {
+      "id": "TF15",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "transience",
+      "question": "A transient state can be visited at most once.",
+      "answer": false,
+      "explanation": "Transient 只说明返回概率 $f_i<1$。从 $i$ 出发的期望访问次数是 $1/(1-f_i)$，可以大于 1，只是以概率一有限。",
+      "figure": null
+    },
+    {
+      "id": "TF16",
+      "type": "true_false",
+      "unit": "F3",
+      "topic": "fundamental matrix",
+      "question": "For an absorbing chain with fundamental matrix $N=(I-Q)^{-1}$, the row sums of $N$ are the absorption probabilities.",
+      "answer": false,
+      "explanation": "$N$ 的行和 $N\\mathbf{1}$ 是从各 transient state 出发到被吸收的期望步数。吸收概率由 $B=NR$ 给出。",
+      "figure": null
+    },
+    {
+      "id": "TF17",
+      "type": "true_false",
+      "unit": "F4",
+      "topic": "stationary distributions",
+      "question": "If $\\pi$ is a stationary distribution for $P^2$, then $\\pi$ is a stationary distribution for $P$.",
+      "answer": false,
+      "explanation": "反例：$P=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$，$P^2=I$，任何分布对 $P^2$ 都是 stationary，但 $(1,0)P=(0,1)\\ne(1,0)$。反方向成立：$\\pi P=\\pi$ 推出 $\\pi P^2=\\pi$。",
+      "figure": null
+    },
+    {
+      "id": "TF18",
+      "type": "true_false",
+      "unit": "F4",
+      "topic": "existence and uniqueness",
+      "question": "An irreducible Markov chain on a finite state space has exactly one stationary distribution.",
+      "answer": true,
+      "explanation": "有限且 irreducible 的链只有一个 closed class，它是 positive recurrent 的，因此存在唯一的 stationary distribution，且 $\\pi_i=1/m_i>0$。",
+      "figure": null
+    },
+    {
+      "id": "TF19",
+      "type": "true_false",
+      "unit": "F4",
+      "topic": "mean return time",
+      "question": "For an irreducible, positive recurrent chain with stationary distribution $\\pi$, $m_i\\,\\pi_i=1$ for every state $i$, where $m_i=\\mathbb{E}_i(T_i)$.",
+      "answer": true,
+      "explanation": "这是 Theorem 1.7.7 的结论 $\\pi_i=1/m_i$：平均每 $m_i$ 步回到 $i$ 一次，所以长期停留在 $i$ 的时间比例是 $1/m_i$。",
+      "figure": null
+    },
+    {
+      "id": "TF20",
+      "type": "true_false",
+      "unit": "F4",
+      "topic": "non-uniqueness",
+      "question": "If $\\pi$ and $\\pi'$ are both stationary distributions for $P$, then so is $\\tfrac12\\pi+\\tfrac12\\pi'$.",
+      "answer": true,
+      "explanation": "$\\pi P=\\pi$ 是线性方程，凸组合仍满足方程，分量仍非负且和为 1。可约链有多个 closed class 时，stationary distribution 因此构成一族。",
+      "figure": null
+    },
+    {
+      "id": "TF21",
+      "type": "true_false",
+      "unit": "F4",
+      "topic": "null recurrence",
+      "question": "If state $i$ is null recurrent, then $\\mathbb{P}_i(T_i<\\infty)<1$.",
+      "answer": false,
+      "explanation": "Null recurrent 仍是 recurrent，$\\mathbb{P}_i(T_i<\\infty)=1$；区别在于平均返回时间 $m_i=\\mathbb{E}_i(T_i)=\\infty$。$\\mathbb{Z}$ 上的对称随机游走是典型例子。",
+      "figure": null
+    },
+    {
+      "id": "TF22",
+      "type": "true_false",
+      "unit": "F5",
+      "topic": "detailed balance",
+      "question": "Consider an irreducible chain on $\\{0,1,2,\\dots\\}$ that only moves between neighbouring states (a birth--death chain). If it has a stationary distribution, that distribution satisfies detailed balance.",
+      "answer": true,
+      "explanation": "在 $i$ 与 $i+1$ 之间切一刀，平稳时从左到右与从右到左的概率流必须相等，即 $\\pi_i p_{i,i+1}=\\pi_{i+1}p_{i+1,i}$。所以这类链求 $\\pi$ 时直接用 detailed balance。",
+      "figure": null
+    },
+    {
+      "id": "TF23",
+      "type": "true_false",
+      "unit": "F5",
+      "topic": "detailed balance",
+      "question": "If $P$ is a symmetric transition matrix on a finite state space ($p_{ij}=p_{ji}$), then the uniform distribution satisfies detailed balance.",
+      "answer": true,
+      "explanation": "取 $\\pi_i=1/N$，则 $\\pi_ip_{ij}=p_{ij}/N=p_{ji}/N=\\pi_jp_{ji}$。因此 uniform distribution 是 stationary 的，链是 reversible 的。",
+      "figure": null
+    },
+    {
+      "id": "TF24",
+      "type": "true_false",
+      "unit": "F5",
+      "topic": "reversibility",
+      "question": "If a chain satisfies detailed balance with respect to $\\pi$ and is started from $\\pi$, then the time-reversed chain has the same transition matrix as the original chain.",
+      "answer": true,
+      "explanation": "反向链的转移概率是 $\\hat p_{ji}=\\pi_ip_{ij}/\\pi_j$。Detailed balance 给出 $\\pi_ip_{ij}=\\pi_jp_{ji}$，所以 $\\hat p_{ji}=p_{ji}$，即 $\\widehat P=P$。",
+      "figure": null
+    },
+    {
+      "id": "TF25",
+      "type": "true_false",
+      "unit": "F5",
+      "topic": "Metropolis–Hastings",
+      "question": "In the Metropolis--Hastings algorithm, when a proposal is rejected a new proposal is drawn repeatedly until one is accepted, and only then does the chain advance by one step.",
+      "answer": false,
+      "explanation": "提议被拒绝时，链停在原状态，这也算一步：$X_n=X_{n-1}$。这些自环是转移矩阵对角元的来源，去掉它们就破坏了 detailed balance。",
+      "figure": null
+    },
+    {
+      "id": "TF26",
+      "type": "true_false",
+      "unit": "F5",
+      "topic": "Ehrenfest urn",
+      "question": "For the Ehrenfest urn with $N$ balls, the stationary distribution of the number of balls in urn $A$ is uniform on $\\{0,1,\\dots,N\\}$.",
+      "answer": false,
+      "explanation": "由 detailed balance 得 $\\pi_i=\\binom{N}{i}2^{-N}$，即 Binomial$(N,\\tfrac12)$。球数接近 $N/2$ 的状态概率最大，两端的概率只有 $2^{-N}$。",
+      "figure": null
+    },
+    {
+      "id": "TF27",
+      "type": "true_false",
+      "unit": "F6",
+      "topic": "periodicity",
+      "question": "In the chain shown in the figure, state $1$ has period $1$.",
+      "answer": true,
+      "explanation": "从 1 出发可以经 $1\\to2\\to3\\to1$ 用 3 步返回，也可以经 $1\\to2\\to3\\to4\\to1$ 用 4 步返回，$\\gcd(3,4)=1$，所以 state 1 是 aperiodic 的。",
+      "figure": {
+        "id": "fig-02",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,2.4) {1}; \\node[st] (2) at (2.8,2.4) {2};\n\\node[st] (3) at (2.8,0) {3}; \\node[st] (4) at (0,0) {4};\n\\draw[->] (1) to node[above,lab]{$1$} (2);\n\\draw[->] (2) to node[right,lab]{$1$} (3);\n\\draw[->] (3) to node[above right=-2pt,lab]{$\\frac12$} (1);\n\\draw[->] (3) to node[below,lab]{$\\frac12$} (4);\n\\draw[->] (4) to node[left,lab]{$1$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "TF28",
+      "type": "true_false",
+      "unit": "F6",
+      "topic": "lazy chain",
+      "question": "If $P$ is irreducible with stationary distribution $\\pi$ and period $2$, then the lazy chain $\\widetilde P=\\tfrac12(I+P)$ is aperiodic and has the same stationary distribution $\\pi$.",
+      "answer": true,
+      "explanation": "$\\pi\\widetilde P=\\tfrac12\\pi+\\tfrac12\\pi P=\\pi$。Lazy 链每个状态都有自环（$\\tilde p_{ii}\\ge\\tfrac12$），所以周期为 1，同时保持 irreducible。",
+      "figure": null
+    },
+    {
+      "id": "TF29",
+      "type": "true_false",
+      "unit": "F6",
+      "topic": "convergence to equilibrium",
+      "question": "For an irreducible, aperiodic chain with stationary distribution $\\pi$, the limit $\\lim_{n\\to\\infty}p^{(n)}_{ij}$ depends on the starting state $i$.",
+      "answer": false,
+      "explanation": "Convergence theorem（Theorem 1.8.3）：$p^{(n)}_{ij}\\to\\pi_j$ 对所有 $i$ 成立，极限与初始状态无关。$P^n$ 的每一行都趋于 $\\pi$。",
+      "figure": null
+    },
+    {
+      "id": "TF30",
+      "type": "true_false",
+      "unit": "F6",
+      "topic": "periodicity",
+      "question": "If $p^{(n)}_{ii}>0$ exactly for $n\\in\\{4,6,8,10,\\dots\\}$, then state $i$ has period $4$.",
+      "answer": false,
+      "explanation": "周期是集合 $\\{n\\ge1:p^{(n)}_{ii}>0\\}$ 的最大公约数。$\\gcd(4,6,8,\\dots)=2$，所以周期是 2，不是最小的返回步数 4。",
+      "figure": null
+    },
+    {
+      "id": "TF31",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "exponential distribution",
+      "question": "If $T\\sim\\mathrm{Exp}(\\lambda)$, then $\\mathbb{E}(T)=1/\\lambda$ and $\\mathbb{P}(T>t)=e^{-\\lambda t}$ for $t\\ge0$.",
+      "answer": true,
+      "explanation": "密度为 $\\lambda e^{-\\lambda t}$，积分得尾概率 $e^{-\\lambda t}$ 和均值 $1/\\lambda$。$\\lambda$ 是 rate，rate 越大等待越短。",
+      "figure": null
+    },
+    {
+      "id": "TF32",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "memoryless property",
+      "question": "Among continuous distributions on $(0,\\infty)$, the exponential distribution is the only one with the memoryless property $\\mathbb{P}(T>s+t\\mid T>s)=\\mathbb{P}(T>t)$.",
+      "answer": true,
+      "explanation": "Memoryless property 等价于尾函数 $g(t)=\\mathbb{P}(T>t)$ 满足 $g(s+t)=g(s)g(t)$，其解只有 $g(t)=e^{-\\lambda t}$。这也是 CTMC 的 holding time 必须是指数分布的原因。",
+      "figure": null
+    },
+    {
+      "id": "TF33",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "Poisson process",
+      "question": "For a Poisson process of rate $\\lambda$, the holding times $S_1,S_2,\\dots$ between successive jumps are independent $\\mathrm{Exp}(\\lambda)$ random variables.",
+      "answer": true,
+      "explanation": "这是 Poisson process 的 jump chain / holding time 定义：jump chain 为 $Y_n=n$，holding times 独立同分布 $\\mathrm{Exp}(\\lambda)$。",
+      "figure": null
+    },
+    {
+      "id": "TF34",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "Poisson process",
+      "question": "If $(X_t)_{t\\ge0}$ is a Poisson process of rate $\\lambda$, then $\\mathbb{E}(X_t)=\\lambda t$ and $\\mathrm{Var}(X_t)=\\lambda t$.",
+      "answer": true,
+      "explanation": "$X_t\\sim\\mathrm{Poisson}(\\lambda t)$，Poisson 分布的均值和方差都等于参数 $\\lambda t$。",
+      "figure": null
+    },
+    {
+      "id": "TF35",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "thinning",
+      "question": "Arrivals form a Poisson process of rate $\\lambda$ and each arrival is independently of type A with probability $p$, otherwise of type B. The numbers of type A and type B arrivals in $[0,t]$ are dependent, because they add up to the total number of arrivals.",
+      "answer": false,
+      "explanation": "Thinning theorem：两类到达是相互独立的 Poisson process，rate 分别为 $p\\lambda$ 和 $(1-p)\\lambda$。总数本身是随机的，所以两者之和等于总数并不造成相依。",
+      "figure": null
+    },
+    {
+      "id": "TF36",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "exponential races",
+      "question": "If $T_1,\\dots,T_n$ are independent with $T_k\\sim\\mathrm{Exp}(\\lambda_k)$, then the probability that $T_k$ is the smallest is $\\lambda_k/(\\lambda_1+\\dots+\\lambda_n)$.",
+      "answer": true,
+      "explanation": "Exponential race：最小值 $T=\\min_kT_k\\sim\\mathrm{Exp}(\\sum_k\\lambda_k)$，第 $k$ 个钟最先响的概率与它的 rate 成正比，并且与 $T$ 独立（Theorem 2.3.3）。",
+      "figure": null
+    },
+    {
+      "id": "TF37",
+      "type": "true_false",
+      "unit": "F7",
+      "topic": "Poisson process",
+      "question": "The sample paths of a Poisson process are right-continuous step functions that increase by exactly $1$ at each jump.",
+      "answer": true,
+      "explanation": "按构造，$X_t=n$ 当 $J_n\\le t<J_{n+1}$：路径在跳跃时刻取跳后的值（right-continuous），每次只增加 1。",
+      "figure": null
+    },
+    {
+      "id": "TF38",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "Q-matrix",
+      "question": "In a $Q$-matrix, the off-diagonal entries are non-negative and the diagonal entries are non-positive.",
+      "answer": true,
+      "explanation": "$Q$-matrix 的三个条件：$q_{ij}\\ge0$（$i\\ne j$）、$q_{ii}\\le0$、每行和为 0，即 $q_{ii}=-\\sum_{j\\ne i}q_{ij}=-q_i$。",
+      "figure": null
+    },
+    {
+      "id": "TF39",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "Q-matrix from a diagram",
+      "question": "For the continuous-time chain whose transition rates are shown in the figure, $q_{22}=-4$.",
+      "answer": true,
+      "explanation": "离开 state 2 的 rate 有 $q_{21}=1$ 和 $q_{23}=3$，所以 $q_2=4$，$q_{22}=-q_2=-4$。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "TF40",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "Q-matrix",
+      "question": "For $i\\ne j$, the entry $q_{ij}$ of a $Q$-matrix is the probability that the chain jumps from $i$ to $j$.",
+      "answer": false,
+      "explanation": "$q_{ij}$ 是 rate，可以大于 1。跳到 $j$ 的概率是 jump matrix 的元素 $\\pi_{ij}=q_{ij}/q_i$。",
+      "figure": null
+    },
+    {
+      "id": "TF41",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "jump chain",
+      "question": "For the M/M/1 queue with $\\lambda=\\mu$, the jump chain moves from $0$ to $1$ with probability $1$, and from each state $i\\ge1$ it moves up or down with probability $\\tfrac12$ each.",
+      "answer": true,
+      "explanation": "state 0 只有到达这一种事件。$i\\ge1$ 时到达与服务完成竞争，向上的概率是 $\\lambda/(\\lambda+\\mu)=\\tfrac12$。Jump chain 是带反射壁的对称随机游走。",
+      "figure": null
+    },
+    {
+      "id": "TF42",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "matrix exponential",
+      "question": "For a finite-state chain, the entries of $P(t)=e^{tQ}$ are given by $p_{ij}(t)=e^{t\\,q_{ij}}$.",
+      "answer": false,
+      "explanation": "$e^{tQ}=\\sum_{k\\ge0}(tQ)^k/k!$ 是矩阵指数，不是逐元素取指数。逐元素取指数得到的矩阵行和不为 1，也不满足 $P(0)=I$。",
+      "figure": null
+    },
+    {
+      "id": "TF43",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "transition function",
+      "question": "The transition matrices of a continuous-time Markov chain satisfy $P(0)=Q$.",
+      "answer": false,
+      "explanation": "$P(0)=I$：经过零时间链仍在原地。$Q$ 是 $P(t)$ 在 $t=0$ 处的导数，$P'(0)=Q$。",
+      "figure": null
+    },
+    {
+      "id": "TF44",
+      "type": "true_false",
+      "unit": "F8",
+      "topic": "jump chain and holding times",
+      "question": "Two continuous-time Markov chains with the same jump matrix $\\Pi$ must have the same $Q$-matrix.",
+      "answer": false,
+      "explanation": "Jump matrix 只记录跳往各状态的概率 $q_{ij}/q_i$，不含 holding rate $q_i$。把 $Q$ 的某一行乘以常数，$\\Pi$ 不变而 $Q$ 改变。",
+      "figure": null
+    },
+    {
+      "id": "TF45",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "invariant distributions",
+      "question": "A distribution $\\pi$ is stationary for a continuous-time Markov chain with $Q$-matrix $Q$ if and only if $\\pi Q=\\pi$.",
+      "answer": false,
+      "explanation": "连续时间的条件是 $\\pi Q=0$（global balance）。$\\pi P=\\pi$ 是离散时间的条件；在连续时间里对应的是 $\\pi P(t)=\\pi$ 对所有 $t$ 成立。",
+      "figure": null
+    },
+    {
+      "id": "TF46",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "detailed balance",
+      "question": "If the $Q$-matrix of a finite irreducible chain is symmetric, then its stationary distribution is uniform.",
+      "answer": true,
+      "explanation": "取 $\\pi$ 为 uniform，则 $\\pi_iq_{ij}=\\pi_jq_{ji}$ 由对称性成立。Detailed balance 推出 $\\pi Q=0$，有限 irreducible 链的 stationary distribution 唯一。",
+      "figure": null
+    },
+    {
+      "id": "TF47",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "M/M/1 queue",
+      "question": "In an M/M/1 queue with $\\rho=\\lambda/\\mu<1$, the mean number of customers in the system in equilibrium is $\\rho/(1-\\rho)$.",
+      "answer": true,
+      "explanation": "$\\pi_n=(1-\\rho)\\rho^n$，$L=\\sum_n n\\pi_n=\\rho/(1-\\rho)=\\lambda/(\\mu-\\lambda)$。",
+      "figure": null
+    },
+    {
+      "id": "TF48",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "Little's law",
+      "question": "Little's law $L=\\lambda W$ is valid only when service times are exponentially distributed.",
+      "answer": false,
+      "explanation": "Little's law 是一般性的守恒关系，不依赖到达过程或服务时间的分布，也不依赖排队规则。它在 M/M/1 中可以直接验证：$\\frac{\\lambda}{\\mu-\\lambda}=\\lambda\\cdot\\frac1{\\mu-\\lambda}$。",
+      "figure": null
+    },
+    {
+      "id": "TF49",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "finite waiting room / PASTA",
+      "question": "In an M/M/1 queue that can hold at most $N$ customers, the long-run fraction of arriving customers who are turned away is $\\pi_N$.",
+      "answer": true,
+      "explanation": "到达过程是 Poisson process，由 PASTA，到达者看到系统处于 state $N$（已满）的概率等于时间平均 $\\pi_N$。",
+      "figure": null
+    },
+    {
+      "id": "TF50",
+      "type": "true_false",
+      "unit": "F9",
+      "topic": "jump chain stationary distribution",
+      "question": "If $\\pi$ is the stationary distribution of a continuous-time chain and $\\rho$ is the stationary distribution of its jump chain, then $\\rho_i\\propto\\pi_i/q_i$.",
+      "answer": false,
+      "explanation": "方向反了。Theorem 3.5.1：$\\rho_i\\propto\\pi_iq_i$，等价地 $\\pi_i\\propto\\rho_i/q_i$。$\\pi$ 按时间加权，在 holding time 长（$q_i$ 小）的状态上权重更大。",
+      "figure": null
+    },
+    {
+      "id": "MC01",
+      "type": "single_choice",
+      "unit": "F1",
+      "topic": "n-step probabilities",
+      "question": "Let $P=\\begin{pmatrix}0.5&0.5\\\\0.2&0.8\\end{pmatrix}$ on states $\\{1,2\\}$. Then $\\mathbb{P}(X_2=1\\mid X_0=1)$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.35$"
+        },
+        {
+          "label": "B",
+          "text": "$0.25$"
+        },
+        {
+          "label": "C",
+          "text": "$0.50$"
+        },
+        {
+          "label": "D",
+          "text": "$0.65$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "对中间状态求和：$p^{(2)}_{11}=p_{11}p_{11}+p_{12}p_{21}=0.25+0.5\\times0.2=0.35$。",
+      "figure": null
+    },
+    {
+      "id": "MC02",
+      "type": "single_choice",
+      "unit": "F1",
+      "topic": "joint distribution",
+      "question": "A chain on $\\{1,2\\}$ has $P=\\begin{pmatrix}0.5&0.5\\\\0.2&0.8\\end{pmatrix}$ and initial distribution $\\lambda=(\\tfrac12,\\tfrac12)$. Then $\\mathbb{P}(X_0=1,\\ X_1=2,\\ X_2=2)$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.10$"
+        },
+        {
+          "label": "B",
+          "text": "$0.25$"
+        },
+        {
+          "label": "C",
+          "text": "$0.20$"
+        },
+        {
+          "label": "D",
+          "text": "$0.40$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "路径概率等于初始概率乘以沿途的一步转移概率（Theorem 1.1.1）：$\\lambda_1p_{12}p_{22}=0.5\\times0.5\\times0.8=0.2$。",
+      "figure": null
+    },
+    {
+      "id": "MC03",
+      "type": "single_choice",
+      "unit": "F1",
+      "topic": "transition matrix",
+      "question": "Which of the following is a valid transition matrix?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\begin{pmatrix}0.5&0.6\\\\0.5&0.4\\end{pmatrix}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\begin{pmatrix}1.2&-0.2\\\\0&1\\end{pmatrix}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\begin{pmatrix}0.3&0.7\\\\1&0\\end{pmatrix}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\begin{pmatrix}0.5&0.5\\\\0.5&0.4\\end{pmatrix}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "需要元素非负且每行和为 1。A 的行和是 1.1 和 0.9（它的列和为 1，但那不是要求）；B 有负元素；D 的第二行和为 0.9。",
+      "figure": null
+    },
+    {
+      "id": "MC04",
+      "type": "single_choice",
+      "unit": "F1",
+      "topic": "Markov property",
+      "question": "Let $\\xi_1,\\xi_2,\\dots$ be independent fair coin flips taking values in $\\{0,1\\}$. Which of the following processes is \\emph{not} a Markov chain?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$S_n=\\xi_1+\\dots+\\xi_n$"
+        },
+        {
+          "label": "B",
+          "text": "$M_n=\\max(\\xi_1,\\dots,\\xi_n)$"
+        },
+        {
+          "label": "C",
+          "text": "$\\xi_n$ itself"
+        },
+        {
+          "label": "D",
+          "text": "$Y_n=\\xi_n+\\xi_{n-1}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$Y_n=1$ 时无法确定 $\\xi_n$ 是 0 还是 1，而 $Y_{n-1}$ 能提供这个信息：$Y_{n-1}=0,Y_n=1$ 说明 $\\xi_n=1$，于是 $Y_{n+1}\\in\\{1,2\\}$；$Y_{n-1}=2,Y_n=1$ 说明 $\\xi_n=0$，于是 $Y_{n+1}\\in\\{0,1\\}$。下一步依赖更早的历史，所以不是 Markov chain。",
+      "figure": null
+    },
+    {
+      "id": "MC05",
+      "type": "single_choice",
+      "unit": "F1",
+      "topic": "two-state chain",
+      "question": "For the two-state chain in the figure with $\\alpha=0.3$ and $\\beta=0.1$, the long-run probability of being in state $1$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.10$"
+        },
+        {
+          "label": "B",
+          "text": "$0.25$"
+        },
+        {
+          "label": "C",
+          "text": "$0.30$"
+        },
+        {
+          "label": "D",
+          "text": "$0.75$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$p^{(n)}_{11}\\to\\beta/(\\alpha+\\beta)=0.1/0.4=0.25$。也可用 detailed balance：$\\pi_1\\alpha=\\pi_2\\beta$。",
+      "figure": {
+        "id": "fig-04",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3,0) {2};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$\\alpha$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$\\beta$} (1);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$1-\\alpha$} (1);\n\\draw[->] (2) to[out=30,in=-30,looseness=6] node[right,lab]{$1-\\beta$} (2);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC06",
+      "type": "single_choice",
+      "unit": "F2",
+      "topic": "class structure",
+      "question": "How many communicating classes does the chain shown in the figure have?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3$"
+        },
+        {
+          "label": "B",
+          "text": "$2$"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$5$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\{1,2\\}$ 互通且 closed；$\\{4,5\\}$ 互通且 closed；state 3 能到达 2 和 4 但回不来，自成一类 $\\{3\\}$。共 3 个类。",
+      "figure": {
+        "id": "fig-05",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.3,0) {2}; \\node[st] (3) at (4.6,0) {3};\n\\node[st] (4) at (6.9,0) {4}; \\node[st] (5) at (9.2,0) {5};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$1$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$1$} (1);\n\\draw[->] (3) to node[above,lab]{$\\frac13$} (2);\n\\draw[->] (3) to node[above,lab]{$\\frac13$} (4);\n\\draw[->] (3) to[out=60,in=120,looseness=6] node[above,lab]{$\\frac13$} (3);\n\\draw[->] (4) to[out=60,in=120,looseness=6] node[above,lab]{$\\frac12$} (4);\n\\draw[->] (4) to[bend left=20] node[above,lab]{$\\frac12$} (5);\n\\draw[->] (5) to[bend left=20] node[below,lab]{$1$} (4);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC07",
+      "type": "single_choice",
+      "unit": "F2",
+      "topic": "hitting probabilities",
+      "question": "For the chain shown in the figure (states $1$ and $4$ are absorbing), the probability of being absorbed at state $4$ starting from state $2$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac23$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac67$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac47$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "First-step analysis：$h_2=\\tfrac23h_3$，$h_3=\\tfrac13h_2+\\tfrac23$。代入得 $h_3=\\tfrac29h_3+\\tfrac23$，$h_3=\\tfrac67$，$h_2=\\tfrac47$。",
+      "figure": {
+        "id": "fig-06",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.4,0) {2}; \\node[st] (3) at (4.8,0) {3}; \\node[st] (4) at (7.2,0) {4};\n\\draw[->] (2) to node[above,lab]{$\\frac13$} (1);\n\\draw[->] (2) to[bend left=20] node[above,lab]{$\\frac23$} (3);\n\\draw[->] (3) to[bend left=20] node[below,lab]{$\\frac13$} (2);\n\\draw[->] (3) to node[above,lab]{$\\frac23$} (4);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$1$} (1);\n\\draw[->] (4) to[out=30,in=-30,looseness=6] node[right,lab]{$1$} (4);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC08",
+      "type": "single_choice",
+      "unit": "F2",
+      "topic": "expected hitting times",
+      "question": "For the chain shown in the figure (states $1$ and $4$ are absorbing), the expected number of steps until absorption starting from state $2$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac{15}{7}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac97$"
+        },
+        {
+          "label": "C",
+          "text": "$2$"
+        },
+        {
+          "label": "D",
+          "text": "$3$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$k_2=1+\\tfrac23k_3$，$k_3=1+\\tfrac13k_2$。代入得 $k_2=\\tfrac53+\\tfrac29k_2$，$k_2=\\tfrac{15}7$。每个方程里的 $+1$ 是刚走的那一步。",
+      "figure": {
+        "id": "fig-06",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.4,0) {2}; \\node[st] (3) at (4.8,0) {3}; \\node[st] (4) at (7.2,0) {4};\n\\draw[->] (2) to node[above,lab]{$\\frac13$} (1);\n\\draw[->] (2) to[bend left=20] node[above,lab]{$\\frac23$} (3);\n\\draw[->] (3) to[bend left=20] node[below,lab]{$\\frac13$} (2);\n\\draw[->] (3) to node[above,lab]{$\\frac23$} (4);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$1$} (1);\n\\draw[->] (4) to[out=30,in=-30,looseness=6] node[right,lab]{$1$} (4);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC09",
+      "type": "single_choice",
+      "unit": "F2",
+      "topic": "minimal solution",
+      "question": "The vector of hitting probabilities $(h^A_i)$ is characterised as",
+      "options": [
+        {
+          "label": "A",
+          "text": "the unique solution of $h_i=\\sum_jp_{ij}h_j$ ($i\\notin A$), $h_i=1$ ($i\\in A$)"
+        },
+        {
+          "label": "B",
+          "text": "the maximal solution of these equations with $h_i\\le1$"
+        },
+        {
+          "label": "C",
+          "text": "the minimal non-negative solution of these equations"
+        },
+        {
+          "label": "D",
+          "text": "any solution of these equations with $0\\le h_i\\le1$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Theorem 1.3.2：hitting probabilities 是这组方程的 minimal non-negative solution。状态空间无限时方程可以有多个解，例如 $h\\equiv1$ 总是解。",
+      "figure": null
+    },
+    {
+      "id": "MC10",
+      "type": "single_choice",
+      "unit": "F2",
+      "topic": "gambler's ruin against an infinitely rich casino",
+      "question": "A gambler wins one dollar with probability $p=\\tfrac34$ and loses one dollar with probability $q=\\tfrac14$ on each play, against an infinitely rich casino. Starting with $i$ dollars, the probability of eventual ruin is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$"
+        },
+        {
+          "label": "B",
+          "text": "$\\left(\\tfrac13\\right)^i$"
+        },
+        {
+          "label": "C",
+          "text": "$\\left(\\tfrac34\\right)^i$"
+        },
+        {
+          "label": "D",
+          "text": "$1-\\left(\\tfrac13\\right)^i$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "通解是 $h_i=A+B(q/p)^i$，$q/p=\\tfrac13$。边界条件 $h_0=1$ 加上 minimality 给出 $A=0$，所以 $h_i=(q/p)^i=(\\tfrac13)^i$。若 $p\\le q$，答案是 1。",
+      "figure": null
+    },
+    {
+      "id": "MC11",
+      "type": "single_choice",
+      "unit": "F3",
+      "topic": "stopping times",
+      "question": "Which of the following random times is a stopping time?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The last time the chain visits state $i$"
+        },
+        {
+          "label": "B",
+          "text": "The third time the chain is in state $i$"
+        },
+        {
+          "label": "C",
+          "text": "The time one step before the chain first enters a set $A$"
+        },
+        {
+          "label": "D",
+          "text": "The time at which $X_n$ is largest during the first 100 steps"
+        }
+      ],
+      "answer": "B",
+      "explanation": "判断时刻 $n$ 是否是第三次访问 $i$，只需查看 $X_0,\\dots,X_n$。其余三个都要用到 $n$ 之后的信息。",
+      "figure": null
+    },
+    {
+      "id": "MC12",
+      "type": "single_choice",
+      "unit": "F3",
+      "topic": "number of visits",
+      "question": "State $i$ has return probability $f_i=\\tfrac23$. Starting from $i$, the probability that the chain is in state $i$ exactly three times in total (counting time $0$) is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac{4}{27}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac{8}{27}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac{1}{27}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac49$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "恰好访问三次即返回两次后不再返回：$f_i^2(1-f_i)=\\tfrac49\\times\\tfrac13=\\tfrac4{27}$。",
+      "figure": null
+    },
+    {
+      "id": "MC13",
+      "type": "single_choice",
+      "unit": "F3",
+      "topic": "fundamental matrix",
+      "question": "An absorbing chain has transient states $\\{1,2\\}$ with $Q=\\begin{pmatrix}0&\\tfrac12\\\\ \\tfrac12&0\\end{pmatrix}$. The expected number of steps until absorption starting from state $1$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac43$"
+        },
+        {
+          "label": "B",
+          "text": "$3$"
+        },
+        {
+          "label": "C",
+          "text": "$2$"
+        },
+        {
+          "label": "D",
+          "text": "$4$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$I-Q=\\begin{pmatrix}1&-\\tfrac12\\\\-\\tfrac12&1\\end{pmatrix}$，行列式为 $\\tfrac34$，$N=\\begin{pmatrix}\\tfrac43&\\tfrac23\\\\ \\tfrac23&\\tfrac43\\end{pmatrix}$。第一行的和为 2。",
+      "figure": null
+    },
+    {
+      "id": "MC14",
+      "type": "single_choice",
+      "unit": "F3",
+      "topic": "recurrence criteria",
+      "question": "Which of the following is \\emph{not} equivalent to state $i$ being recurrent?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\mathbb{P}_i(T_i<\\infty)=1$"
+        },
+        {
+          "label": "B",
+          "text": "$\\sum_{n\\ge0}p^{(n)}_{ii}=\\infty$"
+        },
+        {
+          "label": "C",
+          "text": "$\\mathbb{P}_i(X_n=i\\text{ for infinitely many }n)=1$"
+        },
+        {
+          "label": "D",
+          "text": "$\\mathbb{E}_i(T_i)<\\infty$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\mathbb{E}_i(T_i)<\\infty$ 是 positive recurrent 的定义，比 recurrent 更强。Null recurrent 的状态满足前三条，但 $\\mathbb{E}_i(T_i)=\\infty$。",
+      "figure": null
+    },
+    {
+      "id": "MC15",
+      "type": "single_choice",
+      "unit": "F3",
+      "topic": "success-runs chain",
+      "question": "In a success-runs chain on $\\{0,1,2,\\dots\\}$ the chain moves from $i$ to $i+1$ with probability $\\tfrac12$ and otherwise returns to $0$. The mean return time to state $0$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$"
+        },
+        {
+          "label": "B",
+          "text": "$1$"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$\\infty$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\mathbb{P}_0(T_0>n)=(\\tfrac12)^n$，由 tail-sum formula，$m_0=\\sum_{n\\ge0}(\\tfrac12)^n=2$。等价地，$T_0$ 是首次失败的时刻，服从参数 $\\tfrac12$ 的几何分布。",
+      "figure": null
+    },
+    {
+      "id": "MC16",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "global balance",
+      "question": "For $P=\\begin{pmatrix}0&1&0\\\\0&\\tfrac12&\\tfrac12\\\\ \\tfrac12&0&\\tfrac12\\end{pmatrix}$, the stationary probability $\\pi_1$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac15$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac25$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Global balance：$\\pi_1=\\tfrac12\\pi_3$，$\\pi_2=\\pi_1+\\tfrac12\\pi_2$，所以 $\\pi_2=2\\pi_1$，$\\pi_3=2\\pi_1$。归一化得 $\\pi=(\\tfrac15,\\tfrac25,\\tfrac25)$。",
+      "figure": null
+    },
+    {
+      "id": "MC17",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "mean return time",
+      "question": "An irreducible chain has stationary distribution $\\pi=(0.1,\\,0.2,\\,0.3,\\,0.4)$. The mean return time to state $3$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.3$"
+        },
+        {
+          "label": "B",
+          "text": "$3$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac{10}{3}$"
+        },
+        {
+          "label": "D",
+          "text": "$4$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$m_3=1/\\pi_3=1/0.3=\\tfrac{10}3$。",
+      "figure": null
+    },
+    {
+      "id": "MC18",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "uniqueness",
+      "question": "Which of the following chains has more than one stationary distribution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "An irreducible chain on $5$ states"
+        },
+        {
+          "label": "B",
+          "text": "A chain on $\\{1,2,3\\}$ in which states $1$ and $3$ are absorbing and $p_{21}=p_{23}=\\tfrac12$"
+        },
+        {
+          "label": "C",
+          "text": "The simple symmetric random walk on $\\mathbb{Z}$"
+        },
+        {
+          "label": "D",
+          "text": "The chain on $\\{1,2\\}$ with $p_{12}=p_{21}=1$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "B 有两个 closed class，$(a,0,1-a)$ 对任意 $0\\le a\\le1$ 都是 stationary。A 和 D 是有限 irreducible 链，$\\pi$ 唯一。C 是 null recurrent，没有 stationary distribution。",
+      "figure": null
+    },
+    {
+      "id": "MC19",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "null recurrence",
+      "question": "The simple symmetric random walk on $\\mathbb{Z}$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "positive recurrent"
+        },
+        {
+          "label": "B",
+          "text": "transient"
+        },
+        {
+          "label": "C",
+          "text": "null recurrent"
+        },
+        {
+          "label": "D",
+          "text": "recurrent with a unique stationary distribution"
+        }
+      ],
+      "answer": "C",
+      "explanation": "它是 recurrent 的，但 invariant measure 是常数向量，无法归一化，所以没有 stationary distribution，属于 null recurrent。",
+      "figure": null
+    },
+    {
+      "id": "MC20",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "doubly stochastic",
+      "question": "An irreducible chain on $5$ states has a doubly stochastic transition matrix. The long-run proportion of time spent in state $3$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac15$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "D",
+          "text": "it depends on $P$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "列和也为 1 时，uniform distribution 满足 $\\pi P=\\pi$。链是 irreducible 的，$\\pi$ 唯一，所以每个状态的长期时间比例都是 $\\tfrac15$。",
+      "figure": null
+    },
+    {
+      "id": "MC21",
+      "type": "single_choice",
+      "unit": "F4",
+      "topic": "pattern waiting times",
+      "question": "A fair coin is flipped repeatedly. The expected number of flips until the pattern HH first appears is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$5$"
+        },
+        {
+          "label": "C",
+          "text": "$6$"
+        },
+        {
+          "label": "D",
+          "text": "$8$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "记 $k_0$、$k_1$ 为已匹配 0 个、1 个 H 时还需的期望次数：$k_0=1+\\tfrac12k_1+\\tfrac12k_0$，$k_1=1+\\tfrac12k_0$。解得 $k_1=4$，$k_0=6$。",
+      "figure": null
+    },
+    {
+      "id": "MC22",
+      "type": "single_choice",
+      "unit": "F5",
+      "topic": "random walk on a graph",
+      "question": "For the simple random walk on the graph shown in the figure, the stationary probability of vertex $1$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac25$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac{3}{10}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\pi_i=v_i/\\sum_kv_k$，其中 $v_i$ 是顶点的度数。度数为 $(3,2,3,2)$，总和 10，所以 $\\pi_1=\\tfrac3{10}$。",
+      "figure": {
+        "id": "fig-07",
+        "latex": "\\begin{tikzpicture}[v/.style={circle,draw,minimum size=8mm,inner sep=0pt}]\n\\node[v] (1) at (0,2.2) {1}; \\node[v] (2) at (2.2,2.2) {2};\n\\node[v] (3) at (2.2,0) {3}; \\node[v] (4) at (0,0) {4};\n\\draw (1)--(2)--(3)--(4)--(1); \\draw (1)--(3);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC23",
+      "type": "single_choice",
+      "unit": "F5",
+      "topic": "time reversal",
+      "question": "The chain $P=\\begin{pmatrix}0&1&0\\\\0&\\tfrac12&\\tfrac12\\\\ \\tfrac12&0&\\tfrac12\\end{pmatrix}$ has stationary distribution $\\pi=(\\tfrac15,\\tfrac25,\\tfrac25)$. For the time-reversed chain, $\\hat p_{21}$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac15$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "C",
+          "text": "$1$"
+        },
+        {
+          "label": "D",
+          "text": "$0$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$\\hat p_{ji}=\\pi_ip_{ij}/\\pi_j$，所以 $\\hat p_{21}=\\pi_1p_{12}/\\pi_2=\\tfrac15\\times1\\big/\\tfrac25=\\tfrac12$。原链 $p_{21}=0$，$\\widehat P\\ne P$，链不是 reversible 的。",
+      "figure": null
+    },
+    {
+      "id": "MC24",
+      "type": "single_choice",
+      "unit": "F5",
+      "topic": "Metropolis algorithm",
+      "question": "In the Metropolis algorithm with a symmetric proposal, the chain is at a state $i$ with $\\pi_i=0.4$ and proposes a move to a state $j$ with $\\pi_j=0.1$. The proposal is accepted with probability",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.10$"
+        },
+        {
+          "label": "B",
+          "text": "$0.40$"
+        },
+        {
+          "label": "C",
+          "text": "$0.25$"
+        },
+        {
+          "label": "D",
+          "text": "$1$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "接受概率是 $\\min(1,\\pi_j/\\pi_i)=\\min(1,0.25)=0.25$。反方向 $j\\to i$ 的提议总被接受。",
+      "figure": null
+    },
+    {
+      "id": "MC25",
+      "type": "single_choice",
+      "unit": "F5",
+      "topic": "reversibility",
+      "question": "Which condition guarantees that a chain with stationary distribution $\\pi$ is reversible?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$P$ is irreducible"
+        },
+        {
+          "label": "B",
+          "text": "$P$ is doubly stochastic"
+        },
+        {
+          "label": "C",
+          "text": "$\\pi_ip_{ij}=\\pi_jp_{ji}$ for all $i,j$"
+        },
+        {
+          "label": "D",
+          "text": "$P$ is aperiodic"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Reversible 的定义就是 detailed balance。Doubly stochastic 只说明 $\\pi$ 是 uniform；例如确定性的环 $1\\to2\\to3\\to1$ 是 doubly stochastic 但不 reversible。",
+      "figure": null
+    },
+    {
+      "id": "MC26",
+      "type": "single_choice",
+      "unit": "F5",
+      "topic": "Ehrenfest urn",
+      "question": "For the Ehrenfest urn with $N=5$ balls, the stationary probability that urn $A$ contains exactly $2$ balls is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac16$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac15$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac38$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac{5}{16}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\pi_i=\\binom5i2^{-5}$，$\\pi_2=10/32=\\tfrac5{16}$。",
+      "figure": null
+    },
+    {
+      "id": "MC27",
+      "type": "single_choice",
+      "unit": "F6",
+      "topic": "periodicity",
+      "question": "The simple random walk on a cycle with $5$ vertices (step to either neighbour with probability $\\tfrac12$) has period",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$"
+        },
+        {
+          "label": "B",
+          "text": "$2$"
+        },
+        {
+          "label": "C",
+          "text": "$5$"
+        },
+        {
+          "label": "D",
+          "text": "$10$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "可以走一步再退回（2 步），也可以绕一圈（5 步），$\\gcd(2,5)=1$。偶数个顶点的环才是周期 2。",
+      "figure": null
+    },
+    {
+      "id": "MC28",
+      "type": "single_choice",
+      "unit": "F6",
+      "topic": "long-run behaviour of a reducible chain",
+      "question": "For the chain shown in the figure, $\\displaystyle\\lim_{n\\to\\infty}\\mathbb{P}(X_n=4\\mid X_0=3)$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac23$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "D",
+          "text": "the limit does not exist"
+        }
+      ],
+      "answer": "C",
+      "explanation": "从 3 出发进入 $\\{4,5\\}$ 的概率 $h$ 满足 $h=\\tfrac13h+\\tfrac13$，$h=\\tfrac12$。$\\{4,5\\}$ 是 aperiodic 的（state 4 有自环），其 stationary distribution 为 $(\\tfrac23,\\tfrac13)$。极限为 $\\tfrac12\\times\\tfrac23=\\tfrac13$。",
+      "figure": {
+        "id": "fig-05",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.3,0) {2}; \\node[st] (3) at (4.6,0) {3};\n\\node[st] (4) at (6.9,0) {4}; \\node[st] (5) at (9.2,0) {5};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$1$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$1$} (1);\n\\draw[->] (3) to node[above,lab]{$\\frac13$} (2);\n\\draw[->] (3) to node[above,lab]{$\\frac13$} (4);\n\\draw[->] (3) to[out=60,in=120,looseness=6] node[above,lab]{$\\frac13$} (3);\n\\draw[->] (4) to[out=60,in=120,looseness=6] node[above,lab]{$\\frac12$} (4);\n\\draw[->] (4) to[bend left=20] node[above,lab]{$\\frac12$} (5);\n\\draw[->] (5) to[bend left=20] node[below,lab]{$1$} (4);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC29",
+      "type": "single_choice",
+      "unit": "F6",
+      "topic": "convergence theorem",
+      "question": "Which set of conditions guarantees that $\\mathbb{P}(X_n=j)\\to\\pi_j$ for every initial distribution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$P$ is irreducible and recurrent"
+        },
+        {
+          "label": "B",
+          "text": "$P$ is irreducible and aperiodic and has a stationary distribution $\\pi$"
+        },
+        {
+          "label": "C",
+          "text": "The state space is finite and $P$ is irreducible"
+        },
+        {
+          "label": "D",
+          "text": "$P$ is aperiodic and has a stationary distribution $\\pi$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Theorem 1.8.3 需要 irreducible、aperiodic 以及存在 stationary distribution 三个条件。C 缺 aperiodic（例如两状态翻转链）；D 缺 irreducible（例如两个吸收态）；A 既可能周期也可能 null recurrent。",
+      "figure": null
+    },
+    {
+      "id": "MC30",
+      "type": "single_choice",
+      "unit": "F6",
+      "topic": "aperiodicity",
+      "question": "Which of the following chains is aperiodic?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$P=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$"
+        },
+        {
+          "label": "B",
+          "text": "The Ehrenfest urn"
+        },
+        {
+          "label": "C",
+          "text": "The simple random walk on $\\mathbb{Z}$"
+        },
+        {
+          "label": "D",
+          "text": "The lazy Ehrenfest urn, $\\tfrac12(I+P)$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "前三个链每步都改变状态的奇偶性，周期为 2。Lazy 版本有自环，周期为 1。",
+      "figure": null
+    },
+    {
+      "id": "MC31",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "exponential distribution",
+      "question": "If $T\\sim\\mathrm{Exp}(2)$, then $\\mathbb{P}(T>1)$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1-e^{-2}$"
+        },
+        {
+          "label": "B",
+          "text": "$e^{-2}$"
+        },
+        {
+          "label": "C",
+          "text": "$e^{-1/2}$"
+        },
+        {
+          "label": "D",
+          "text": "$2e^{-2}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$\\mathbb{P}(T>t)=e^{-\\lambda t}=e^{-2}$。D 是密度在 $t=1$ 处的值，不是概率。",
+      "figure": null
+    },
+    {
+      "id": "MC32",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "exponential races",
+      "question": "Three independent alarm clocks ring after $\\mathrm{Exp}(1)$, $\\mathrm{Exp}(2)$ and $\\mathrm{Exp}(3)$ times. The expected time until the first ring is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac16$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$1$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac{11}{6}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "最小值服从 $\\mathrm{Exp}(1+2+3)=\\mathrm{Exp}(6)$，均值为 $\\tfrac16$。$\\tfrac{11}6$ 是三个均值之和，没有意义。",
+      "figure": null
+    },
+    {
+      "id": "MC33",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "Poisson process",
+      "question": "Events occur as a Poisson process of rate $3$ per hour. The probability of exactly one event in a 20-minute period is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$e^{-3}$"
+        },
+        {
+          "label": "B",
+          "text": "$3e^{-3}$"
+        },
+        {
+          "label": "C",
+          "text": "$e^{-1}$"
+        },
+        {
+          "label": "D",
+          "text": "$1-e^{-1}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "20 分钟内的事件数服从 Poisson$(3\\times\\tfrac13)=$ Poisson$(1)$，$\\mathbb{P}(X=1)=e^{-1}\\cdot1^1/1!=e^{-1}$。",
+      "figure": null
+    },
+    {
+      "id": "MC34",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "conditional uniformity",
+      "question": "Given that a Poisson process has exactly two events in $[0,t]$, the probability that both occurred in $[0,t/2]$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "D",
+          "text": "$e^{-\\lambda t/2}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "给定 $X_t=2$，两个事件的时刻如同两个独立的 Uniform$[0,t]$ 随机变量（Theorem 2.4.6）。每个落在前半段的概率是 $\\tfrac12$，所以是 $\\tfrac14$，与 $\\lambda$ 无关。",
+      "figure": null
+    },
+    {
+      "id": "MC35",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "thinning",
+      "question": "Buses arrive at a stop as a Poisson process of rate $6$ per hour. Each bus is independently an express with probability $\\tfrac13$. The expected waiting time for the next express bus is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$10$ minutes"
+        },
+        {
+          "label": "B",
+          "text": "$20$ minutes"
+        },
+        {
+          "label": "C",
+          "text": "$30$ minutes"
+        },
+        {
+          "label": "D",
+          "text": "$60$ minutes"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Thinning：express 构成 rate $6\\times\\tfrac13=2$ 每小时的 Poisson process，等待时间服从 $\\mathrm{Exp}(2)$，均值 $\\tfrac12$ 小时。",
+      "figure": null
+    },
+    {
+      "id": "MC36",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "definitions of the Poisson process",
+      "question": "Which of the following is \\emph{not} a property of a Poisson process of rate $\\lambda$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Increments over disjoint time intervals are independent"
+        },
+        {
+          "label": "B",
+          "text": "$X_{s+t}-X_s\\sim\\mathrm{Poisson}(\\lambda t)$"
+        },
+        {
+          "label": "C",
+          "text": "$\\mathbb{P}(X_{t+h}-X_t=1)=\\lambda h+o(h)$"
+        },
+        {
+          "label": "D",
+          "text": "The times between successive events are uniformly distributed"
+        }
+      ],
+      "answer": "D",
+      "explanation": "事件间隔是独立的 $\\mathrm{Exp}(\\lambda)$。Uniform 出现在另一个结论里：给定 $[0,t]$ 内的事件数，事件时刻服从 uniform 分布。",
+      "figure": null
+    },
+    {
+      "id": "MC37",
+      "type": "single_choice",
+      "unit": "F7",
+      "topic": "memoryless property",
+      "question": "A system has two components with independent exponential lifetimes, each with mean $2$ years, and works as long as at least one component works. The expected time until the system fails is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$ years"
+        },
+        {
+          "label": "B",
+          "text": "$3$ years"
+        },
+        {
+          "label": "C",
+          "text": "$4$ years"
+        },
+        {
+          "label": "D",
+          "text": "$1$ year"
+        }
+      ],
+      "answer": "B",
+      "explanation": "首次故障时间是两个 $\\mathrm{Exp}(\\tfrac12)$ 的最小值，服从 $\\mathrm{Exp}(1)$，均值 1 年。由 memoryless property，另一个部件的剩余寿命仍是均值 2 年。合计 3 年。",
+      "figure": null
+    },
+    {
+      "id": "MC38",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "jump chain",
+      "question": "For the continuous-time chain whose rates are shown in the figure, the probability that the chain jumps to state $3$ when it leaves state $2$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac34$"
+        },
+        {
+          "label": "D",
+          "text": "$3$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$\\pi_{23}=q_{23}/q_2=3/(1+3)=\\tfrac34$。这是 rate 3 与 rate 1 两个指数钟的竞争。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC39",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "holding times",
+      "question": "For the continuous-time chain whose rates are shown in the figure, the expected time spent in state $2$ on each visit is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$1$"
+        },
+        {
+          "label": "D",
+          "text": "$4$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Holding time 服从 $\\mathrm{Exp}(q_2)$，$q_2=1+3=4$，均值 $\\tfrac14$。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC40",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "Q-matrix",
+      "question": "Which of the following is a valid $Q$-matrix?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\begin{pmatrix}-2&1\\\\3&-3\\end{pmatrix}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\begin{pmatrix}-2&2\\\\3&-3\\end{pmatrix}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\begin{pmatrix}2&-2\\\\-3&3\\end{pmatrix}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\begin{pmatrix}0.5&0.5\\\\0.3&0.7\\end{pmatrix}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "需要非对角元非负、对角元非正、行和为 0。A 的第一行和为 $-1$；C 的符号反了；D 是 stochastic matrix（行和为 1）。",
+      "figure": null
+    },
+    {
+      "id": "MC41",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "forward and backward equations",
+      "question": "The forward equation for the transition function of a continuous-time Markov chain is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$P'(t)=QP(t)$"
+        },
+        {
+          "label": "B",
+          "text": "$P'(t)=P(t)Q$"
+        },
+        {
+          "label": "C",
+          "text": "$P'(t)=Q$"
+        },
+        {
+          "label": "D",
+          "text": "$P'(t)=P(t)^2$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Forward：$P'(t)=P(t)Q$；backward：$P'(t)=QP(t)$；初始条件都是 $P(0)=I$。Forward 对应在最后一小段时间 $h$ 上取条件，$Q$ 乘在右边。",
+      "figure": null
+    },
+    {
+      "id": "MC42",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "two-state chain",
+      "question": "A two-state chain has $Q=\\begin{pmatrix}-2&2\\\\6&-6\\end{pmatrix}$. As $t\\to\\infty$, $p_{11}(t)$ converges to",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac34$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$p_{11}(t)=\\frac{\\beta}{\\alpha+\\beta}+\\frac{\\alpha}{\\alpha+\\beta}e^{-(\\alpha+\\beta)t}$，$\\alpha=2$，$\\beta=6$，极限为 $\\tfrac68=\\tfrac34$。Detailed balance $2\\pi_1=6\\pi_2$ 给出同样的结果。",
+      "figure": null
+    },
+    {
+      "id": "MC43",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "competing exponentials in a queue",
+      "question": "An M/M/1 queue has arrival rate $\\lambda=2$ and service rate $\\mu=3$, and there are currently $3$ customers in the system. The probability that the next event is an arrival is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac25$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac35$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac23$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "下一次到达 $\\mathrm{Exp}(2)$ 与当前服务完成 $\\mathrm{Exp}(3)$ 竞争，到达先发生的概率是 $\\lambda/(\\lambda+\\mu)=\\tfrac25$，与队长无关（只要 $\\ge1$）。",
+      "figure": null
+    },
+    {
+      "id": "MC44",
+      "type": "single_choice",
+      "unit": "F8",
+      "topic": "infinitesimal description",
+      "question": "For a continuous-time Markov chain and small $h>0$, $p_{ii}(h)$ is approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "$q_ih$"
+        },
+        {
+          "label": "B",
+          "text": "$1-q_ih$"
+        },
+        {
+          "label": "C",
+          "text": "$e^{q_ih}$"
+        },
+        {
+          "label": "D",
+          "text": "$1+q_ih$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$p_{ij}(h)=\\delta_{ij}+q_{ij}h+o(h)$，而 $q_{ii}=-q_i$，所以 $p_{ii}(h)=1-q_ih+o(h)$。",
+      "figure": null
+    },
+    {
+      "id": "MC45",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "M/M/1 queue",
+      "question": "An M/M/1 queue has $\\lambda=1$ and $\\mu=3$. In equilibrium, the probability that there are at least $2$ customers in the system is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac19$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac29$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac2{27}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\pi_n=(1-\\rho)\\rho^n$，$\\rho=\\tfrac13$。$\\mathbb{P}(X\\ge2)=\\sum_{n\\ge2}\\pi_n=\\rho^2=\\tfrac19$。",
+      "figure": null
+    },
+    {
+      "id": "MC46",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "M/M/1 queue",
+      "question": "An M/M/1 queue has $\\lambda=4$ and $\\mu=5$ customers per hour. In equilibrium, the mean time a customer spends in the system (waiting plus service) is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$12$ minutes"
+        },
+        {
+          "label": "B",
+          "text": "$15$ minutes"
+        },
+        {
+          "label": "C",
+          "text": "$48$ minutes"
+        },
+        {
+          "label": "D",
+          "text": "$60$ minutes"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$W=1/(\\mu-\\lambda)=1$ 小时。也可由 $L=\\lambda/(\\mu-\\lambda)=4$ 和 Little's law $W=L/\\lambda=1$ 得到。12 分钟只是平均服务时间。",
+      "figure": null
+    },
+    {
+      "id": "MC47",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "finite waiting room",
+      "question": "An M/M/1 queue can hold at most $2$ customers (including the one in service), and $\\lambda=\\mu$. The long-run fraction of arriving customers who are lost is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac14$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac12$"
+        },
+        {
+          "label": "D",
+          "text": "$0$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Detailed balance 给出 $\\pi_i\\propto(\\lambda/\\mu)^i=1$，所以 $\\pi$ 在 $\\{0,1,2\\}$ 上是 uniform。由 PASTA，被拒绝的比例是 $\\pi_2=\\tfrac13$。",
+      "figure": null
+    },
+    {
+      "id": "MC48",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "infinite-server queue",
+      "question": "Customers arrive as a Poisson process of rate $4$; each stays for an independent $\\mathrm{Exp}(2)$ time and there is no queueing (infinitely many servers). In equilibrium, the probability that the system is empty is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$e^{-4}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "C",
+          "text": "$e^{-2}$"
+        },
+        {
+          "label": "D",
+          "text": "$e^{-1/2}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$q_{n,n+1}=4$，$q_{n,n-1}=2n$。Detailed balance：$4\\pi_{n-1}=2n\\pi_n$，$\\pi_n=e^{-2}2^n/n!$，即 Poisson$(2)$。$\\pi_0=e^{-2}$。",
+      "figure": null
+    },
+    {
+      "id": "MC49",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "PASTA",
+      "question": "The PASTA property states that",
+      "options": [
+        {
+          "label": "A",
+          "text": "arrivals from any arrival process see the system in its time-average state"
+        },
+        {
+          "label": "B",
+          "text": "an arrival from a Poisson process finds the system in state $i$ with probability $\\pi_i$, the long-run fraction of time spent in $i$"
+        },
+        {
+          "label": "C",
+          "text": "the departure process of a queue is always a Poisson process"
+        },
+        {
+          "label": "D",
+          "text": "$L=\\lambda W$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Poisson Arrivals See Time Averages。结论依赖到达过程是 Poisson process；确定性等间隔到达时可以构造出反例。C 接近 Burke's theorem，D 是 Little's law。",
+      "figure": null
+    },
+    {
+      "id": "MC50",
+      "type": "single_choice",
+      "unit": "F9",
+      "topic": "global balance",
+      "question": "For the continuous-time chain whose rates are shown in the figure, the stationary probability $\\pi_1$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tfrac13$"
+        },
+        {
+          "label": "B",
+          "text": "$\\tfrac25$"
+        },
+        {
+          "label": "C",
+          "text": "$\\tfrac4{15}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\tfrac8{15}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$Q=\\begin{pmatrix}-2&2&0\\\\1&-4&3\\\\4&0&-4\\end{pmatrix}$。$\\pi Q=0$ 的第二、三列给出 $2\\pi_1=4\\pi_2$ 和 $3\\pi_2=4\\pi_3$，所以 $\\pi\\propto(8,4,3)$，$\\pi_1=\\tfrac8{15}$。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB01",
+      "type": "fill_blank",
+      "unit": "F1",
+      "topic": "n-step probabilities",
+      "question": "Let $P=\\begin{pmatrix}\\tfrac12&\\tfrac12&0\\\\0&\\tfrac12&\\tfrac12\\\\ \\tfrac12&0&\\tfrac12\\end{pmatrix}$. Then $p^{(2)}_{13}=$ ____.",
+      "answer": [
+        "$\\tfrac14$"
+      ],
+      "explanation": "从 1 到 3 的两步路径只有 $1\\to2\\to3$：$p_{12}p_{23}=\\tfrac12\\times\\tfrac12=\\tfrac14$。",
+      "figure": null
+    },
+    {
+      "id": "FB02",
+      "type": "fill_blank",
+      "unit": "F1",
+      "topic": "Chapman–Kolmogorov",
+      "question": "The Chapman--Kolmogorov equations state that $p^{(m+n)}_{ij}=\\sum_k$ ____.",
+      "answer": [
+        "$p^{(m)}_{ik}\\,p^{(n)}_{kj}$"
+      ],
+      "explanation": "对时刻 $m$ 所处的状态 $k$ 取条件并用 Markov property。矩阵形式是 $P^{m+n}=P^mP^n$。",
+      "figure": null
+    },
+    {
+      "id": "FB03",
+      "type": "fill_blank",
+      "unit": "F1",
+      "topic": "two-state chain",
+      "question": "For the two-state chain in the figure with $\\alpha=\\tfrac12$ and $\\beta=\\tfrac14$, $p^{(n)}_{11}=$ ____ $+$ ____ $\\left(\\tfrac14\\right)^n$.",
+      "answer": [
+        "$\\tfrac13$",
+        "$\\tfrac23$"
+      ],
+      "explanation": "$p^{(n)}_{11}=\\frac{\\beta}{\\alpha+\\beta}+\\frac{\\alpha}{\\alpha+\\beta}(1-\\alpha-\\beta)^n$。这里 $\\alpha+\\beta=\\tfrac34$，所以两个系数是 $\\tfrac13$ 和 $\\tfrac23$，公比是 $\\tfrac14$。检验：$n=0$ 时等于 1。",
+      "figure": {
+        "id": "fig-04",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3,0) {2};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$\\alpha$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$\\beta$} (1);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$1-\\alpha$} (1);\n\\draw[->] (2) to[out=30,in=-30,looseness=6] node[right,lab]{$1-\\beta$} (2);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB04",
+      "type": "fill_blank",
+      "unit": "F1",
+      "topic": "distribution at time n",
+      "question": "A chain with $P=\\begin{pmatrix}\\tfrac12&\\tfrac12&0\\\\0&\\tfrac12&\\tfrac12\\\\ \\tfrac12&0&\\tfrac12\\end{pmatrix}$ starts in state $1$. Then $\\mathbb{P}(X_2=2)=$ ____.",
+      "answer": [
+        "$\\tfrac12$"
+      ],
+      "explanation": "$X_2$ 的分布是 $P^2$ 的第一行。到达 2 的两步路径有 $1\\to1\\to2$ 和 $1\\to2\\to2$：$\\tfrac14+\\tfrac14=\\tfrac12$。",
+      "figure": null
+    },
+    {
+      "id": "FB05",
+      "type": "fill_blank",
+      "unit": "F1",
+      "topic": "modelling",
+      "question": "A fair six-sided die is rolled repeatedly and $X_n$ is the largest value seen in the first $n$ rolls. Then $p_{33}=$ ____ and $p_{35}=$ ____.",
+      "answer": [
+        "$\\tfrac12$",
+        "$\\tfrac16$"
+      ],
+      "explanation": "当前最大值为 3 时，下一次掷出 1、2、3 则保持（概率 $\\tfrac36$）；掷出 5 则最大值变为 5（概率 $\\tfrac16$）。",
+      "figure": null
+    },
+    {
+      "id": "FB06",
+      "type": "fill_blank",
+      "unit": "F2",
+      "topic": "class structure",
+      "question": "For the chain shown in the figure, the communicating classes are ____ and the only closed class is ____.",
+      "answer": [
+        "$\\{1,2\\}$ and $\\{3\\}$",
+        "$\\{3\\}$"
+      ],
+      "explanation": "$1\\leftrightarrow2$；state 3 是吸收态，自成一类且 closed。$\\{1,2\\}$ 可经 $2\\to3$ 离开，不 closed，因而是 transient。",
+      "figure": {
+        "id": "fig-01",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (2.6,0) {2}; \\node[st] (3) at (5.2,0) {3};\n\\draw[->] (1) to[bend left=20] node[above,lab]{$\\frac12$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$\\frac12$} (1);\n\\draw[->] (2) to node[above,lab]{$\\frac12$} (3);\n\\draw[->] (1) to[out=150,in=210,looseness=6] node[left,lab]{$\\frac12$} (1);\n\\draw[->] (3) to[out=30,in=-30,looseness=6] node[right,lab]{$1$} (3);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB07",
+      "type": "fill_blank",
+      "unit": "F2",
+      "topic": "gambler's ruin",
+      "question": "In the fair gambler's ruin chain on $\\{0,1,2,3,4\\}$ (up or down by $1$ with probability $\\tfrac12$; $0$ and $4$ absorbing), the probability of reaching $4$ before $0$ starting from $1$ is ____.",
+      "answer": [
+        "$\\tfrac14$"
+      ],
+      "explanation": "First-step analysis：$h_i=\\tfrac12h_{i-1}+\\tfrac12h_{i+1}$，$h_0=0$，$h_4=1$。解是线性的，$h_i=i/4$，所以 $h_1=\\tfrac14$。",
+      "figure": null
+    },
+    {
+      "id": "FB08",
+      "type": "fill_blank",
+      "unit": "F2",
+      "topic": "expected hitting times",
+      "question": "In the fair gambler's ruin chain on $\\{0,1,2,3,4\\}$, the expected number of steps until absorption starting from state $2$ is ____.",
+      "answer": [
+        "$4$"
+      ],
+      "explanation": "$k_1=1+\\tfrac12k_2$，$k_3=1+\\tfrac12k_2$，$k_2=1+\\tfrac12k_1+\\tfrac12k_3$。由对称性 $k_1=k_3$，解得 $k_1=3$，$k_2=4$。",
+      "figure": null
+    },
+    {
+      "id": "FB09",
+      "type": "fill_blank",
+      "unit": "F2",
+      "topic": "minimal solution",
+      "question": "The hitting probabilities $(h^A_i)$ are the ____ non-negative solution of the first-step equations.",
+      "answer": [
+        "minimal"
+      ],
+      "explanation": "Theorem 1.3.2。状态空间无限时方程的解不唯一，要用 minimality 挑出正确的那个，例如 infinitely rich casino 问题。",
+      "figure": null
+    },
+    {
+      "id": "FB10",
+      "type": "fill_blank",
+      "unit": "F2",
+      "topic": "first-step analysis",
+      "question": "A chain on $\\{1,2,3\\}$ has $p_{11}=\\tfrac13$, $p_{12}=\\tfrac23$, $p_{21}=p_{23}=\\tfrac12$, and state $3$ is absorbing. The expected number of steps to reach state $3$ from state $1$ is ____.",
+      "answer": [
+        "$5$"
+      ],
+      "explanation": "$k_1=1+\\tfrac13k_1+\\tfrac23k_2$，$k_2=1+\\tfrac12k_1$。代入得 $k_1=\\tfrac53+\\tfrac23k_1$，$k_1=5$（且 $k_2=\\tfrac72$）。",
+      "figure": null
+    },
+    {
+      "id": "FB11",
+      "type": "fill_blank",
+      "unit": "F3",
+      "topic": "number of visits",
+      "question": "If state $i$ has return probability $f_i=\\tfrac34$, then the expected number of visits to $i$ starting from $i$ (counting time $0$) is ____.",
+      "answer": [
+        "$4$"
+      ],
+      "explanation": "$\\mathbb{E}_i(V_i)=\\sum_{r\\ge0}f_i^{\\,r}=1/(1-f_i)=4$。",
+      "figure": null
+    },
+    {
+      "id": "FB12",
+      "type": "fill_blank",
+      "unit": "F3",
+      "topic": "recurrence criterion",
+      "question": "State $i$ is recurrent if and only if $\\sum_{n=0}^\\infty p^{(n)}_{ii}=$ ____.",
+      "answer": [
+        "$\\infty$"
+      ],
+      "explanation": "$\\sum_np^{(n)}_{ii}=\\mathbb{E}_i(V_i)$。Recurrent 时无穷多次返回，期望为无穷；transient 时等于 $1/(1-f_i)<\\infty$。",
+      "figure": null
+    },
+    {
+      "id": "FB13",
+      "type": "fill_blank",
+      "unit": "F3",
+      "topic": "fundamental matrix",
+      "question": "An absorbing chain has transient block $Q=\\begin{pmatrix}\\tfrac12&\\tfrac14\\\\0&\\tfrac12\\end{pmatrix}$ on states $\\{1,2\\}$. Starting from state $1$, the expected number of visits to state $2$ is ____ and the expected number of steps until absorption is ____.",
+      "answer": [
+        "$1$",
+        "$3$"
+      ],
+      "explanation": "$I-Q=\\begin{pmatrix}\\tfrac12&-\\tfrac14\\\\0&\\tfrac12\\end{pmatrix}$，$N=(I-Q)^{-1}=\\begin{pmatrix}2&1\\\\0&2\\end{pmatrix}$。$N_{12}=1$，第一行的和为 3。",
+      "figure": null
+    },
+    {
+      "id": "FB14",
+      "type": "fill_blank",
+      "unit": "F3",
+      "topic": "strong Markov property",
+      "question": "The strong Markov property says that the Markov property continues to hold at random times $T$, provided that $T$ is a ____ time.",
+      "answer": [
+        "stopping"
+      ],
+      "explanation": "Stopping time 指事件 $\\{T=n\\}$ 只依赖 $X_0,\\dots,X_n$。首次到达某状态的时刻是 stopping time，最后一次访问的时刻不是。",
+      "figure": null
+    },
+    {
+      "id": "FB15",
+      "type": "fill_blank",
+      "unit": "F3",
+      "topic": "recurrence in finite chains",
+      "question": "In a finite Markov chain, every communicating class that is not closed is ____.",
+      "answer": [
+        "transient"
+      ],
+      "explanation": "不 closed 的类有正概率离开且无法回来，返回概率小于 1。有限链中 closed class 都是 recurrent 的。",
+      "figure": null
+    },
+    {
+      "id": "FB16",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "stationary distribution",
+      "question": "The chain with $P=\\begin{pmatrix}\\tfrac12&\\tfrac12\\\\ \\tfrac14&\\tfrac34\\end{pmatrix}$ has stationary distribution $\\pi=(\\,$____$,\\ $____$\\,)$.",
+      "answer": [
+        "$\\tfrac13$",
+        "$\\tfrac23$"
+      ],
+      "explanation": "$\\pi_1=\\tfrac12\\pi_1+\\tfrac14\\pi_2$ 给出 $\\pi_2=2\\pi_1$，归一化得 $(\\tfrac13,\\tfrac23)$。两状态公式是 $(\\tfrac{\\beta}{\\alpha+\\beta},\\tfrac{\\alpha}{\\alpha+\\beta})$，$\\alpha=\\tfrac12$，$\\beta=\\tfrac14$。",
+      "figure": null
+    },
+    {
+      "id": "FB17",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "mean return time",
+      "question": "In an irreducible positive recurrent chain with $\\pi_i=0.2$, the mean return time to state $i$ is $m_i=$ ____.",
+      "answer": [
+        "$5$"
+      ],
+      "explanation": "$m_i=1/\\pi_i=5$。",
+      "figure": null
+    },
+    {
+      "id": "FB18",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "positive recurrence",
+      "question": "An irreducible chain is positive recurrent if and only if it has a ____.",
+      "answer": [
+        "stationary (invariant) distribution"
+      ],
+      "explanation": "Theorem 1.7.7：对 irreducible 链，存在 stationary distribution、某个状态 positive recurrent、所有状态 positive recurrent 三者等价，并且 $\\pi_i=1/m_i$。",
+      "figure": null
+    },
+    {
+      "id": "FB19",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "pattern waiting times",
+      "question": "A fair coin is flipped repeatedly. The expected number of flips until the pattern HT first appears is ____.",
+      "answer": [
+        "$4$"
+      ],
+      "explanation": "$k_0=1+\\tfrac12k_0+\\tfrac12k_1$，$k_1=1+\\tfrac12k_1$（已有 H 时再出 H 仍保留一个 H）。得 $k_1=2$，$k_0=4$。对比 HH 需要 6 次：HH 失败时要从头开始。",
+      "figure": null
+    },
+    {
+      "id": "FB20",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "null recurrence",
+      "question": "A recurrent state whose mean return time is infinite is called ____ recurrent.",
+      "answer": [
+        "null"
+      ],
+      "explanation": "Recurrent 分为 positive recurrent（$m_i<\\infty$）和 null recurrent（$m_i=\\infty$）。后者没有 stationary distribution。",
+      "figure": null
+    },
+    {
+      "id": "FB21",
+      "type": "fill_blank",
+      "unit": "F4",
+      "topic": "doubly stochastic chains",
+      "question": "Three cards are shuffled by repeatedly moving a uniformly chosen card to the top. In the long run, the proportion of time the deck spends in any particular ordering is ____.",
+      "answer": [
+        "$\\tfrac16$"
+      ],
+      "explanation": "共有 $3!=6$ 种排列。每种排列恰好可由 3 种排列一步到达，每条的概率是 $\\tfrac13$，所以转移矩阵是 doubly stochastic 的，stationary distribution 是 uniform。",
+      "figure": null
+    },
+    {
+      "id": "FB22",
+      "type": "fill_blank",
+      "unit": "F5",
+      "topic": "detailed balance",
+      "question": "A distribution $\\pi$ and a transition matrix $P$ are in detailed balance if $\\pi_ip_{ij}=$ ____ for all $i,j$.",
+      "answer": [
+        "$\\pi_jp_{ji}$"
+      ],
+      "explanation": "含义是平稳时从 $i$ 到 $j$ 的概率流等于从 $j$ 到 $i$ 的概率流。对 $i$ 求和即得 $\\pi P=\\pi$。",
+      "figure": null
+    },
+    {
+      "id": "FB23",
+      "type": "fill_blank",
+      "unit": "F5",
+      "topic": "random walk on a graph",
+      "question": "For the simple random walk on the graph shown in the figure, the mean return time to vertex $2$ is ____.",
+      "answer": [
+        "$5$"
+      ],
+      "explanation": "度数为 $(3,2,3,2)$，$\\pi_2=\\tfrac2{10}=\\tfrac15$，$m_2=1/\\pi_2=5$。",
+      "figure": {
+        "id": "fig-07",
+        "latex": "\\begin{tikzpicture}[v/.style={circle,draw,minimum size=8mm,inner sep=0pt}]\n\\node[v] (1) at (0,2.2) {1}; \\node[v] (2) at (2.2,2.2) {2};\n\\node[v] (3) at (2.2,0) {3}; \\node[v] (4) at (0,0) {4};\n\\draw (1)--(2)--(3)--(4)--(1); \\draw (1)--(3);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB24",
+      "type": "fill_blank",
+      "unit": "F5",
+      "topic": "birth–death chain",
+      "question": "For the chain shown in the figure, detailed balance gives the stationary distribution $\\pi=(\\pi_0,\\pi_1,\\pi_2)=$ ____.",
+      "answer": [
+        "$\\left(\\tfrac16,\\tfrac12,\\tfrac13\\right)$"
+      ],
+      "explanation": "$\\pi_0\\cdot1=\\pi_1\\cdot\\tfrac13$，$\\pi_1\\cdot\\tfrac23=\\pi_2\\cdot1$。所以 $\\pi\\propto(\\tfrac13,1,\\tfrac23)$，归一化得 $(\\tfrac16,\\tfrac12,\\tfrac13)$。",
+      "figure": {
+        "id": "fig-08",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (0) at (0,0) {0}; \\node[st] (1) at (2.6,0) {1}; \\node[st] (2) at (5.2,0) {2};\n\\draw[->] (0) to[bend left=20] node[above,lab]{$1$} (1);\n\\draw[->] (1) to[bend left=20] node[below,lab]{$\\frac13$} (0);\n\\draw[->] (1) to[bend left=20] node[above,lab]{$\\frac23$} (2);\n\\draw[->] (2) to[bend left=20] node[below,lab]{$1$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB25",
+      "type": "fill_blank",
+      "unit": "F5",
+      "topic": "Metropolis algorithm",
+      "question": "In the Metropolis algorithm with a symmetric proposal, a proposed move from $i$ to $j$ is accepted with probability $\\min\\left(1,\\ \\text{____}\\right)$.",
+      "answer": [
+        "$\\pi_j/\\pi_i$"
+      ],
+      "explanation": "只用到 $\\pi$ 的比值。提议分布不对称时用 Metropolis–Hastings：$\\min\\bigl(1,\\frac{\\pi_jq(j,i)}{\\pi_iq(i,j)}\\bigr)$。",
+      "figure": null
+    },
+    {
+      "id": "FB26",
+      "type": "fill_blank",
+      "unit": "F5",
+      "topic": "Ehrenfest urn",
+      "question": "For the Ehrenfest urn with $N=10$ balls, the mean return time to the state in which urn $A$ is empty is ____ steps.",
+      "answer": [
+        "$2^{10}=1024$"
+      ],
+      "explanation": "$\\pi_0=\\binom{10}02^{-10}$，$m_0=1/\\pi_0=1024$。",
+      "figure": null
+    },
+    {
+      "id": "FB27",
+      "type": "fill_blank",
+      "unit": "F6",
+      "topic": "periodicity",
+      "question": "The period of state $i$ is the ____ of the set $\\{n\\ge1: p^{(n)}_{ii}>0\\}$.",
+      "answer": [
+        "greatest common divisor"
+      ],
+      "explanation": "周期为 1 的状态称为 aperiodic。周期是 class property，同一个 communicating class 内的状态周期相同。",
+      "figure": null
+    },
+    {
+      "id": "FB28",
+      "type": "fill_blank",
+      "unit": "F6",
+      "topic": "periodicity",
+      "question": "If returns to state $i$ are possible exactly at times $n\\in\\{6,9,12,15,\\dots\\}$, then the period of $i$ is ____.",
+      "answer": [
+        "$3$"
+      ],
+      "explanation": "$\\gcd(6,9,12,15,\\dots)=3$。周期不是最小返回步数 6。",
+      "figure": null
+    },
+    {
+      "id": "FB29",
+      "type": "fill_blank",
+      "unit": "F6",
+      "topic": "lazy chain",
+      "question": "The lazy version of a chain with transition matrix $P$ stays put with probability $\\tfrac12$ at each step; its transition matrix is $\\widetilde P=$ ____.",
+      "answer": [
+        "$\\tfrac12(I+P)$"
+      ],
+      "explanation": "以概率 $\\tfrac12$ 不动（$I$），以概率 $\\tfrac12$ 按 $P$ 走一步。它保持 stationary distribution 不变并消除周期性。",
+      "figure": null
+    },
+    {
+      "id": "FB30",
+      "type": "fill_blank",
+      "unit": "F6",
+      "topic": "convergence to equilibrium",
+      "question": "An irreducible aperiodic chain on $\\{1,2,3\\}$ has stationary distribution $\\pi=(\\tfrac12,\\tfrac13,\\tfrac16)$. Then $\\lim_{n\\to\\infty}p^{(n)}_{31}=$ ____.",
+      "answer": [
+        "$\\tfrac12$"
+      ],
+      "explanation": "Convergence theorem：$p^{(n)}_{ij}\\to\\pi_j$，与起点 $i$ 无关。这里 $j=1$，极限是 $\\pi_1=\\tfrac12$。",
+      "figure": null
+    },
+    {
+      "id": "FB31",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "infinitesimal definition",
+      "question": "For a Poisson process of rate $\\lambda$, $\\mathbb{P}(X_{t+h}-X_t=1)=\\lambda h+$ ____ as $h\\downarrow0$.",
+      "answer": [
+        "$o(h)$"
+      ],
+      "explanation": "Infinitesimal definition：短时间 $h$ 内发生一次的概率是 $\\lambda h+o(h)$，不发生的概率是 $1-\\lambda h+o(h)$，发生两次及以上的概率是 $o(h)$。$o(h)$ 表示比 $h$ 更快趋于 0 的量。",
+      "figure": null
+    },
+    {
+      "id": "FB32",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "memoryless property",
+      "question": "If $T\\sim\\mathrm{Exp}(\\lambda)$, then $\\mathbb{P}(T>5\\mid T>3)=\\mathbb{P}(T>\\,$____$\\,)$.",
+      "answer": [
+        "$2$"
+      ],
+      "explanation": "Memoryless property：$\\mathbb{P}(T>s+t\\mid T>s)=\\mathbb{P}(T>t)$，取 $s=3$，$t=2$。",
+      "figure": null
+    },
+    {
+      "id": "FB33",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "exponential races",
+      "question": "Let $S\\sim\\mathrm{Exp}(2)$ and $T\\sim\\mathrm{Exp}(3)$ be independent. Then $\\min(S,T)\\sim\\mathrm{Exp}(\\,$____$\\,)$ and $\\mathbb{P}(S<T)=$ ____.",
+      "answer": [
+        "$5$",
+        "$\\tfrac25$"
+      ],
+      "explanation": "最小值的 rate 是两个 rate 之和。$S$ 先发生的概率是它的 rate 占总 rate 的比例 $\\tfrac2{2+3}$。",
+      "figure": null
+    },
+    {
+      "id": "FB34",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "Poisson process",
+      "question": "For a Poisson process of rate $2$, $\\mathbb{P}(X_3=0)=$ ____.",
+      "answer": [
+        "$e^{-6}$"
+      ],
+      "explanation": "$X_3\\sim\\mathrm{Poisson}(6)$，$\\mathbb{P}(X_3=0)=e^{-6}$。等价地，首次事件时间 $J_1\\sim\\mathrm{Exp}(2)$ 且 $\\{X_3=0\\}=\\{J_1>3\\}$。",
+      "figure": null
+    },
+    {
+      "id": "FB35",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "superposition",
+      "question": "The superposition of two independent Poisson processes with rates $2$ and $5$ is a Poisson process of rate ____.",
+      "answer": [
+        "$7$"
+      ],
+      "explanation": "Superposition theorem：独立 Poisson process 之和仍是 Poisson process，rate 相加。",
+      "figure": null
+    },
+    {
+      "id": "FB36",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "jump times",
+      "question": "For a Poisson process of rate $\\lambda$, the expected time of the fourth event is $\\mathbb{E}(J_4)=$ ____.",
+      "answer": [
+        "$4/\\lambda$"
+      ],
+      "explanation": "$J_4=S_1+S_2+S_3+S_4$ 是四个独立 $\\mathrm{Exp}(\\lambda)$ 之和，期望为 $4/\\lambda$。",
+      "figure": null
+    },
+    {
+      "id": "FB37",
+      "type": "fill_blank",
+      "unit": "F7",
+      "topic": "conditional uniformity",
+      "question": "Given that a Poisson process has exactly one event in $[0,10]$, the probability that the event occurred in $[0,4]$ is ____.",
+      "answer": [
+        "$\\tfrac25$"
+      ],
+      "explanation": "给定区间内恰有一个事件，事件时刻在该区间上服从 uniform 分布（Theorem 2.4.5），概率为 $\\tfrac4{10}$。",
+      "figure": null
+    },
+    {
+      "id": "FB38",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "Q-matrix from a diagram",
+      "question": "For the continuous-time chain whose rates are shown in the figure, the third row of the $Q$-matrix is ____.",
+      "answer": [
+        "$(4,\\ 0,\\ -4)$"
+      ],
+      "explanation": "state 3 只有一条出边 $3\\to1$，rate 为 4：$q_{31}=4$，$q_{32}=0$，$q_{33}=-4$，行和为 0。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB39",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "holding times and jump probabilities",
+      "question": "A continuous-time chain has $q_{12}=3$ and $q_{13}=1$ as its only non-zero rates out of state $1$. The holding time in state $1$ is $\\mathrm{Exp}(\\,$____$\\,)$ and the chain then jumps to state $2$ with probability ____.",
+      "answer": [
+        "$4$",
+        "$\\tfrac34$"
+      ],
+      "explanation": "$q_1=3+1=4$。Holding time 是两个指数钟的最小值，服从 $\\mathrm{Exp}(4)$；跳到 2 的概率 $q_{12}/q_1=\\tfrac34$。",
+      "figure": null
+    },
+    {
+      "id": "FB40",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "backward equation",
+      "question": "The backward equation for a continuous-time Markov chain is $P'(t)=$ ____, with $P(0)=I$.",
+      "answer": [
+        "$Q\\,P(t)$"
+      ],
+      "explanation": "Backward：$Q$ 在左，对应在最初一小段时间上取条件。Forward 是 $P'(t)=P(t)Q$。",
+      "figure": null
+    },
+    {
+      "id": "FB41",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "transition function",
+      "question": "For any continuous-time Markov chain, $P(0)=$ ____ and $P(s+t)=$ ____.",
+      "answer": [
+        "$I$",
+        "$P(s)P(t)$"
+      ],
+      "explanation": "零时间内不移动，所以 $P(0)=I$。$P(s+t)=P(s)P(t)$ 是连续时间的 Chapman–Kolmogorov（semigroup property）。",
+      "figure": null
+    },
+    {
+      "id": "FB42",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "two-state chain",
+      "question": "For the two-state chain with $Q=\\begin{pmatrix}-1&1\\\\2&-2\\end{pmatrix}$, $p_{11}(t)=$ ____ $+\\ \\tfrac13e^{-ct}$ with $c=$ ____.",
+      "answer": [
+        "$\\tfrac23$",
+        "$3$"
+      ],
+      "explanation": "$p_{11}(t)=\\frac{\\beta}{\\alpha+\\beta}+\\frac{\\alpha}{\\alpha+\\beta}e^{-(\\alpha+\\beta)t}$，$\\alpha=1$，$\\beta=2$。由 forward equation $p_{11}'=2-3p_{11}$、$p_{11}(0)=1$ 也可解出。",
+      "figure": null
+    },
+    {
+      "id": "FB43",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "M/M/1 queue",
+      "question": "For the M/M/1 queue shown in the figure, the diagonal entries of the $Q$-matrix are $q_{00}=$ ____ and $q_{ii}=$ ____ for $i\\ge1$.",
+      "answer": [
+        "$-\\lambda$",
+        "$-(\\lambda+\\mu)$"
+      ],
+      "explanation": "state 0 只能发生到达，离开的总 rate 是 $\\lambda$。$i\\ge1$ 时到达与服务完成都可能发生，总 rate 是 $\\lambda+\\mu$。对角元是总 rate 的相反数。",
+      "figure": {
+        "id": "fig-09",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (0) at (0,0) {0}; \\node[st] (1) at (2.2,0) {1}; \\node[st] (2) at (4.4,0) {2};\n\\node[st] (3) at (6.6,0) {3}; \\node (4) at (8.8,0) {$\\cdots$};\n\\foreach \\a/\\b in {0/1,1/2,2/3,3/4}{\n  \\draw[->] (\\a) to[bend left=20] node[above,lab]{$\\lambda$} (\\b);\n  \\draw[->] (\\b) to[bend left=20] node[below,lab]{$\\mu$} (\\a);}\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB44",
+      "type": "fill_blank",
+      "unit": "F8",
+      "topic": "pure death process",
+      "question": "A population consists of individuals who each die independently at rate $\\mu$, with no births. If $X_t$ is the population size, then $q_{i,i-1}=$ ____.",
+      "answer": [
+        "$i\\mu$"
+      ],
+      "explanation": "$i$ 个个体的寿命是独立的 $\\mathrm{Exp}(\\mu)$，最早的一次死亡时间服从 $\\mathrm{Exp}(i\\mu)$。",
+      "figure": null
+    },
+    {
+      "id": "FB45",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "two-state chain",
+      "question": "A two-state continuous-time chain moves from $1$ to $2$ at rate $\\alpha$ and from $2$ to $1$ at rate $\\beta$. Its stationary distribution is $\\pi=(\\,$____$,\\ $____$\\,)$.",
+      "answer": [
+        "$\\frac{\\beta}{\\alpha+\\beta}$",
+        "$\\frac{\\alpha}{\\alpha+\\beta}$"
+      ],
+      "explanation": "Detailed balance：$\\pi_1\\alpha=\\pi_2\\beta$，再归一化。离开得越慢的状态占的时间比例越大。",
+      "figure": null
+    },
+    {
+      "id": "FB46",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "M/M/1 queue",
+      "question": "An M/M/1 queue has $\\lambda=2$ and $\\mu=5$. In equilibrium $\\pi_0=$ ____ and the mean number of customers in the system is $L=$ ____.",
+      "answer": [
+        "$\\tfrac35$",
+        "$\\tfrac23$"
+      ],
+      "explanation": "$\\rho=\\tfrac25$，$\\pi_n=(1-\\rho)\\rho^n$，$\\pi_0=\\tfrac35$。$L=\\rho/(1-\\rho)=\\lambda/(\\mu-\\lambda)=\\tfrac23$。",
+      "figure": null
+    },
+    {
+      "id": "FB47",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "Little's law",
+      "question": "Customers arrive at a system at rate $\\lambda=3$ per minute and on average $L=6$ customers are present. By Little's law, the mean time a customer spends in the system is ____ minutes.",
+      "answer": [
+        "$2$"
+      ],
+      "explanation": "$L=\\lambda W$，$W=L/\\lambda=2$。",
+      "figure": null
+    },
+    {
+      "id": "FB48",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "Burke's theorem",
+      "question": "In an M/M/1 queue with $\\lambda<\\mu$ in equilibrium, the departure process is a Poisson process of rate ____.",
+      "answer": [
+        "$\\lambda$"
+      ],
+      "explanation": "Burke's theorem。平衡时流出必须等于流入；服务器有一部分时间空闲，所以离开的 rate 是 $\\lambda$ 而不是 $\\mu$。证明思路是队列 reversible，正向的离开对应反向的到达。",
+      "figure": null
+    },
+    {
+      "id": "FB49",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "finite waiting room",
+      "question": "For the queue shown in the figure (at most $2$ customers; arrival rate $1$, service rate $2$), the stationary distribution is $\\pi=$ ____ and the long-run fraction of arrivals that are lost is ____.",
+      "answer": [
+        "$\\left(\\tfrac47,\\tfrac27,\\tfrac17\\right)$",
+        "$\\tfrac17$"
+      ],
+      "explanation": "Detailed balance：$\\pi_{i-1}\\cdot1=\\pi_i\\cdot2$，$\\pi\\propto(1,\\tfrac12,\\tfrac14)$，归一化得 $(\\tfrac47,\\tfrac27,\\tfrac17)$。由 PASTA，被拒绝的比例是 $\\pi_2=\\tfrac17$。",
+      "figure": {
+        "id": "fig-10",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (0) at (0,0) {0}; \\node[st] (1) at (2.4,0) {1}; \\node[st] (2) at (4.8,0) {2};\n\\foreach \\a/\\b in {0/1,1/2}{\n  \\draw[->] (\\a) to[bend left=20] node[above,lab]{$1$} (\\b);\n  \\draw[->] (\\b) to[bend left=20] node[below,lab]{$2$} (\\a);}\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "FB50",
+      "type": "fill_blank",
+      "unit": "F9",
+      "topic": "jump chain stationary distribution",
+      "question": "The continuous-time chain in the figure has stationary distribution $\\pi=\\left(\\tfrac8{15},\\tfrac4{15},\\tfrac3{15}\\right)$. The stationary distribution of its jump chain is $\\rho=$ ____.",
+      "answer": [
+        "$\\left(\\tfrac4{11},\\tfrac4{11},\\tfrac3{11}\\right)$"
+      ],
+      "explanation": "$\\rho_i\\propto\\pi_iq_i$，$q=(2,4,4)$：$(\\tfrac{16}{15},\\tfrac{16}{15},\\tfrac{12}{15})\\propto(4,4,3)$，归一化得 $(\\tfrac4{11},\\tfrac4{11},\\tfrac3{11})$。state 1 的 holding time 最长，所以它占的时间比例（$\\tfrac8{15}$）高于占的跳跃比例（$\\tfrac4{11}$）。",
+      "figure": {
+        "id": "fig-03",
+        "latex": "\\begin{tikzpicture}[>=Stealth, st/.style={circle,draw,minimum size=8mm,inner sep=0pt}, lab/.style={font=\\small}]\n\\node[st] (1) at (0,0) {1}; \\node[st] (2) at (3.2,0) {2}; \\node[st] (3) at (1.6,-2.4) {3};\n\\draw[->] (1) to[bend left=18] node[above,lab]{$2$} (2);\n\\draw[->] (2) to[bend left=18] node[below,lab]{$1$} (1);\n\\draw[->] (2) to node[right,lab]{$3$} (3);\n\\draw[->] (3) to node[left,lab]{$4$} (1);\n\\end{tikzpicture}"
+      }
+    }
+  ]
+}

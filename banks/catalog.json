@@ -1,0 +1,15 @@
+{
+  "schema": "quiz-ledger/catalog@1",
+  "default_semester": "2026-s2",
+  "semesters": [
+    {
+      "id": "2026-s2",
+      "label": { "zh": "2026 学年第二学期", "en": "2026 Semester 2" },
+      "courses": [
+        { "id": "statx303-2026s2", "code": "STATX 303", "title": "Stochastic Processes", "bank": "2026-s2/statx303.json" },
+        { "id": "ao-2026s2", "code": "AO", "title": "Advanced Optimisation", "bank": "2026-s2/advanced-optimisation.json" },
+        { "id": "stat3006-2026s2", "code": "STAT 3006", "title": "Computational Statistics", "bank": "2026-s2/stat3006.json" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2893 @@
+{
+  "schema": "quiz-ledger/bank@1",
+  "id": "ao-2026s2",
+  "course": {
+    "code": "AO",
+    "title": "Advanced Optimisation",
+    "institution": "Adelaide University",
+    "language": {
+      "question": "en",
+      "explanation": "zh"
+    }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "updated": "2026-11-13",
+    "source": "Lecture notes chapters 1-5, workshops 1-9, assignments 1-3 and the practice exam; proofs and code are excluded"
+  },
+  "figure_preamble": "\\documentclass[tikz,border=5pt]{standalone}\n\\usepackage{amsmath,amssymb}\n\\usetikzlibrary{arrows.meta}\n",
+  "units": [
+    {
+      "id": "C1",
+      "title": "Chapter 1: Introduction to optimisation"
+    },
+    {
+      "id": "C2",
+      "title": "Chapter 2: Single variable optimisation"
+    },
+    {
+      "id": "C3",
+      "title": "Chapter 3: Unconstrained multi-variable convex optimisation"
+    },
+    {
+      "id": "C4",
+      "title": "Chapter 4: Constrained convex optimisation"
+    },
+    {
+      "id": "C5",
+      "title": "Chapter 5: Non-convex optimisation"
+    }
+  ],
+  "questions": [
+    {
+      "id": "TF01",
+      "type": "true_false",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Classes of optimisation problems",
+      "difficulty": 1,
+      "question": "Every linear program is a convex programming problem.",
+      "answer": true,
+      "explanation": "线性目标函数是凸函数，线性约束 $g_i(x)\\le 0$ 给出的可行集是半空间的交集，因而是凸集。在凸集上最小化凸函数就是凸规划。",
+      "figure": null
+    },
+    {
+      "id": "TF02",
+      "type": "true_false",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Classes of optimisation problems",
+      "difficulty": 1,
+      "question": "A problem with a linear objective and linear constraints in which the variables must be integers is a convex programming problem.",
+      "answer": false,
+      "explanation": "整数点构成的可行集不是凸集：两个可行整数点的中点一般不是整数点。因此整数规划是非凸问题，局部最优即全局最优的保证不再成立。",
+      "figure": null
+    },
+    {
+      "id": "TF03",
+      "type": "true_false",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "If $\\nabla f(x^*)=0$ and the Hessian of $f$ at $x^*$ has both a positive and a negative eigenvalue, then $x^*$ is a saddle point.",
+      "answer": true,
+      "explanation": "Hessian 不定时，沿正特征值对应的特征向量方向 $f$ 增大，沿负特征值对应的方向 $f$ 减小，所以 $x^*$ 既不是极小点也不是极大点。",
+      "figure": null
+    },
+    {
+      "id": "TF04",
+      "type": "true_false",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Existence of a minimum",
+      "difficulty": 2,
+      "question": "A continuous function $f:\\mathbb{R}\\to\\mathbb{R}$ that is bounded below always has a minimiser.",
+      "answer": false,
+      "explanation": "反例 $f(x)=e^{x}$：下确界为 $0$，但没有任何 $x$ 取到它。有界闭区间上的连续函数才保证取到最小值。",
+      "figure": null
+    },
+    {
+      "id": "TF05",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "The Golden Section search can only be applied when $f$ is differentiable on the bracketing interval.",
+      "answer": false,
+      "explanation": "Golden Section 属于直接搜索法，只用函数值，要求 $f$ 在区间上单峰（unimodal）即可，对不可导函数（如 $|x|$）同样适用。",
+      "figure": null
+    },
+    {
+      "id": "TF06",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "After the first iteration, each iteration of the Golden Section search requires only one new function evaluation.",
+      "answer": true,
+      "explanation": "因为 $\\gamma^2=1-\\gamma$，上一轮保留下来的内点恰好是新区间的一个内点，其函数值可以复用，所以 $N$ 次迭代共需 $N+1$ 次函数求值。",
+      "figure": null
+    },
+    {
+      "id": "TF07",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Dichotomous search",
+      "difficulty": 1,
+      "question": "Each iteration of the Dichotomous search (using the midpoint and the two quarter points) halves the length of the bracketing interval.",
+      "answer": true,
+      "explanation": "新区间是 $[a,c]$、$[c,b]$ 或 $[d,e]$ 之一，长度都是原区间的一半，故 $N$ 次迭代后长度为 $(b_0-a_0)/2^N$。",
+      "figure": null
+    },
+    {
+      "id": "TF08",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.2 Evaluating algorithms",
+      "topic": "Evaluating algorithms",
+      "difficulty": 2,
+      "question": "Per iteration the Dichotomous search shrinks the interval by a larger factor than the Golden Section search, but per function evaluation the Golden Section search is more efficient.",
+      "answer": true,
+      "explanation": "每次迭代的缩减因子：Dichotomous 为 $0.5$，Golden Section 为 $\\gamma\\approx0.618$。但 Dichotomous 每次迭代约需 2 次求值，折合每次求值的缩减因子为 $\\sqrt{0.5}\\approx0.707$，不如 Golden Section 的 $0.618$。",
+      "figure": null
+    },
+    {
+      "id": "TF09",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 1,
+      "question": "If Newton's method for minimising $f$ converges, its limit is always a local minimiser of $f$.",
+      "answer": false,
+      "explanation": "Newton 法求解的是 $f'(x)=0$，极限可能是极大点或拐点型驻点。例如 $f(x)=x^4-2x^2$ 从 $x_0=0.2$ 出发收敛到极大点 $x=0$。需要另外检查 $f''(x^*)>0$。",
+      "figure": null
+    },
+    {
+      "id": "TF10",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 1,
+      "question": "For $f(x)=ax^2+bx+c$ with $a>0$, Newton's method reaches the minimiser in one iteration from any starting point.",
+      "answer": true,
+      "explanation": "$x_1=x_0-\\dfrac{2ax_0+b}{2a}=-\\dfrac{b}{2a}$，与 $x_0$ 无关。Newton 法每步最小化 $f$ 的二阶 Taylor 近似，而二次函数的二阶近似就是它本身。",
+      "figure": null
+    },
+    {
+      "id": "TF11",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Secant method",
+      "difficulty": 1,
+      "question": "The secant method requires the second derivative $f''$ at each iterate.",
+      "answer": false,
+      "explanation": "割线法用差商 $\\dfrac{f'(x_k)-f'(x_{k-1})}{x_k-x_{k-1}}$ 代替 $f''(x_k)$，只需一阶导数，代价是需要两个初始点。",
+      "figure": null
+    },
+    {
+      "id": "TF12",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Secant method",
+      "difficulty": 1,
+      "question": "The order of convergence of the secant method is about $1.618$, which is lower than that of Newton's method.",
+      "answer": true,
+      "explanation": "割线法的收敛阶为 $(1+\\sqrt5)/2\\approx1.618$，Newton 法为 2（二次收敛）。",
+      "figure": null
+    },
+    {
+      "id": "TF13",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.1 Background",
+      "topic": "Higher-order derivative test",
+      "difficulty": 2,
+      "question": "If $f'(x^*)=0$ and $f''(x^*)=0$, then $x^*$ cannot be a local minimiser of $f$.",
+      "answer": false,
+      "explanation": "反例 $f(x)=x^4$ 在 $x^*=0$：$f'=f''=f'''=0$，$f^{(4)}(0)=24>0$。第一个非零导数的阶数为偶数且取正值，所以是严格局部极小点。",
+      "figure": null
+    },
+    {
+      "id": "TF14",
+      "type": "true_false",
+      "unit": "C2",
+      "section": "2.1 Background",
+      "topic": "Unimodal functions",
+      "difficulty": 2,
+      "question": "The function shown in the figure is unimodal on $[-1,3]$ but not convex on $[-1,3]$.",
+      "answer": true,
+      "explanation": "$f(x)=\\sqrt{|x-1|}$ 在 $x^*=1$ 左侧递减、右侧递增，所以是单峰的。但在 $[-1,1]$ 上图像位于弦（虚线）的上方，例如 $f(0)=1>\\tfrac12 f(-1)+\\tfrac12 f(1)\\approx0.707$，违反凸性定义。单峰不要求凸。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.5]\n  \\draw[->] (-1.3,0)--(3.4,0) node[below] {$x$};\n  \\draw[->] (-1.1,-0.2)--(-1.1,1.9) node[left] {$f(x)$};\n  \\draw[very thick,domain=-1:1,samples=120] plot (\\x,{sqrt(1-\\x)});\n  \\draw[very thick,domain=1:3,samples=120] plot (\\x,{sqrt(\\x-1)});\n  \\draw[dashed] (-1,1.414)--(1,0);\n  \\fill (1,0) circle (1.2pt) node[below] {$x^*=1$};\n  \\node[below] at (-1,0) {$-1$};\n  \\node[below] at (3,0) {$3$};\n  \\node at (1,1.75) {$f(x)=\\sqrt{|x-1|}$};\n\\end{tikzpicture}",
+        "caption": "Graph of f(x) = sqrt(|x-1|) on [-1, 3]. The dashed line is the chord joining the points of the graph at x = -1 and x = 1."
+      }
+    },
+    {
+      "id": "TF15",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Positive definite matrices",
+      "difficulty": 1,
+      "question": "A symmetric matrix is positive definite if and only if all of its eigenvalues are positive.",
+      "answer": true,
+      "explanation": "对称矩阵可正交对角化，$x^TAx=\\sum_i\\lambda_i y_i^2$（$y=Q^Tx$），它对所有 $x\\ne0$ 为正当且仅当全部 $\\lambda_i>0$。",
+      "figure": null
+    },
+    {
+      "id": "TF16",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Positive definite matrices",
+      "difficulty": 1,
+      "question": "A symmetric matrix whose entries are all positive is positive definite.",
+      "answer": false,
+      "explanation": "反例 $\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$：行列式为 $-3<0$，特征值为 $3$ 和 $-1$。正定性看特征值或顺序主子式，与元素符号无关。",
+      "figure": null
+    },
+    {
+      "id": "TF17",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Positive definite matrices",
+      "difficulty": 1,
+      "question": "The matrix $\\begin{pmatrix}1&2\\\\2&3\\end{pmatrix}$ is positive definite.",
+      "answer": false,
+      "explanation": "顺序主子式为 $1>0$ 和 $\\det=3-4=-1<0$，第二个不为正，矩阵不定。",
+      "figure": null
+    },
+    {
+      "id": "TF18",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 1,
+      "question": "If $f$ and $g$ are convex functions on $\\mathbb{R}^n$, then $f+g$ is convex.",
+      "answer": true,
+      "explanation": "把两个凸性不等式相加即可：$(f+g)(tx+(1-t)y)\\le t(f+g)(x)+(1-t)(f+g)(y)$。",
+      "figure": null
+    },
+    {
+      "id": "TF19",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 2,
+      "question": "If $f$ and $g$ are convex functions on $\\mathbb{R}$, then the product $fg$ is convex.",
+      "answer": false,
+      "explanation": "反例 $f(x)=x$、$g(x)=x^2$ 都是凸函数，但 $fg=x^3$ 的二阶导 $6x$ 在 $x<0$ 时为负，不是凸函数。",
+      "figure": null
+    },
+    {
+      "id": "TF20",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 1,
+      "question": "A differentiable convex function lies on or above each of its tangent planes: $f(y)\\ge f(x)+(y-x)^T\\nabla f(x)$ for all $x,y$.",
+      "answer": true,
+      "explanation": "这是可微凸函数的切平面刻画（讲义 Theorem 3.14），也是凸函数驻点即全局极小点的依据。",
+      "figure": null
+    },
+    {
+      "id": "TF21",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 1,
+      "question": "For a differentiable convex function on $\\mathbb{R}^n$, every stationary point is a global minimiser.",
+      "answer": true,
+      "explanation": "若 $\\nabla f(x^*)=0$，切平面不等式给出 $f(y)\\ge f(x^*)+(y-x^*)^T\\nabla f(x^*)=f(x^*)$ 对所有 $y$ 成立。",
+      "figure": null
+    },
+    {
+      "id": "TF22",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 2,
+      "question": "Every strictly convex function on $\\mathbb{R}$ has a minimiser.",
+      "answer": false,
+      "explanation": "反例 $f(x)=e^x$：$f''>0$，严格凸，但无极小点。严格凸只保证极小点若存在则唯一。",
+      "figure": null
+    },
+    {
+      "id": "TF23",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.2 Descend along gradients",
+      "topic": "Descent directions",
+      "difficulty": 1,
+      "question": "A vector $u$ is a descent direction for $f$ at $x$ if $u^T\\nabla f(x)<0$.",
+      "answer": true,
+      "explanation": "令 $g(t)=f(x+tu)$，则 $g'(0)=u^T\\nabla f(x)<0$，所以对足够小的 $t>0$ 有 $f(x+tu)<f(x)$。",
+      "figure": null
+    },
+    {
+      "id": "TF24",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Steepest descent",
+      "difficulty": 1,
+      "question": "In the steepest descent method with exact line searches, consecutive search directions are orthogonal.",
+      "answer": true,
+      "explanation": "精确线搜索使 $g'(\\lambda_k)=u^{(k)T}\\nabla f(x^{(k+1)})=0$，而 $u^{(k+1)}=-\\nabla f(x^{(k+1)})$，所以 $u^{(k)T}u^{(k+1)}=0$。这也是迭代呈锯齿形的原因。",
+      "figure": null
+    },
+    {
+      "id": "TF25",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Steepest descent",
+      "difficulty": 1,
+      "question": "For $f(x)=\\tfrac12x^TAx$ with $A=5I$, steepest descent with an exact line search reaches the minimiser in one iteration from any starting point.",
+      "answer": true,
+      "explanation": "此时条件数 $r=1$，收敛界 $\\left(\\frac{r-1}{r+1}\\right)^2=0$。直接计算：$u=-5x^{(0)}$，$\\lambda=\\frac{u^Tu}{u^TAu}=\\frac15$，$x^{(1)}=0$。等高线是圆，负梯度指向圆心。",
+      "figure": null
+    },
+    {
+      "id": "TF26",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Rate of convergence",
+      "difficulty": 1,
+      "question": "The larger the condition number of the Hessian $A$, the smaller (better) the guaranteed error-reduction factor $\\left(\\frac{r-1}{r+1}\\right)^2$ of steepest descent.",
+      "answer": false,
+      "explanation": "$\\left(\\frac{r-1}{r+1}\\right)^2$ 随 $r$ 增大而趋近 1。条件数越大，等高线越扁，最速下降的锯齿越严重，收敛越慢。",
+      "figure": null
+    },
+    {
+      "id": "TF27",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate directions",
+      "difficulty": 1,
+      "question": "If two non-zero vectors $u$ and $v$ are conjugate with respect to a positive definite matrix $A$, then $u^Tv=0$.",
+      "answer": false,
+      "explanation": "共轭的定义是 $u^TAv=0$，一般不蕴含 $u^Tv=0$。例如 $A=\\begin{pmatrix}1&-2\\\\-2&6\\end{pmatrix}$，$u=(1,0)^T$，$v=(2,1)^T$：$u^TAv=0$ 但 $u^Tv=2$。仅当 $A$ 是单位阵的倍数时两者等价。",
+      "figure": null
+    },
+    {
+      "id": "TF28",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate directions",
+      "difficulty": 2,
+      "question": "Non-zero vectors that are mutually conjugate with respect to a positive definite matrix are linearly independent.",
+      "answer": true,
+      "explanation": "设 $\\sum_i c_iu_i=0$，左乘 $u_j^TA$ 得 $c_j\\,u_j^TAu_j=0$，由正定性 $u_j^TAu_j>0$，故 $c_j=0$。因此 $\\mathbb{R}^n$ 中至多有 $n$ 个相互共轭的非零向量。",
+      "figure": null
+    },
+    {
+      "id": "TF29",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate gradient method",
+      "difficulty": 1,
+      "question": "In exact arithmetic, the conjugate gradient method minimises a strictly convex quadratic function of $n$ variables in at most $n$ steps.",
+      "answer": true,
+      "explanation": "搜索方向相互共轭，第 $k$ 步之后的迭代点是 $f$ 在 $x^{(0)}+\\mathrm{span}\\{u^{(0)},\\dots,u^{(k-1)}\\}$ 上的极小点，$n$ 个线性无关方向张成整个 $\\mathbb{R}^n$。",
+      "figure": null
+    },
+    {
+      "id": "TF30",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate gradient method",
+      "difficulty": 1,
+      "question": "The first search direction of the conjugate gradient method is the steepest descent direction $-\\nabla f(x^{(0)})$.",
+      "answer": true,
+      "explanation": "算法以 $u^{(0)}=-g^{(0)}$ 起步，之后用 $u^{(k+1)}=-g^{(k+1)}+\\beta_ku^{(k)}$ 修正，使新方向与之前的方向共轭。",
+      "figure": null
+    },
+    {
+      "id": "TF31",
+      "type": "true_false",
+      "unit": "C3",
+      "section": "3.5 Stochastic gradient algorithm",
+      "topic": "Stochastic gradient algorithm",
+      "difficulty": 1,
+      "question": "Every iteration of the stochastic gradient algorithm is guaranteed to decrease the objective $f(x)=\\frac1m\\sum_i f_i(x)$.",
+      "answer": false,
+      "explanation": "每步只沿某一个随机选中的 $-\\nabla f_i$ 走，它未必是 $f$ 的下降方向，步长也由经验规则给定，所以迭代点会波动，$f$ 可能上升。",
+      "figure": null
+    },
+    {
+      "id": "TF32",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 1,
+      "question": "The intersection of two convex sets is convex.",
+      "answer": true,
+      "explanation": "若 $x,y$ 同时属于两个凸集，则线段 $tx+(1-t)y$ 分别落在每个集合内，因而落在交集内。可行集 $\\{x:g_i(x)\\le0,\\ \\forall i\\}$ 的凸性就来自这一点。",
+      "figure": null
+    },
+    {
+      "id": "TF33",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 1,
+      "question": "The union $C_1\\cup C_2$ of the two discs shown in the figure is a convex set.",
+      "answer": false,
+      "explanation": "$p\\in C_1$、$q\\in C_2$，但连接它们的线段有一部分落在两个圆盘之外。凸集的并集一般不是凸集。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.1]\n  \\fill[black!15] (0,0) circle (1);\n  \\fill[black!15] (3.2,0) circle (1);\n  \\draw[thick] (0,0) circle (1);\n  \\draw[thick] (3.2,0) circle (1);\n  \\node at (0,-1.3) {$C_1$};\n  \\node at (3.2,-1.3) {$C_2$};\n  \\fill (0.4,0.3) circle (1.5pt) node[above] {$p$};\n  \\fill (2.8,0.3) circle (1.5pt) node[above] {$q$};\n  \\draw[dashed] (0.4,0.3)--(2.8,0.3);\n\\end{tikzpicture}",
+        "caption": "Two disjoint discs C1 and C2, with a point p in C1, a point q in C2 and the segment joining them."
+      }
+    },
+    {
+      "id": "TF34",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 1,
+      "question": "If $g:\\mathbb{R}^n\\to\\mathbb{R}$ is convex, then the set $\\{x: g(x)\\le0\\}$ is convex.",
+      "answer": true,
+      "explanation": "若 $g(x)\\le0$、$g(y)\\le0$，则 $g(tx+(1-t)y)\\le tg(x)+(1-t)g(y)\\le0$（讲义 Lemma 4.4）。",
+      "figure": null
+    },
+    {
+      "id": "TF35",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 1,
+      "question": "The set $\\{x\\in\\mathbb{R}^2: x_1^2+x_2^2=1\\}$ is convex.",
+      "answer": false,
+      "explanation": "$(1,0)$ 与 $(-1,0)$ 在圆周上，中点 $(0,0)$ 不在。非线性等式约束一般给出非凸可行集，只有线性等式约束保持凸性。",
+      "figure": null
+    },
+    {
+      "id": "TF36",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 1,
+      "question": "At a point satisfying the KKT conditions, the multiplier of every inactive inequality constraint is zero.",
+      "answer": true,
+      "explanation": "互补松弛条件 $\\lambda_ig_i(x^*)=0$：若 $g_i(x^*)<0$，必有 $\\lambda_i=0$。",
+      "figure": null
+    },
+    {
+      "id": "TF37",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Lagrange multipliers",
+      "difficulty": 1,
+      "question": "The Lagrange multiplier of an equality constraint $g(x)=0$ must be non-negative at a minimiser.",
+      "answer": false,
+      "explanation": "等式约束的乘子符号不受限制。$\\lambda_i\\ge0$ 只对不等式约束 $g_i(x)\\le0$ 要求。",
+      "figure": null
+    },
+    {
+      "id": "TF38",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "For a convex programming problem whose feasible region has a non-empty interior (Slater's condition), a feasible point is a global minimiser if and only if it satisfies the KKT conditions.",
+      "answer": true,
+      "explanation": "这是讲义 Theorem 4.12：$f$、$g_i$ 为凸且连续可微，$\\mathrm{int}\\,\\Omega\\ne\\emptyset$ 时，KKT 条件对全局极小点既必要又充分。",
+      "figure": null
+    },
+    {
+      "id": "TF39",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "For a non-convex problem, every point that satisfies the KKT conditions is a global minimiser.",
+      "answer": false,
+      "explanation": "非凸情形下 KKT 只是正则点（regular point）处局部极小的一阶必要条件（Theorem 4.19），满足 KKT 的点可以只是局部极小点，甚至不是极小点。",
+      "figure": null
+    },
+    {
+      "id": "TF40",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "Regular points",
+      "difficulty": 2,
+      "question": "A feasible point $x$ is called a regular point if the gradients $\\nabla g_i(x)$ of the active constraints are linearly independent.",
+      "answer": true,
+      "explanation": "这是讲义中 regular point 的定义。Theorem 4.19 要求局部极小点是正则点，才能保证 KKT 乘子存在。",
+      "figure": null
+    },
+    {
+      "id": "TF41",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 2,
+      "question": "In the gradient projection method, if the projected direction $u=-P\\nabla f(x)$ is zero, then $x$ is the minimiser.",
+      "answer": false,
+      "explanation": "$u=0$ 只说明 $-\\nabla f(x)=M^T\\omega$ 有解。还需检查 $\\omega\\ge0$：若全部非负则 KKT 成立；若某个 $\\omega_j<0$，应释放该活动约束后继续搜索。",
+      "figure": null
+    },
+    {
+      "id": "TF42",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Projection matrices",
+      "difficulty": 2,
+      "question": "The projection matrix $P=I-M^T(MM^T)^{-1}M$ satisfies $P^2=P$ and $P^T=P$.",
+      "answer": true,
+      "explanation": "令 $Q=M^T(MM^T)^{-1}M$，则 $Q^T=Q$ 且 $Q^2=Q$，于是 $P^T=P$，$P^2=I-2Q+Q^2=P$。$P$ 是到 $M$ 的零空间上的正交投影，并且 $MP=0$。",
+      "figure": null
+    },
+    {
+      "id": "TF43",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 1,
+      "question": "In the gradient projection method, if no constraint is active at the current point, the search direction is the steepest descent direction.",
+      "answer": true,
+      "explanation": "活动集为空时 $P=I$，$u=-\\nabla f(x)$。与无约束情形的差别在于步长要受最大可行步长 $\\beta$ 限制。",
+      "figure": null
+    },
+    {
+      "id": "TF44",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 2,
+      "question": "For linear constraints, the projected direction $u=-P\\nabla f(x)$ satisfies $Mu=0$, so the constraints that are active at $x$ remain active along the search line.",
+      "answer": true,
+      "explanation": "$MP=M-MM^T(MM^T)^{-1}M=0$，所以 $Mu=0$。对线性约束 $g_i(x)=a_i^Tx-b_i$，有 $g_i(x+\\lambda u)=g_i(x)+\\lambda a_i^Tu=0$。",
+      "figure": null
+    },
+    {
+      "id": "TF45",
+      "type": "true_false",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "Geometry of the KKT conditions",
+      "difficulty": 2,
+      "question": "In the figure, the constraints $g_1$ and $g_2$ are both active at $x^*$ and $-\\nabla f(x^*)$ lies inside the convex cone generated by $\\nabla g_1(x^*)$ and $\\nabla g_2(x^*)$. Hence $x^*$ satisfies the KKT conditions.",
+      "answer": true,
+      "explanation": "$-\\nabla f(x^*)$ 落在锥内等价于存在 $\\lambda_1,\\lambda_2\\ge0$ 使 $-\\nabla f(x^*)=\\lambda_1\\nabla g_1(x^*)+\\lambda_2\\nabla g_2(x^*)$，即驻点条件成立且乘子非负；两个约束都是活动的，互补松弛自动成立。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.3,>=Stealth]\n  \\fill[black!12] (0,0)--(-3,0)--(-3,-2.4)--(1.2,-2.4)--cycle;\n  \\draw[thick] (-3,0)--(1.6,0) node[right] {$g_1(x)=0$};\n  \\draw[thick] (1.2,-2.4)--(-0.8,1.6) node[left] {$g_2(x)=0$};\n  \\fill[black!30,opacity=0.6] (0,0)--(0,1.9)--(1.9,0.95)--cycle;\n  \\draw[->,thick] (0,0)--(0,1.5) node[above] {$\\nabla g_1(x^*)$};\n  \\draw[->,thick] (0,0)--(1.5,0.75) node[right] {$\\nabla g_2(x^*)$};\n  \\draw[->,very thick,dashed] (0,0)--(0.8,1.25) node[above right] {$-\\nabla f(x^*)$};\n  \\fill (0,0) circle (1.6pt) node[below left] {$x^*$};\n  \\node at (-1.6,-1.3) {feasible region $\\Omega$};\n\\end{tikzpicture}",
+        "caption": "A feasible region with two active constraints at x*. The darker wedge is the convex cone generated by the gradients of g1 and g2; the dashed arrow is -grad f(x*), which lies inside the cone."
+      }
+    },
+    {
+      "id": "TF46",
+      "type": "true_false",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 1,
+      "question": "Simulated annealing always accepts a proposed move that does not increase the objective function.",
+      "answer": true,
+      "explanation": "接受概率为 $\\min\\{1,\\exp(-\\Delta f/T)\\}$，当 $\\Delta f\\le0$ 时等于 1。",
+      "figure": null
+    },
+    {
+      "id": "TF47",
+      "type": "true_false",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 1,
+      "question": "In simulated annealing, the probability of accepting a move with $\\Delta f>0$ increases as the temperature $T$ decreases.",
+      "answer": false,
+      "explanation": "$\\exp(-\\Delta f/T)$ 随 $T$ 减小而减小。高温时容易接受上坡移动以跳出局部极小，低温时接近纯下降算法。",
+      "figure": null
+    },
+    {
+      "id": "TF48",
+      "type": "true_false",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 2,
+      "question": "Simulated annealing is guaranteed to find the global minimiser of any function after a fixed finite number of iterations.",
+      "answer": false,
+      "explanation": "模拟退火是随机启发式方法，接受上坡移动只是让它有机会离开局部极小，不提供有限步找到全局极小点的保证。实践中通常记录搜索过程中遇到的最好解。",
+      "figure": null
+    },
+    {
+      "id": "TF49",
+      "type": "true_false",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Genetic algorithms",
+      "difficulty": 1,
+      "question": "In a genetic algorithm, mutation helps maintain diversity in the population and so helps the search escape from local optima.",
+      "answer": true,
+      "explanation": "交叉只能重组种群中已有的基因；变异引入新的随机变化，防止整个种群落入同一个局部最优。",
+      "figure": null
+    },
+    {
+      "id": "TF50",
+      "type": "true_false",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Genetic algorithms",
+      "difficulty": 2,
+      "question": "In a Gray code, the code words of two consecutive integers differ in exactly one bit.",
+      "answer": true,
+      "explanation": "例如 3 位 Gray 码：000, 001, 011, 010, 110, 111, 101, 100。这样单个比特的变异对应相邻整数，而普通二进制中翻转高位会造成很大的跳变。",
+      "figure": null
+    },
+    {
+      "id": "MC01",
+      "type": "single_choice",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Classes of optimisation problems",
+      "difficulty": 1,
+      "question": "Which of the following is NOT a convex programming problem?",
+      "options": [
+        {
+          "label": "A",
+          "text": "minimise $3x_1+2x_2$ subject to $x_1+x_2\\le4$, $x_1\\ge0$, $x_2\\ge0$"
+        },
+        {
+          "label": "B",
+          "text": "minimise $x_1^2+x_2^2$ subject to $x_1+2x_2\\le1$"
+        },
+        {
+          "label": "C",
+          "text": "minimise $x_1+x_2$ subject to $x_1^2+x_2^2\\le1$"
+        },
+        {
+          "label": "D",
+          "text": "minimise $x_1+x_2$ subject to $x_1^2+x_2^2=1$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "D 的可行集是圆周，不是凸集。A 是线性规划，B 是凸二次规划，C 是在圆盘（凸集）上最小化线性函数，三者都是凸规划。",
+      "figure": null
+    },
+    {
+      "id": "MC02",
+      "type": "single_choice",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "The figure shows level curves of $f(x,y)=x^2-y^2$. The stationary point $(0,0)$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "a local minimiser"
+        },
+        {
+          "label": "B",
+          "text": "a local maximiser"
+        },
+        {
+          "label": "C",
+          "text": "a saddle point"
+        },
+        {
+          "label": "D",
+          "text": "not a stationary point"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$\\nabla f(0,0)=0$，Hessian 为 $\\mathrm{diag}(2,-2)$，特征值一正一负。沿 $x$ 轴 $f$ 增大，沿 $y$ 轴 $f$ 减小，等高线是双曲线。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.1]\n  \\draw[->] (-2.4,0)--(2.5,0) node[below] {$x$};\n  \\draw[->] (0,-2.4)--(0,2.5) node[left] {$y$};\n  \\clip (-2.3,-2.3) rectangle (2.3,2.3);\n  \\draw[dashed] (-2.3,-2.3)--(2.3,2.3);\n  \\draw[dashed] (-2.3,2.3)--(2.3,-2.3);\n  \\foreach \\c in {0.5,1.5,3} {\n    \\draw[thick,domain=-2.3:2.3,samples=80] plot ({sqrt(\\c+\\x*\\x)},\\x);\n    \\draw[thick,domain=-2.3:2.3,samples=80] plot ({-sqrt(\\c+\\x*\\x)},\\x);\n    \\draw[thick,black!45,domain=-2.3:2.3,samples=80] plot (\\x,{sqrt(\\c+\\x*\\x)});\n    \\draw[thick,black!45,domain=-2.3:2.3,samples=80] plot (\\x,{-sqrt(\\c+\\x*\\x)});\n  }\n  \\fill (0,0) circle (1.6pt);\n  \\node[fill=white,inner sep=1pt] at (1.55,0.28) {\\small $f>0$};\n  \\node[fill=white,inner sep=1pt] at (0.42,1.6) {\\small $f<0$};\n\\end{tikzpicture}",
+        "caption": "Level curves of f(x,y) = x^2 - y^2: black curves f = c > 0, grey curves f = c < 0, dashed lines f = 0."
+      }
+    },
+    {
+      "id": "MC03",
+      "type": "single_choice",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "At a stationary point $x^*$ of $f:\\mathbb{R}^2\\to\\mathbb{R}$ the Hessian has eigenvalues $2$ and $5$. Then $x^*$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "a strict local minimiser"
+        },
+        {
+          "label": "B",
+          "text": "a strict local maximiser"
+        },
+        {
+          "label": "C",
+          "text": "a saddle point"
+        },
+        {
+          "label": "D",
+          "text": "impossible to classify from this information"
+        }
+      ],
+      "answer": "A",
+      "explanation": "两个特征值都为正，Hessian 正定，$x^*$ 是严格局部极小点。",
+      "figure": null
+    },
+    {
+      "id": "MC04",
+      "type": "single_choice",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Existence of a minimum",
+      "difficulty": 1,
+      "question": "Which of the following functions has no minimiser on $\\mathbb{R}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$f(x)=e^{x}$"
+        },
+        {
+          "label": "B",
+          "text": "$f(x)=|x|$"
+        },
+        {
+          "label": "C",
+          "text": "$f(x)=x^2$"
+        },
+        {
+          "label": "D",
+          "text": "$f(x)=x^4-x^2$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$e^x>0$ 且当 $x\\to-\\infty$ 时趋于 0，下确界取不到。其余三个函数都有极小点：$0$、$0$、$\\pm1/\\sqrt2$。",
+      "figure": null
+    },
+    {
+      "id": "MC05",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "For the Golden Section search on $[a_0,b_0]=[0,1]$, the two interior points are",
+      "options": [
+        {
+          "label": "A",
+          "text": "$p_0=0.25,\\ q_0=0.75$"
+        },
+        {
+          "label": "B",
+          "text": "$p_0=0.382,\\ q_0=0.618$"
+        },
+        {
+          "label": "C",
+          "text": "$p_0=0.333,\\ q_0=0.667$"
+        },
+        {
+          "label": "D",
+          "text": "$p_0=0.5,\\ q_0=0.618$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$p_0=b_0-\\gamma(b_0-a_0)=1-0.618=0.382$，$q_0=a_0+\\gamma(b_0-a_0)=0.618$。",
+      "figure": null
+    },
+    {
+      "id": "MC06",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "In the first iteration of the Golden Section search shown in the figure, $f(p_0)=7.1$ and $f(q_0)=4.3$. The new bracketing interval is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$[0,\\ 3.82]$"
+        },
+        {
+          "label": "B",
+          "text": "$[0,\\ 6.18]$"
+        },
+        {
+          "label": "C",
+          "text": "$[3.82,\\ 10]$"
+        },
+        {
+          "label": "D",
+          "text": "$[3.82,\\ 6.18]$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$f(p_0)>f(q_0)$，对单峰函数极小点不可能在 $[a_0,p_0]$ 内，所以新区间为 $[p_0,b_0]=[3.82,10]$，长度 $6.18=10\\gamma$。下一轮 $q_0$ 成为新的 $p_1$。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.15]\n  \\draw[thick] (0,0)--(10,0);\n  \\foreach \\x/\\l in {0/{a_0=0},3.82/{p_0=3.82},6.18/{q_0=6.18},10/{b_0=10}} {\n    \\draw[thick] (\\x,0.15)--(\\x,-0.15);\n    \\node[below] at (\\x,-0.2) {$\\l$};\n  }\n  \\fill (3.82,0.9) circle (1.6pt) node[above] {$f(p_0)=7.1$};\n  \\fill (6.18,0.5) circle (1.6pt) node[above] {$f(q_0)=4.3$};\n  \\draw[dotted] (3.82,0)--(3.82,0.9);\n  \\draw[dotted] (6.18,0)--(6.18,0.5);\n\\end{tikzpicture}",
+        "caption": "First iteration of the Golden Section search on [0, 10], with f(p0) = 7.1 and f(q0) = 4.3."
+      }
+    },
+    {
+      "id": "MC07",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.2 Evaluating algorithms",
+      "topic": "Evaluating algorithms",
+      "difficulty": 1,
+      "question": "The Golden Section search performs $N$ iterations. How many function evaluations does it need?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$N$"
+        },
+        {
+          "label": "B",
+          "text": "$2N+1$"
+        },
+        {
+          "label": "C",
+          "text": "$2N$"
+        },
+        {
+          "label": "D",
+          "text": "$N+1$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "第一次迭代求两个内点的函数值，之后每次迭代只需一个新值：$M=2+(N-1)=N+1$。Dichotomous search 为 $M=2N+1$。",
+      "figure": null
+    },
+    {
+      "id": "MC08",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Dichotomous search",
+      "difficulty": 2,
+      "question": "The Dichotomous search starts from an interval of length $8$. How many function evaluations are needed to guarantee a final interval of length at most $0.5$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$4$"
+        },
+        {
+          "label": "B",
+          "text": "$5$"
+        },
+        {
+          "label": "C",
+          "text": "$8$"
+        },
+        {
+          "label": "D",
+          "text": "$9$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$8/2^N\\le0.5$ 得 $N=4$ 次迭代，函数求值次数 $M=2N+1=9$。",
+      "figure": null
+    },
+    {
+      "id": "MC09",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Dichotomous search",
+      "difficulty": 1,
+      "question": "One iteration of the Dichotomous search on $[0,8]$ gives the function values shown in the figure. The new bracketing interval is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$[0,4]$"
+        },
+        {
+          "label": "B",
+          "text": "$[4,8]$"
+        },
+        {
+          "label": "C",
+          "text": "$[2,6]$"
+        },
+        {
+          "label": "D",
+          "text": "$[0,2]$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$f(d)=5\\ge f(c)=3$ 且 $f(e)=4\\ge f(c)$，中点处最小，极小点在 $[d,e]=[2,6]$ 内。若 $f(d)<f(c)$ 取 $[a,c]$，若 $f(e)<f(c)$ 取 $[c,b]$。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.25]\n  \\draw[thick] (0,0)--(8,0);\n  \\foreach \\x/\\l in {0/{a=0},2/{d=2},4/{c=4},6/{e=6},8/{b=8}} {\n    \\draw[thick] (\\x,0.15)--(\\x,-0.15);\n    \\node[below] at (\\x,-0.2) {$\\l$};\n  }\n  \\fill (2,1.0) circle (1.6pt) node[above] {$f(d)=5$};\n  \\fill (4,0.6) circle (1.6pt) node[above] {$f(c)=3$};\n  \\fill (6,0.8) circle (1.6pt) node[above] {$f(e)=4$};\n  \\draw[dotted] (2,0)--(2,1.0);\n  \\draw[dotted] (4,0)--(4,0.6);\n  \\draw[dotted] (6,0)--(6,0.8);\n\\end{tikzpicture}",
+        "caption": "One iteration of the Dichotomous search on [0, 8] with midpoint c and quarter points d, e."
+      }
+    },
+    {
+      "id": "MC10",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 1,
+      "question": "Newton's method is applied to minimise $f(x)=x^3-12x$ starting from $x_0=3$. The next iterate $x_1$ is approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2.167$"
+        },
+        {
+          "label": "B",
+          "text": "$2.500$"
+        },
+        {
+          "label": "C",
+          "text": "$2.000$"
+        },
+        {
+          "label": "D",
+          "text": "$3.833$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$f'(x)=3x^2-12$，$f''(x)=6x$。$x_1=3-\\dfrac{f'(3)}{f''(3)}=3-\\dfrac{15}{18}=2.167$，正在向极小点 $x^*=2$ 靠近。",
+      "figure": null
+    },
+    {
+      "id": "MC11",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 2,
+      "question": "Each iteration of Newton's method for minimising $f$ is equivalent to",
+      "options": [
+        {
+          "label": "A",
+          "text": "minimising the linear Taylor approximation of $f$ at $x_k$"
+        },
+        {
+          "label": "B",
+          "text": "minimising the quadratic Taylor approximation of $f$ at $x_k$"
+        },
+        {
+          "label": "C",
+          "text": "minimising the quadratic that interpolates $f$ at three points"
+        },
+        {
+          "label": "D",
+          "text": "halving an interval that brackets the minimiser"
+        }
+      ],
+      "answer": "B",
+      "explanation": "二阶 Taylor 近似 $q(x)=f(x_k)+f'(x_k)(x-x_k)+\\tfrac12f''(x_k)(x-x_k)^2$ 的驻点正是 $x_k-f'(x_k)/f''(x_k)$。C 描述的是三点二次插值。",
+      "figure": null
+    },
+    {
+      "id": "MC12",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Secant method",
+      "difficulty": 1,
+      "question": "The order of convergence of the secant method is approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$"
+        },
+        {
+          "label": "B",
+          "text": "$0.618$"
+        },
+        {
+          "label": "C",
+          "text": "$2$"
+        },
+        {
+          "label": "D",
+          "text": "$1.618$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "割线法收敛阶为 $(1+\\sqrt5)/2\\approx1.618$，介于线性收敛与 Newton 法的二次收敛之间。",
+      "figure": null
+    },
+    {
+      "id": "MC13",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.1 Background",
+      "topic": "Higher-order derivative test",
+      "difficulty": 2,
+      "question": "Suppose $f'(x^*)=f''(x^*)=f'''(x^*)=f^{(4)}(x^*)=0$ and $f^{(5)}(x^*)\\ne0$. Then $x^*$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "a strict local minimiser"
+        },
+        {
+          "label": "B",
+          "text": "a strict local maximiser"
+        },
+        {
+          "label": "C",
+          "text": "a stationary point of inflection"
+        },
+        {
+          "label": "D",
+          "text": "a local minimiser only if $f^{(5)}(x^*)>0$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "第一个非零导数的阶数为奇数（5），$f(x^*+\\epsilon)-f(x^*)\\approx\\frac{\\epsilon^5}{5!}f^{(5)}(x^*)$ 随 $\\epsilon$ 变号，所以是拐点型驻点（讲义 Theorem 2.2）。",
+      "figure": null
+    },
+    {
+      "id": "MC14",
+      "type": "single_choice",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Quadratic interpolation",
+      "difficulty": 2,
+      "question": "The quadratic $q(x)=ax^2+bx+c$ interpolates the data $f(0)=4$, $f(1)=1$, $f(3)=1$. The minimiser of $q$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x=2$"
+        },
+        {
+          "label": "B",
+          "text": "$x=1.5$"
+        },
+        {
+          "label": "C",
+          "text": "$x=1$"
+        },
+        {
+          "label": "D",
+          "text": "$x=2.5$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$c=4$；$a+b=-3$；$9a+3b=-3$。解得 $a=1$，$b=-4$，$q(x)=x^2-4x+4$，极小点 $x=-b/(2a)=2$。",
+      "figure": null
+    },
+    {
+      "id": "MC15",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Positive definite matrices",
+      "difficulty": 1,
+      "question": "For which values of $a$ is the matrix $\\begin{pmatrix}1&a\\\\a&4\\end{pmatrix}$ positive definite?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$|a|<2$"
+        },
+        {
+          "label": "B",
+          "text": "$a<2$"
+        },
+        {
+          "label": "C",
+          "text": "$|a|\\le2$"
+        },
+        {
+          "label": "D",
+          "text": "$|a|<4$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "顺序主子式 $1>0$ 且 $\\det=4-a^2>0$，即 $|a|<2$。$|a|=2$ 时矩阵只是半正定。",
+      "figure": null
+    },
+    {
+      "id": "MC16",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Quadratic functions",
+      "difficulty": 1,
+      "question": "Let $q(x)=\\tfrac12x^TAx+b^Tx+c$ with $A$ symmetric positive definite. The minimiser of $q$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x^*=A^{-1}b$"
+        },
+        {
+          "label": "B",
+          "text": "$x^*=-\\tfrac12A^{-1}b$"
+        },
+        {
+          "label": "C",
+          "text": "$x^*=-Ab$"
+        },
+        {
+          "label": "D",
+          "text": "$x^*=-A^{-1}b$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\nabla q(x)=Ax+b=0$ 给出 $x^*=-A^{-1}b$。$A$ 正定保证 $q$ 严格凸，该驻点是唯一的全局极小点。",
+      "figure": null
+    },
+    {
+      "id": "MC17",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Gradients and Hessians",
+      "difficulty": 1,
+      "question": "The gradient of $f(x)=x_1^2+3x_1x_2+2x_2^2$ at the point $(1,1)$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(5,7)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$(2,4)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$(5,4)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$(3,7)^T$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\nabla f=(2x_1+3x_2,\\ 3x_1+4x_2)^T$，在 $(1,1)$ 处为 $(5,7)^T$。",
+      "figure": null
+    },
+    {
+      "id": "MC18",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 2,
+      "question": "The function $f(x)=x_1^2+3x_1x_2+2x_2^2$ on $\\mathbb{R}^2$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "strictly convex"
+        },
+        {
+          "label": "B",
+          "text": "convex but not strictly convex"
+        },
+        {
+          "label": "C",
+          "text": "concave"
+        },
+        {
+          "label": "D",
+          "text": "neither convex nor concave"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Hessian 为 $\\begin{pmatrix}2&3\\\\3&4\\end{pmatrix}$，行列式 $8-9=-1<0$，特征值一正一负。Hessian 不定，$f$ 既不凸也不凹，原点是鞍点。",
+      "figure": null
+    },
+    {
+      "id": "MC19",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 1,
+      "question": "Which of the following functions is convex on all of $\\mathbb{R}$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x^3$"
+        },
+        {
+          "label": "B",
+          "text": "$-x^2$"
+        },
+        {
+          "label": "C",
+          "text": "$e^{-x}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\sin x$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$(e^{-x})''=e^{-x}>0$。$x^3$ 的二阶导 $6x$ 在 $x<0$ 时为负；$-x^2$ 是凹函数；$\\sin x$ 的二阶导变号。",
+      "figure": null
+    },
+    {
+      "id": "MC20",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.2 Descend along gradients",
+      "topic": "Descent directions",
+      "difficulty": 1,
+      "question": "Let $f(x)=x_1^2+x_2^2$ and $x=(1,1)^T$. Which of the following is a descent direction at $x$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$u=(1,-1)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$u=(-1,0)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$u=(1,1)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$u=(2,-1)^T$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$\\nabla f(x)=(2,2)^T$。$u^T\\nabla f$ 依次为 $0$、$-2$、$4$、$2$，只有 B 满足 $u^T\\nabla f<0$。A 与梯度正交，沿等高线的切向，一阶上不下降。",
+      "figure": null
+    },
+    {
+      "id": "MC21",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Exact line search",
+      "difficulty": 2,
+      "question": "For $q(x)=\\tfrac12x^TAx+b^Tx$ with $A$ positive definite, the exact line search along the steepest descent direction $u=-\\nabla q(x)$ gives the step length",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\lambda=\\dfrac{u^TAu}{u^Tu}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\lambda=\\dfrac{u^Tu}{\\|Au\\|^2}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\lambda=\\dfrac{1}{u^TAu}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\lambda=\\dfrac{u^Tu}{u^TAu}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$g(\\lambda)=q(x+\\lambda u)$，$g'(\\lambda)=u^T\\nabla q(x)+\\lambda u^TAu=0$ 得 $\\lambda=-\\dfrac{u^T\\nabla q(x)}{u^TAu}$；代入 $u=-\\nabla q(x)$ 即 $\\dfrac{u^Tu}{u^TAu}$。",
+      "figure": null
+    },
+    {
+      "id": "MC22",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Rate of convergence",
+      "difficulty": 1,
+      "question": "Steepest descent with exact line searches is applied to $f(x)=\\tfrac12(x_1^2+9x_2^2)$. The bound on the error ratio $\\dfrac{f(x^{(k+1)})-f(x^*)}{f(x^{(k)})-f(x^*)}$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.80$"
+        },
+        {
+          "label": "B",
+          "text": "$0.64$"
+        },
+        {
+          "label": "C",
+          "text": "$0.11$"
+        },
+        {
+          "label": "D",
+          "text": "$0.36$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$A=\\mathrm{diag}(1,9)$，条件数 $r=9$，界为 $\\left(\\frac{r-1}{r+1}\\right)^2=\\left(\\frac{8}{10}\\right)^2=0.64$。",
+      "figure": null
+    },
+    {
+      "id": "MC23",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Steepest descent",
+      "difficulty": 2,
+      "question": "One iteration of steepest descent with an exact line search is applied to $f(x)=x_1^2+2x_2^2$ from $x^{(0)}=(2,1)^T$. The next iterate is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(0,0)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$(\\tfrac23,-\\tfrac13)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$(1,0)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$(\\tfrac43,\\tfrac13)^T$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$A=\\mathrm{diag}(2,4)$，$\\nabla f(x^{(0)})=(4,4)^T$，$u=(-4,-4)^T$。$\\lambda=\\dfrac{u^Tu}{u^TAu}=\\dfrac{32}{96}=\\dfrac13$，$x^{(1)}=(2,1)^T+\\tfrac13(-4,-4)^T=(\\tfrac23,-\\tfrac13)^T$。",
+      "figure": null
+    },
+    {
+      "id": "MC24",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Steepest descent versus conjugate gradient",
+      "difficulty": 2,
+      "question": "The figure shows level curves of a quadratic function of two variables and the iterates of two methods that start at $x^{(0)}$ and share their first step. Which statement is correct?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Path 1 is the conjugate gradient method and path 2 is steepest descent"
+        },
+        {
+          "label": "B",
+          "text": "Path 1 is steepest descent and path 2 is the conjugate gradient method"
+        },
+        {
+          "label": "C",
+          "text": "Both paths are steepest descent with different line searches"
+        },
+        {
+          "label": "D",
+          "text": "Path 2 is Newton's method applied along the $x_1$-axis"
+        }
+      ],
+      "answer": "B",
+      "explanation": "两种方法第一步都沿负梯度方向。最速下降之后的每一步与上一步正交，在狭长的等高线间来回折返（路径 1）；共轭梯度法的第二个方向与第一个方向关于 $A$ 共轭，对二元二次函数两步到达极小点（路径 2）。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=0.62,>=Stealth]\n  \\draw[->,black!60] (-10.2,0)--(10.6,0) node[below] {$x_1$};\n  \\draw[->,black!60] (0,-3.8)--(0,4.0) node[left] {$x_2$};\n  \\foreach \\c in {90,57.6,36.86,15,4}\n    \\draw[black!45] (0,0) ellipse ({sqrt(\\c)} and {sqrt(\\c)/3});\n  \\draw[very thick] (9,1)--(7.2,-0.8)--(5.76,0.64)--(4.608,-0.512)--(3.686,0.41)--(2.949,-0.328)--(2.359,0.262)--(1.887,-0.21)--(1.51,0.168);\n  \\draw[very thick,dashed] (7.2,-0.8)--(0,0);\n  \\fill (9,1) circle (3pt) node[above right] {$x^{(0)}$};\n  \\fill (7.2,-0.8) circle (3pt) node[below] {$x^{(1)}$};\n  \\fill (0,0) circle (3pt) node[above left] {$x^*$};\n  \\node at (4.2,1.5) {path 1 (solid)};\n  \\node at (3.0,-1.7) {path 2 (dashed)};\n\\end{tikzpicture}",
+        "caption": "Level curves of f(x) = (x1^2 + 9 x2^2)/2. Two methods start at x(0) = (9, 1) and share the first step to x(1). Path 1 (solid) continues in a zig-zag; path 2 (dashed) goes from x(1) straight to x*."
+      }
+    },
+    {
+      "id": "MC25",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate directions",
+      "difficulty": 1,
+      "question": "Let $A=\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}$ and $u=(1,0)^T$. Which vector $v$ is conjugate to $u$ with respect to $A$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$v=(0,1)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$v=(1,-2)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$v=(-1,3)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$v=(1,2)^T$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$Au=(2,1)^T$，需要 $v^TAu=2v_1+v_2=0$。四个选项的值依次为 $1$、$0$、$1$、$4$。",
+      "figure": null
+    },
+    {
+      "id": "MC26",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate gradient method",
+      "difficulty": 1,
+      "question": "In exact arithmetic, what is the maximum number of steps the conjugate gradient method needs to minimise a strictly convex quadratic function of $100$ variables?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2$"
+        },
+        {
+          "label": "B",
+          "text": "$10$"
+        },
+        {
+          "label": "C",
+          "text": "$100$"
+        },
+        {
+          "label": "D",
+          "text": "It depends on the condition number"
+        }
+      ],
+      "answer": "C",
+      "explanation": "至多 $n=100$ 步，与条件数无关。条件数影响的是最速下降的收敛速度，以及有限精度下 CG 的实际表现。",
+      "figure": null
+    },
+    {
+      "id": "MC27",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Fletcher-Reeves formula",
+      "difficulty": 1,
+      "question": "The Fletcher--Reeves formula for the conjugate gradient parameter is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\beta_k=\\dfrac{\\|g^{(k+1)}\\|^2}{\\|g^{(k)}\\|^2}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\beta_k=\\dfrac{\\|g^{(k)}\\|^2}{\\|g^{(k+1)}\\|^2}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\beta_k=\\dfrac{g^{(k+1)T}g^{(k)}}{\\|g^{(k)}\\|^2}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\beta_k=\\dfrac{u^{(k)T}Au^{(k)}}{\\|g^{(k)}\\|^2}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Fletcher–Reeves 公式只用梯度，不出现矩阵 $A$，因此可以用于一般的非二次函数。对二次函数它与 $\\beta_k=\\dfrac{g^{(k+1)T}Au^{(k)}}{u^{(k)T}Au^{(k)}}$ 取值相同。",
+      "figure": null
+    },
+    {
+      "id": "MC28",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate gradient method",
+      "difficulty": 1,
+      "question": "In the conjugate gradient method, with $g^{(k+1)}=\\nabla f(x^{(k+1)})$, the next search direction is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$u^{(k+1)}=-g^{(k+1)}$"
+        },
+        {
+          "label": "B",
+          "text": "$u^{(k+1)}=-g^{(k+1)}+\\beta_ku^{(k)}$"
+        },
+        {
+          "label": "C",
+          "text": "$u^{(k+1)}=g^{(k+1)}-\\beta_ku^{(k)}$"
+        },
+        {
+          "label": "D",
+          "text": "$u^{(k+1)}=-A^{-1}g^{(k+1)}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "新方向是负梯度加上一个旧方向的倍数，$\\beta_k$ 的取法使 $u^{(k+1)}$ 与 $u^{(k)}$ 关于 $A$ 共轭。A 是最速下降，D 是 Newton 方向。",
+      "figure": null
+    },
+    {
+      "id": "MC29",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.5 Stochastic gradient algorithm",
+      "topic": "Stochastic gradient algorithm",
+      "difficulty": 1,
+      "question": "For $f(x)=\\frac1m\\sum_{i=1}^mf_i(x)$, how does the cost of one iteration of the stochastic gradient algorithm compare with one full gradient evaluation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "It is about the same"
+        },
+        {
+          "label": "B",
+          "text": "It is about $1/m^2$ of the cost"
+        },
+        {
+          "label": "C",
+          "text": "It is about $m$ times the cost"
+        },
+        {
+          "label": "D",
+          "text": "It is about $1/m$ of the cost"
+        }
+      ],
+      "answer": "D",
+      "explanation": "随机梯度每步只计算一个 $\\nabla f_i$，完整梯度需要全部 $m$ 个。数据量很大时，这使它能以少得多的计算量得到中等精度的解。",
+      "figure": null
+    },
+    {
+      "id": "MC30",
+      "type": "single_choice",
+      "unit": "C3",
+      "section": "3.5 Stochastic gradient algorithm",
+      "topic": "Stochastic gradient algorithm",
+      "difficulty": 2,
+      "question": "In the stochastic gradient algorithm with a constant step length $\\lambda$ (as in the lecture example $f_1=(x+1)^2$, $f_2=(x-1)^2$), what is the effect of choosing a smaller $\\lambda$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Faster convergence and smaller fluctuations"
+        },
+        {
+          "label": "B",
+          "text": "Faster convergence but larger fluctuations"
+        },
+        {
+          "label": "C",
+          "text": "Slower convergence but smaller fluctuations about the minimiser"
+        },
+        {
+          "label": "D",
+          "text": "No effect on the fluctuations"
+        }
+      ],
+      "answer": "C",
+      "explanation": "该例中 $E[x_k]=(1-2\\lambda)^kx_0$，波动的方差趋于 $\\lambda/(1-\\lambda)$。$\\lambda$ 越小，波动越小，但因子 $1-2\\lambda$ 越接近 1，收敛越慢。所以通常先用中等步长再逐步减小（如 $\\lambda_k\\propto1/k$）。",
+      "figure": null
+    },
+    {
+      "id": "MC31",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 1,
+      "question": "Which of the shaded sets in the figure is convex?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A"
+        },
+        {
+          "label": "B",
+          "text": "B"
+        },
+        {
+          "label": "C",
+          "text": "C"
+        },
+        {
+          "label": "D",
+          "text": "D"
+        }
+      ],
+      "answer": "C",
+      "explanation": "C 中任意两点的连线都落在集合内。A 的连线会穿过中间的洞，B 的连线会穿过缺角，D 的连线会穿过月牙的凹陷部分。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.0]\n  % A: annulus\n  \\fill[black!25,even odd rule] (0,0) circle (1.1) (0,0) circle (0.45);\n  \\draw[thick] (0,0) circle (1.1);\n  \\draw[thick] (0,0) circle (0.45);\n  \\node at (0,-1.5) {A};\n  % B: L-shape\n  \\begin{scope}[xshift=3.1cm]\n    \\filldraw[thick,fill=black!25] (-1,-1)--(1,-1)--(1,-0.2)--(-0.2,-0.2)--(-0.2,1)--(-1,1)--cycle;\n    \\node at (0,-1.5) {B};\n  \\end{scope}\n  % C: convex pentagon\n  \\begin{scope}[xshift=6.2cm]\n    \\filldraw[thick,fill=black!25] (-1,-0.6)--(0.2,-1)--(1.1,-0.1)--(0.5,0.95)--(-0.7,0.8)--cycle;\n    \\node at (0,-1.5) {C};\n  \\end{scope}\n  % D: crescent\n  \\begin{scope}[xshift=9.3cm]\n    \\filldraw[thick,fill=black!25] (0.71818,0.8332) arc (49.24:310.76:1.1) arc (281.41:78.59:0.85) -- cycle;\n    \\node at (0,-1.5) {D};\n  \\end{scope}\n\\end{tikzpicture}",
+        "caption": "Four shaded sets in the plane: A is a ring (disc with a hole), B is an L-shaped region, C is a pentagon with all interior angles less than 180 degrees, D is a crescent."
+      }
+    },
+    {
+      "id": "MC32",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Convex sets",
+      "difficulty": 2,
+      "question": "Which of the following subsets of $\\mathbb{R}^2$ is convex?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\{x: x_1^2+x_2^2\\ge1\\}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\{x: x_1x_2\\ge1\\}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\{x: |x_1|+|x_2|\\le1\\}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\{x: x_2=x_1^2\\}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$g(x)=|x_1|+|x_2|-1$ 是凸函数，其下水平集 $\\{g\\le0\\}$ 是凸集（一个菱形）。A 是圆盘的外部；B 由第一、三象限的两支组成，$(1,1)$ 与 $(-1,-1)$ 的中点不在其中；D 是抛物线，弦不在曲线上。",
+      "figure": null
+    },
+    {
+      "id": "MC33",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Standard form",
+      "difficulty": 1,
+      "question": "In the standard form $g(x)\\le0$, the constraint $x_1+x_2\\ge2$ is written with",
+      "options": [
+        {
+          "label": "A",
+          "text": "$g(x)=x_1+x_2-2$"
+        },
+        {
+          "label": "B",
+          "text": "$g(x)=-2-x_1-x_2$"
+        },
+        {
+          "label": "C",
+          "text": "$g(x)=x_1+x_2+2$"
+        },
+        {
+          "label": "D",
+          "text": "$g(x)=2-x_1-x_2$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$x_1+x_2\\ge2\\iff2-x_1-x_2\\le0$。",
+      "figure": null
+    },
+    {
+      "id": "MC34",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Active constraints",
+      "difficulty": 1,
+      "question": "Consider the constraints $g_1(x)=x_1+x_2-2\\le0$, $g_2(x)=-x_1\\le0$, $g_3(x)=x_1-1\\le0$. The set of active constraints at $x=(1,1)^T$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$I(x)=\\{1,3\\}$"
+        },
+        {
+          "label": "B",
+          "text": "$I(x)=\\{1,2\\}$"
+        },
+        {
+          "label": "C",
+          "text": "$I(x)=\\{1\\}$"
+        },
+        {
+          "label": "D",
+          "text": "$I(x)=\\{1,2,3\\}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$g_1(1,1)=0$，$g_2(1,1)=-1<0$，$g_3(1,1)=0$。活动约束是取等号的约束，即 $\\{1,3\\}$。",
+      "figure": null
+    },
+    {
+      "id": "MC35",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Lagrange multipliers",
+      "difficulty": 2,
+      "question": "Minimise $f(x)=x_1^2+x_2^2$ subject to $x_1+x_2=2$, using $h(x,\\lambda)=f(x)+\\lambda(x_1+x_2-2)$. The Lagrange multiplier at the minimiser is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\lambda=-2$"
+        },
+        {
+          "label": "B",
+          "text": "$\\lambda=2$"
+        },
+        {
+          "label": "C",
+          "text": "$\\lambda=-1$"
+        },
+        {
+          "label": "D",
+          "text": "$\\lambda=1$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$2x_1+\\lambda=0$，$2x_2+\\lambda=0$，所以 $x_1=x_2=-\\lambda/2$；代入约束得 $-\\lambda=2$，$\\lambda=-2$，$x^*=(1,1)^T$。",
+      "figure": null
+    },
+    {
+      "id": "MC36",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Shadow prices",
+      "difficulty": 2,
+      "question": "Consider minimising $x_1^2+x_2^2$ subject to $x_1+x_2=c$. For $c=2$ the multiplier in $h=f+\\lambda(x_1+x_2-c)$ is $\\lambda=-2$. If the right-hand side is increased from $c=2$ to $c=2.1$, the minimum value changes by approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "$+0.2$"
+        },
+        {
+          "label": "B",
+          "text": "$-0.2$"
+        },
+        {
+          "label": "C",
+          "text": "$+0.1$"
+        },
+        {
+          "label": "D",
+          "text": "$0$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "对约束 $g(x)=c$ 与 $h=f+\\lambda(g(x)-c)$，最优值的变化率为 $\\dfrac{df^*}{dc}=-\\lambda=2$，所以变化约为 $2\\times0.1=0.2$。精确值：$f^*(c)=c^2/2$，$f^*(2.1)-f^*(2)=0.205$。",
+      "figure": null
+    },
+    {
+      "id": "MC37",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 1,
+      "question": "Which of the following is NOT one of the KKT conditions for minimising $f(x)$ subject to $g_i(x)\\le0$, $i=1,\\dots,m$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\lambda_i\\ge0$ for all $i$"
+        },
+        {
+          "label": "B",
+          "text": "$\\lambda_ig_i(x^*)=0$ for all $i$"
+        },
+        {
+          "label": "C",
+          "text": "$g_i(x^*)\\le0$ for all $i$"
+        },
+        {
+          "label": "D",
+          "text": "$\\nabla g_i(x^*)=0$ for all $i$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "KKT 条件为：$\\nabla f(x^*)+\\sum_i\\lambda_i\\nabla g_i(x^*)=0$、互补松弛、可行性、乘子非负。并不要求约束函数的梯度为零。",
+      "figure": null
+    },
+    {
+      "id": "MC38",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "Minimise $f(x)=(x_1-2)^2+(x_2-1)^2$ subject to $x_1+x_2\\le2$. The minimiser is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(2,1)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$(1,1)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$(1.5,0.5)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$(2,0)^T$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "无约束极小点 $(2,1)$ 不可行（$3>2$），所以约束是活动的。驻点条件 $2(x_1-2)+\\lambda=0$，$2(x_2-1)+\\lambda=0$ 给出 $x_1-x_2=1$，与 $x_1+x_2=2$ 联立得 $x^*=(1.5,0.5)^T$，$\\lambda=1\\ge0$。",
+      "figure": null
+    },
+    {
+      "id": "MC39",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "Minimise $f(x)=x_1^2+x_2^2$ subject to $x_1+x_2\\le2$. At the minimiser, the KKT multiplier of the constraint is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\lambda=0$"
+        },
+        {
+          "label": "B",
+          "text": "$\\lambda=1$"
+        },
+        {
+          "label": "C",
+          "text": "$\\lambda=2$"
+        },
+        {
+          "label": "D",
+          "text": "$\\lambda=-2$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "无约束极小点 $(0,0)$ 满足 $0\\le2$，是可行的内点，所以约束不活动，由互补松弛 $\\lambda=0$。与等式约束 $x_1+x_2=2$ 的情形（$\\lambda=-2$）不同。",
+      "figure": null
+    },
+    {
+      "id": "MC40",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "While solving the KKT conditions for a convex problem, the case with active set $I=\\{1,2\\}$ gives a feasible point with $\\lambda_1=3$ and $\\lambda_2=-1$. What do you conclude?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The point is the minimiser, with multipliers $3$ and $-1$"
+        },
+        {
+          "label": "B",
+          "text": "The point is not the minimiser; this case is rejected"
+        },
+        {
+          "label": "C",
+          "text": "The problem has no minimiser"
+        },
+        {
+          "label": "D",
+          "text": "The point is a maximiser"
+        }
+      ],
+      "answer": "B",
+      "explanation": "不等式约束的乘子必须非负，$\\lambda_2<0$ 说明这一活动集假设下 KKT 不成立，应检查其他活动集。负乘子也提示放开约束 2 后目标函数可以继续下降。",
+      "figure": null
+    },
+    {
+      "id": "MC41",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "Slater's condition",
+      "difficulty": 1,
+      "question": "Slater's condition for the feasible region $\\Omega=\\{x: g_i(x)\\le0,\\ i=1,\\dots,m\\}$ requires that",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\Omega$ is bounded"
+        },
+        {
+          "label": "B",
+          "text": "the objective function is quadratic"
+        },
+        {
+          "label": "C",
+          "text": "all constraints are active at the minimiser"
+        },
+        {
+          "label": "D",
+          "text": "$\\Omega$ has a non-empty interior"
+        }
+      ],
+      "answer": "D",
+      "explanation": "即存在一点使所有 $g_i(x)<0$。在该条件下，凸规划的 KKT 条件对全局极小点既必要又充分（Theorem 4.12）。",
+      "figure": null
+    },
+    {
+      "id": "MC42",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "Geometry of the KKT conditions",
+      "difficulty": 2,
+      "question": "In the figure both constraints are active at the feasible point $p$, and $-\\nabla f(p)$ lies outside the convex cone generated by $\\nabla g_1(p)$ and $\\nabla g_2(p)$. Which statement is correct?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$p$ satisfies the KKT conditions with $\\lambda_1,\\lambda_2>0$"
+        },
+        {
+          "label": "B",
+          "text": "$p$ is the minimiser because both constraints are active"
+        },
+        {
+          "label": "C",
+          "text": "$p$ does not satisfy the KKT conditions, and a feasible descent direction exists at $p$"
+        },
+        {
+          "label": "D",
+          "text": "Nothing can be concluded without the Hessian of $f$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$-\\nabla f(p)$ 不在锥内，说明不存在非负的 $\\lambda_1,\\lambda_2$ 使驻点条件成立。由 Farkas 引理，存在方向 $d$ 满足 $\\nabla g_i(p)^Td\\le0$ 且 $\\nabla f(p)^Td<0$，即可行下降方向。图中 $-\\nabla f(p)$ 位于 $\\nabla g_2$ 方向的下方，对应 $g_1$ 的乘子为负。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.3,>=Stealth]\n  \\fill[black!12] (0,0)--(-3,0)--(-3,-2.4)--(1.2,-2.4)--cycle;\n  \\draw[thick] (-3,0)--(1.6,0) node[right] {$g_1(x)=0$};\n  \\draw[thick] (1.2,-2.4)--(-0.8,1.6) node[left] {$g_2(x)=0$};\n  \\fill[black!30,opacity=0.6] (0,0)--(0,1.9)--(1.9,0.95)--cycle;\n  \\draw[->,thick] (0,0)--(0,1.5) node[above] {$\\nabla g_1(p)$};\n  \\draw[->,thick] (0,0)--(1.5,0.75) node[above right] {$\\nabla g_2(p)$};\n  \\draw[->,very thick,dashed] (0,0)--(1.7,-0.45) node[below right] {$-\\nabla f(p)$};\n  \\fill (0,0) circle (1.6pt) node[below left] {$p$};\n  \\node at (-1.6,-1.3) {feasible region $\\Omega$};\n\\end{tikzpicture}",
+        "caption": "A feasible region with two active constraints at p. The darker wedge is the convex cone generated by the gradients of g1 and g2; the dashed arrow is -grad f(p), which lies outside the cone (below the direction of grad g2)."
+      }
+    },
+    {
+      "id": "MC43",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Projection matrices",
+      "difficulty": 1,
+      "question": "For a single active constraint with $M=\\begin{pmatrix}1&1\\end{pmatrix}$, the projection matrix $P=I-M^T(MM^T)^{-1}M$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\dfrac12\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\dfrac12\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$MM^T=2$，$M^T(MM^T)^{-1}M=\\tfrac12\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$，所以 $P=\\tfrac12\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$。A 是到 $(1,1)^T$ 方向的投影，不是到零空间的投影。",
+      "figure": null
+    },
+    {
+      "id": "MC44",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 1,
+      "question": "At the current point the only active constraint is $x_2-3\\le0$, so $M=\\begin{pmatrix}0&1\\end{pmatrix}$, and $\\nabla f(x)=(2,-3)^T$. The projected search direction $u=-P\\nabla f(x)$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(-2,3)^T$"
+        },
+        {
+          "label": "B",
+          "text": "$(0,3)^T$"
+        },
+        {
+          "label": "C",
+          "text": "$(-2,0)^T$"
+        },
+        {
+          "label": "D",
+          "text": "$(2,0)^T$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$P=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$，$u=-P\\nabla f=(-2,0)^T$。负梯度 $(-2,3)^T$ 的第二个分量指向可行域之外，被投影去掉。",
+      "figure": null
+    },
+    {
+      "id": "MC45",
+      "type": "single_choice",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 2,
+      "question": "From $x=(1,0)^T$ the search direction is $u=(1,1)^T$. The only inactive constraint is $x_1+2x_2\\le7$. The largest feasible step length $\\beta$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\beta=1$"
+        },
+        {
+          "label": "B",
+          "text": "$\\beta=2$"
+        },
+        {
+          "label": "C",
+          "text": "$\\beta=3$"
+        },
+        {
+          "label": "D",
+          "text": "$\\beta=6$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$x+\\lambda u=(1+\\lambda,\\lambda)^T$，约束变为 $1+\\lambda+2\\lambda\\le7$，即 $\\lambda\\le2$。线搜索只能在 $(0,\\beta]$ 上进行。",
+      "figure": null
+    },
+    {
+      "id": "MC46",
+      "type": "single_choice",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 1,
+      "question": "In simulated annealing with acceptance probability $\\min\\{1,\\exp(-\\Delta f/T)\\}$, a proposed move has $\\Delta f=2$ and the temperature is $T=1$. The probability of accepting the move is approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0$"
+        },
+        {
+          "label": "B",
+          "text": "$1$"
+        },
+        {
+          "label": "C",
+          "text": "$0.5$"
+        },
+        {
+          "label": "D",
+          "text": "$0.135$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\exp(-2/1)=e^{-2}\\approx0.135$。",
+      "figure": null
+    },
+    {
+      "id": "MC47",
+      "type": "single_choice",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Local and global minima",
+      "difficulty": 2,
+      "question": "A descent method that only accepts steps which decrease $f$, and takes small steps, is started at $x_0$ for the function in the figure. To which point does it converge?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The global minimiser $x_G$"
+        },
+        {
+          "label": "B",
+          "text": "The local minimiser $x_L$"
+        },
+        {
+          "label": "C",
+          "text": "It alternates between $x_L$ and $x_G$"
+        },
+        {
+          "label": "D",
+          "text": "It does not converge"
+        }
+      ],
+      "answer": "B",
+      "explanation": "从 $x_0$ 沿下坡方向只能到达最近的谷底 $x_L$。要到达 $x_G$ 必须先翻过中间的峰，纯下降方法做不到；这正是多次随机起点、模拟退火等方法要解决的问题。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[xscale=1.3,yscale=1.0]\n  \\draw[->] (1.0,-1.5)--(8.4,-1.5) node[below] {$x$};\n  \\draw[->] (1.2,-1.7)--(1.2,3.7) node[left] {$f(x)$};\n  \\draw[very thick,domain=1.35:7.9,samples=200] plot (\\x,{0.1*(\\x-6.28)*(\\x-6.28)-cos(2*\\x r)});\n  \\fill (2.2,1.972) circle (2pt) node[right] {$x_0$};\n  \\fill (3.293,-0.062) circle (2pt) node[below] {$x_L$};\n  \\fill (6.283,-1.0) circle (2pt) node[below] {$x_G$};\n  \\draw[dotted] (2.2,-1.5)--(2.2,1.972);\n\\end{tikzpicture}",
+        "caption": "A function of one variable with several local minima. The starting point x0 lies on the downhill slope to the left of the local minimiser x_L; the global minimiser is x_G."
+      }
+    },
+    {
+      "id": "MC48",
+      "type": "single_choice",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Genetic algorithms",
+      "difficulty": 1,
+      "question": "In a genetic algorithm, which operator combines parts of the chromosomes of two parents to produce an offspring?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mutation"
+        },
+        {
+          "label": "B",
+          "text": "Selection"
+        },
+        {
+          "label": "C",
+          "text": "Crossover"
+        },
+        {
+          "label": "D",
+          "text": "Elitism"
+        }
+      ],
+      "answer": "C",
+      "explanation": "交叉（crossover）重组两个父代的染色体。变异对后代做小的随机改动，选择决定哪些个体成为父代，精英保留把最好的个体直接带入下一代。",
+      "figure": null
+    },
+    {
+      "id": "MC49",
+      "type": "single_choice",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Genetic algorithms",
+      "difficulty": 1,
+      "question": "Single-point crossover is applied to Parent 1 $=110010$ and Parent 2 $=011101$, with the crossover point after the third bit (the offspring takes the first part from Parent 1). The offspring is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$110101$"
+        },
+        {
+          "label": "B",
+          "text": "$011010$"
+        },
+        {
+          "label": "C",
+          "text": "$110010$"
+        },
+        {
+          "label": "D",
+          "text": "$111111$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "取 Parent 1 的前三位 $110$ 和 Parent 2 的后三位 $101$，得到 $110101$。",
+      "figure": null
+    },
+    {
+      "id": "MC50",
+      "type": "single_choice",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Genetic algorithms",
+      "difficulty": 1,
+      "question": "In a genetic algorithm, elitism means",
+      "options": [
+        {
+          "label": "A",
+          "text": "selecting parents with probability proportional to fitness"
+        },
+        {
+          "label": "B",
+          "text": "copying a small number of the best individuals unchanged into the next generation"
+        },
+        {
+          "label": "C",
+          "text": "flipping each bit of an offspring with a small probability"
+        },
+        {
+          "label": "D",
+          "text": "encoding the variables with a Gray code"
+        }
+      ],
+      "answer": "B",
+      "explanation": "精英保留确保已找到的最好解不会因交叉和变异而丢失。A 是轮盘赌选择，C 是变异，D 是编码方式。",
+      "figure": null
+    },
+    {
+      "id": "FB01",
+      "type": "fill_blank",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "The stationary points of $f(x)=x^3-3x$ are $x=$ ____ (the local maximiser) and $x=$ ____ (the local minimiser).",
+      "answer": [
+        "-1",
+        "1"
+      ],
+      "explanation": "$f'(x)=3x^2-3=0$ 得 $x=\\pm1$。$f''(x)=6x$：$f''(-1)=-6<0$ 为极大点，$f''(1)=6>0$ 为极小点。",
+      "figure": null
+    },
+    {
+      "id": "FB02",
+      "type": "fill_blank",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "The stationary point of $f(x,y)=x^2+xy+y^2-3x$ is $(x,y)=$ ____.",
+      "answer": [
+        "(2, -1)"
+      ],
+      "explanation": "$\\nabla f=(2x+y-3,\\ x+2y)^T=0$。由第二式 $x=-2y$，代入第一式得 $-3y=3$，所以 $y=-1$，$x=2$。Hessian $\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ 正定，这是全局极小点。",
+      "figure": null
+    },
+    {
+      "id": "FB03",
+      "type": "fill_blank",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Stationary points",
+      "difficulty": 1,
+      "question": "A stationary point at which the Hessian has both positive and negative eigenvalues is called a ____ point.",
+      "answer": [
+        "saddle"
+      ],
+      "explanation": "在鞍点处，$f$ 沿某些方向增大、沿另一些方向减小。",
+      "figure": null
+    },
+    {
+      "id": "FB04",
+      "type": "fill_blank",
+      "unit": "C1",
+      "section": "1.1 Optimisation",
+      "topic": "Classes of optimisation problems",
+      "difficulty": 1,
+      "question": "A problem with a quadratic objective function and linear constraints is called a ____ program.",
+      "answer": [
+        "quadratic"
+      ],
+      "explanation": "二次规划（QP）。当目标函数的 Hessian 半正定时，它是凸规划的特例；线性规划又是二次项为零时的特例。",
+      "figure": null
+    },
+    {
+      "id": "FB05",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "The Golden Section search uses the ratio $\\gamma=(\\sqrt5-1)/2\\approx$ ____ (three decimal places).",
+      "answer": [
+        "0.618"
+      ],
+      "explanation": "$\\gamma=(2.2361-1)/2=0.618$。每次迭代区间长度乘以 $\\gamma$。",
+      "figure": null
+    },
+    {
+      "id": "FB06",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "The golden ratio $\\gamma$ satisfies $\\gamma^2+\\gamma=$ ____.",
+      "answer": [
+        "1"
+      ],
+      "explanation": "$\\gamma$ 是 $\\gamma^2+\\gamma-1=0$ 的正根。等价地 $\\gamma^2=1-\\gamma$，这保证旧内点在新区间里仍处于黄金分割位置，其函数值可以复用。",
+      "figure": null
+    },
+    {
+      "id": "FB07",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "For the Golden Section search on $[a_0,b_0]=[2,7]$ with $\\gamma=0.618$, the interior points are $p_0=$ ____ and $q_0=$ ____.",
+      "answer": [
+        "3.91",
+        "5.09"
+      ],
+      "explanation": "$\\gamma(b_0-a_0)=0.618\\times5=3.09$。$p_0=b_0-3.09=3.91$，$q_0=a_0+3.09=5.09$。",
+      "figure": null
+    },
+    {
+      "id": "FB08",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 1,
+      "question": "After $N$ iterations of the Golden Section search starting from $[a_0,b_0]$, the length of the bracketing interval is $(b_0-a_0)\\times$ ____.",
+      "answer": [
+        "$\\gamma^N$"
+      ],
+      "explanation": "每次迭代长度乘以 $\\gamma$，所以达到长度 $\\ell$ 需要 $N=\\left\\lceil\\dfrac{\\log(\\ell/(b_0-a_0))}{\\log\\gamma}\\right\\rceil$ 次迭代。",
+      "figure": null
+    },
+    {
+      "id": "FB09",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Dichotomous search",
+      "difficulty": 2,
+      "question": "The Dichotomous search starts from $[0,16]$ and must produce a final interval of length at most $1$. It needs $N=$ ____ iterations and $M=$ ____ function evaluations.",
+      "answer": [
+        "4",
+        "9"
+      ],
+      "explanation": "$16/2^N\\le1$ 得 $N=4$，$M=2N+1=9$。",
+      "figure": null
+    },
+    {
+      "id": "FB10",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Golden Section search",
+      "difficulty": 2,
+      "question": "Using $\\gamma^4\\approx0.146$ and $\\gamma^5\\approx0.090$, the Golden Section search needs $N=$ ____ iterations and ____ function evaluations to reduce the interval $[0,1]$ to length at most $0.1$.",
+      "answer": [
+        "5",
+        "6"
+      ],
+      "explanation": "需要 $\\gamma^N\\le0.1$：$\\gamma^4=0.146>0.1$，$\\gamma^5=0.090\\le0.1$，所以 $N=5$，函数求值 $N+1=6$ 次。",
+      "figure": null
+    },
+    {
+      "id": "FB11",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 1,
+      "question": "Newton's method for minimising $f$ uses the iteration $x_{k+1}=x_k-$ ____.",
+      "answer": [
+        "$f'(x_k)/f''(x_k)$"
+      ],
+      "explanation": "它是对方程 $f'(x)=0$ 应用 Newton 求根法，等价于每步最小化 $f$ 在 $x_k$ 处的二阶 Taylor 近似。",
+      "figure": null
+    },
+    {
+      "id": "FB12",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Newton's method",
+      "difficulty": 2,
+      "question": "Newton's method is applied to minimise $f(x)=x^2-\\ln x$ starting from $x_0=1$. The next iterate is $x_1=$ ____.",
+      "answer": [
+        "2/3"
+      ],
+      "explanation": "$f'(x)=2x-\\dfrac1x$，$f''(x)=2+\\dfrac1{x^2}$。$f'(1)=1$，$f''(1)=3$，$x_1=1-\\tfrac13=\\tfrac23$。极小点为 $1/\\sqrt2\\approx0.707$。",
+      "figure": null
+    },
+    {
+      "id": "FB13",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.4 Quadratic approximation algorithms",
+      "topic": "Secant method",
+      "difficulty": 2,
+      "question": "The secant method is applied to minimise $f(x)=\\tfrac13x^3-2x$ with $x_0=0$ and $x_1=1$. The next iterate is $x_2=$ ____.",
+      "answer": [
+        "2"
+      ],
+      "explanation": "$f'(x)=x^2-2$，$f'(0)=-2$，$f'(1)=-1$。$x_2=x_1-f'(x_1)\\dfrac{x_1-x_0}{f'(x_1)-f'(x_0)}=1-(-1)\\dfrac{1}{1}=2$。",
+      "figure": null
+    },
+    {
+      "id": "FB14",
+      "type": "fill_blank",
+      "unit": "C2",
+      "section": "2.3 Direct search algorithms",
+      "topic": "Geometric search for bounds",
+      "difficulty": 2,
+      "question": "The geometric search for bounds starts at $x_0=0$ with initial step $h=1$, so $x_1=1$, and the function keeps decreasing. With the step doubled each time, the next two points are $x_2=$ ____ and $x_3=$ ____.",
+      "answer": [
+        "3",
+        "7"
+      ],
+      "explanation": "$x_{k+1}=x_k+2(x_k-x_{k-1})$：步长依次为 $1,2,4$，得到 $0,1,3,7$。当函数值首次上升时，取 $[x_{k-1},x_{k+1}]$ 为包含极小点的区间。",
+      "figure": null
+    },
+    {
+      "id": "FB15",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Quadratic functions",
+      "difficulty": 1,
+      "question": "Writing $f(x)=x_1^2+4x_1x_2+5x_2^2-2x_1$ as $\\tfrac12x^TAx+b^Tx$ with $A$ symmetric gives $A=$ ____ and $b=$ ____.",
+      "answer": [
+        "[[2, 4], [4, 10]]",
+        "(-2, 0)"
+      ],
+      "explanation": "$\\tfrac12x^TAx=\\tfrac12A_{11}x_1^2+A_{12}x_1x_2+\\tfrac12A_{22}x_2^2$，对比系数得 $A_{11}=2$，$A_{12}=4$，$A_{22}=10$；线性项给出 $b=(-2,0)^T$。",
+      "figure": null
+    },
+    {
+      "id": "FB16",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Positive definite matrices",
+      "difficulty": 1,
+      "question": "The eigenvalues of $\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ are ____ and ____ (smaller first).",
+      "answer": [
+        "1",
+        "3"
+      ],
+      "explanation": "$(2-\\mu)^2-1=0$ 得 $\\mu=1,3$。两者均为正，矩阵正定，条件数为 3。",
+      "figure": null
+    },
+    {
+      "id": "FB17",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Condition number",
+      "difficulty": 1,
+      "question": "The condition number of $A=\\mathrm{diag}(2,8,4)$ is $r=$ ____.",
+      "answer": [
+        "4"
+      ],
+      "explanation": "对称正定矩阵的条件数是最大与最小特征值之比：$r=8/2=4$。",
+      "figure": null
+    },
+    {
+      "id": "FB18",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Rate of convergence",
+      "difficulty": 1,
+      "question": "If the Hessian of a quadratic has condition number $r=3$, each iteration of steepest descent with an exact line search reduces the error $f(x^{(k)})-f(x^*)$ by at least the factor ____.",
+      "answer": [
+        "1/4"
+      ],
+      "explanation": "$\\left(\\dfrac{r-1}{r+1}\\right)^2=\\left(\\dfrac24\\right)^2=\\dfrac14$。",
+      "figure": null
+    },
+    {
+      "id": "FB19",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Quadratic functions",
+      "difficulty": 1,
+      "question": "The minimiser of $q(x)=\\tfrac12x^TAx+b^Tx$ with $A=\\begin{pmatrix}2&0\\\\0&4\\end{pmatrix}$ and $b=(-4,8)^T$ is $x^*=$ ____.",
+      "answer": [
+        "(2, -2)"
+      ],
+      "explanation": "$Ax^*=-b=(4,-8)^T$，所以 $x^*=(2,-2)^T$。",
+      "figure": null
+    },
+    {
+      "id": "FB20",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Gradients and Hessians",
+      "difficulty": 1,
+      "question": "The Hessian of $f(x,y)=x^3+2xy^2$ at the point $(1,1)$ is ____.",
+      "answer": [
+        "[[6, 4], [4, 4]]"
+      ],
+      "explanation": "$f_{xx}=6x$，$f_{xy}=4y$，$f_{yy}=4x$；在 $(1,1)$ 处为 $\\begin{pmatrix}6&4\\\\4&4\\end{pmatrix}$。",
+      "figure": null
+    },
+    {
+      "id": "FB21",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.2 Descend along gradients",
+      "topic": "Directional derivatives",
+      "difficulty": 1,
+      "question": "Let $f(x)=x_1^2+3x_2$, $x=(1,0)^T$, $u=(1,2)^T$ and $g(t)=f(x+tu)$. Then $g'(0)=$ ____.",
+      "answer": [
+        "8"
+      ],
+      "explanation": "$g'(0)=u^T\\nabla f(x)$，$\\nabla f(x)=(2,3)^T$，所以 $g'(0)=2+6=8>0$，$u$ 不是下降方向。",
+      "figure": null
+    },
+    {
+      "id": "FB22",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.3 Steepest Descent",
+      "topic": "Steepest descent",
+      "difficulty": 2,
+      "question": "Steepest descent with an exact line search is applied to $f(x)=\\tfrac12(x_1^2+3x_2^2)$ from $x^{(0)}=(3,1)^T$. The step length is $\\lambda_0=$ ____ and the next iterate is $x^{(1)}=$ ____.",
+      "answer": [
+        "1/2",
+        "(3/2, -1/2)"
+      ],
+      "explanation": "$A=\\mathrm{diag}(1,3)$，$\\nabla f(x^{(0)})=(3,3)^T$，$u=(-3,-3)^T$。$\\lambda_0=\\dfrac{u^Tu}{u^TAu}=\\dfrac{18}{36}=\\dfrac12$，$x^{(1)}=(3,1)^T+\\tfrac12(-3,-3)^T=(\\tfrac32,-\\tfrac12)^T$。",
+      "figure": null
+    },
+    {
+      "id": "FB23",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate directions",
+      "difficulty": 1,
+      "question": "Let $A=\\begin{pmatrix}3&1\\\\1&2\\end{pmatrix}$ and $u=(1,0)^T$. The vector $v=(1,t)^T$ is conjugate to $u$ with respect to $A$ when $t=$ ____.",
+      "answer": [
+        "-3"
+      ],
+      "explanation": "$Au=(3,1)^T$，$v^TAu=3+t=0$，所以 $t=-3$。",
+      "figure": null
+    },
+    {
+      "id": "FB24",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Fletcher-Reeves formula",
+      "difficulty": 1,
+      "question": "In the conjugate gradient method $g^{(0)}=(3,4)^T$ and $g^{(1)}=(-1.2,0.9)^T$. The Fletcher--Reeves formula gives $\\beta_0=$ ____.",
+      "answer": [
+        "0.09"
+      ],
+      "explanation": "$\\beta_0=\\dfrac{\\|g^{(1)}\\|^2}{\\|g^{(0)}\\|^2}=\\dfrac{1.44+0.81}{9+16}=\\dfrac{2.25}{25}=0.09$。两个梯度也满足 $g^{(0)T}g^{(1)}=0$。",
+      "figure": null
+    },
+    {
+      "id": "FB25",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.4 Conjugate direction methods",
+      "topic": "Conjugate gradient method",
+      "difficulty": 1,
+      "question": "In exact arithmetic, the conjugate gradient method minimises a strictly convex quadratic function of $7$ variables in at most ____ steps.",
+      "answer": [
+        "7"
+      ],
+      "explanation": "至多 $n$ 步，这里 $n=7$。",
+      "figure": null
+    },
+    {
+      "id": "FB26",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 2,
+      "question": "The function $f(x,y)=x^2+a\\,xy+y^2$ is convex on $\\mathbb{R}^2$ exactly when ____ $\\le a\\le$ ____.",
+      "answer": [
+        "-2",
+        "2"
+      ],
+      "explanation": "Hessian 为 $\\begin{pmatrix}2&a\\\\a&2\\end{pmatrix}$，半正定当且仅当 $\\det=4-a^2\\ge0$。$|a|<2$ 时严格凸。",
+      "figure": null
+    },
+    {
+      "id": "FB27",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Convex functions",
+      "difficulty": 1,
+      "question": "For a differentiable convex function, the tangent plane inequality is $f(y)\\ge f(x)+$ ____ for all $x,y$.",
+      "answer": [
+        "$(y-x)^T\\nabla f(x)$"
+      ],
+      "explanation": "凸函数的图像位于每个切平面的上方。",
+      "figure": null
+    },
+    {
+      "id": "FB28",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.1 Background",
+      "topic": "Quadratic functions",
+      "difficulty": 1,
+      "question": "The function $q(x,y)=x^2-4x+y^2+6y$ has minimiser $(x,y)=$ ____ and minimum value ____.",
+      "answer": [
+        "(2, -3)",
+        "-13"
+      ],
+      "explanation": "配方：$q=(x-2)^2+(y+3)^2-13$。",
+      "figure": null
+    },
+    {
+      "id": "FB29",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.5 Stochastic gradient algorithm",
+      "topic": "Stochastic gradient algorithm",
+      "difficulty": 2,
+      "question": "In the stochastic gradient algorithm with $f_1(x)=(x+1)^2$, $f_2(x)=(x-1)^2$, step length $\\lambda=0.1$ and current iterate $x_k=2$, the index $i_k=1$ is chosen. Then $x_{k+1}=$ ____.",
+      "answer": [
+        "1.4"
+      ],
+      "explanation": "$\\nabla f_1(x)=2(x+1)$，$\\nabla f_1(2)=6$，$x_{k+1}=x_k-\\lambda\\nabla f_1(x_k)=2-0.6=1.4$。",
+      "figure": null
+    },
+    {
+      "id": "FB30",
+      "type": "fill_blank",
+      "unit": "C3",
+      "section": "3.5 Stochastic gradient algorithm",
+      "topic": "Stochastic gradient algorithm",
+      "difficulty": 2,
+      "question": "For the stochastic gradient algorithm with $f_1(x)=(x+1)^2$, $f_2(x)=(x-1)^2$ and constant step length $\\lambda$, the iterates satisfy $E[x_{k+1}]=(1-2\\lambda)E[x_k]$. With $\\lambda=0.25$ and $x_0=2$, $E[x_2]=$ ____.",
+      "answer": [
+        "0.5"
+      ],
+      "explanation": "$E[x_2]=(1-2\\lambda)^2x_0=0.5^2\\times2=0.5$。期望以因子 $1-2\\lambda$ 趋于极小点 $x^*=0$，同时单次实现围绕它波动。",
+      "figure": null
+    },
+    {
+      "id": "FB31",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Standard form",
+      "difficulty": 1,
+      "question": "In the standard form $g(x)\\le0$, the constraint $x_1-2x_2\\ge3$ is written with $g(x)=$ ____.",
+      "answer": [
+        "$3-x_1+2x_2$"
+      ],
+      "explanation": "$x_1-2x_2\\ge3\\iff3-x_1+2x_2\\le0$。",
+      "figure": null
+    },
+    {
+      "id": "FB32",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Active constraints",
+      "difficulty": 1,
+      "question": "For the constraints $g_1(x)=x_1^2+x_2^2-5\\le0$, $g_2(x)=x_1-2\\le0$, $g_3(x)=-x_2\\le0$, the set of active constraints at $x=(2,1)^T$ is $I(x)=$ ____.",
+      "answer": [
+        "{1, 2}"
+      ],
+      "explanation": "$g_1(2,1)=0$，$g_2(2,1)=0$，$g_3(2,1)=-1<0$。",
+      "figure": null
+    },
+    {
+      "id": "FB33",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Lagrange multipliers",
+      "difficulty": 1,
+      "question": "For minimising $f(x)$ subject to $g_i(x)=0$, $i=1,\\dots,m$, the method of Lagrange multipliers seeks stationary points of $h(x,\\lambda)=f(x)+$ ____.",
+      "answer": [
+        "$\\sum_{i=1}^m\\lambda_ig_i(x)$"
+      ],
+      "explanation": "对 $x$ 求偏导给出 $\\nabla f+\\sum_i\\lambda_i\\nabla g_i=0$，对 $\\lambda_i$ 求偏导还原约束 $g_i(x)=0$。",
+      "figure": null
+    },
+    {
+      "id": "FB34",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Lagrange multipliers",
+      "difficulty": 2,
+      "question": "Minimise $x_1^2+x_2^2$ subject to $x_1+2x_2=5$, using $h=f+\\lambda(x_1+2x_2-5)$. The minimiser is $x^*=$ ____ and the multiplier is $\\lambda=$ ____.",
+      "answer": [
+        "(1, 2)",
+        "-2"
+      ],
+      "explanation": "$2x_1+\\lambda=0$，$2x_2+2\\lambda=0$，所以 $x_1=-\\lambda/2$，$x_2=-\\lambda$。代入约束：$-\\tfrac52\\lambda=5$，$\\lambda=-2$，$x^*=(1,2)^T$。",
+      "figure": null
+    },
+    {
+      "id": "FB35",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.1 Constraints",
+      "topic": "Lagrange multipliers",
+      "difficulty": 1,
+      "question": "The maximum value of $xy$ subject to $x+y=10$ is ____.",
+      "answer": [
+        "25"
+      ],
+      "explanation": "$h=xy+\\lambda(x+y-10)$：$y+\\lambda=0$，$x+\\lambda=0$，所以 $x=y=5$，最大值为 25。",
+      "figure": null
+    },
+    {
+      "id": "FB36",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 1,
+      "question": "The complementary slackness condition in the KKT conditions is $\\lambda_i\\,\\times$ ____ $=0$ for every $i$.",
+      "answer": [
+        "$g_i(x^*)$"
+      ],
+      "explanation": "对每个约束，要么约束活动（$g_i(x^*)=0$），要么乘子为零。",
+      "figure": null
+    },
+    {
+      "id": "FB37",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 1,
+      "question": "Minimise $f(x)=(x-3)^2$ subject to $x\\le1$. The minimiser is $x^*=$ ____ and the KKT multiplier is $\\lambda=$ ____.",
+      "answer": [
+        "1",
+        "4"
+      ],
+      "explanation": "无约束极小点 $x=3$ 不可行，约束 $g(x)=x-1\\le0$ 活动，$x^*=1$。驻点条件 $2(x^*-3)+\\lambda=0$ 得 $\\lambda=4\\ge0$。",
+      "figure": null
+    },
+    {
+      "id": "FB38",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "Minimise $f(x)=x_1^2+x_2^2-4x_1-4x_2$ subject to $x_1+x_2\\le2$. The minimiser is $x^*=$ ____ and the KKT multiplier is $\\lambda=$ ____.",
+      "answer": [
+        "(1, 1)",
+        "2"
+      ],
+      "explanation": "无约束极小点 $(2,2)$ 不可行。约束活动时：$2x_1-4+\\lambda=0$，$2x_2-4+\\lambda=0$，故 $x_1=x_2=1$，$\\lambda=4-2x_1=2\\ge0$。",
+      "figure": null
+    },
+    {
+      "id": "FB39",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "Minimise $f(x)=x_1+x_2$ subject to $x_1^2+x_2^2\\le2$. The minimiser is $x^*=$ ____, the KKT multiplier is $\\lambda=$ ____ and the minimum value is ____.",
+      "answer": [
+        "(-1, -1)",
+        "1/2",
+        "-2"
+      ],
+      "explanation": "$\\nabla f=(1,1)^T\\ne0$，所以约束必活动。$1+2\\lambda x_1=0$，$1+2\\lambda x_2=0$ 给出 $x_1=x_2=-\\dfrac1{2\\lambda}$；代入 $x_1^2+x_2^2=2$ 得 $\\lambda=\\tfrac12$（取正根），$x^*=(-1,-1)^T$，$f^*=-2$。",
+      "figure": null
+    },
+    {
+      "id": "FB40",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Projection matrices",
+      "difficulty": 2,
+      "question": "For $M=\\begin{pmatrix}3&4\\end{pmatrix}$, the projection matrix $P=I-M^T(MM^T)^{-1}M$ equals $\\dfrac1{25}\\times$ ____.",
+      "answer": [
+        "[[16, -12], [-12, 9]]"
+      ],
+      "explanation": "$MM^T=25$，$M^TM=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$，$P=I-\\dfrac1{25}\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}=\\dfrac1{25}\\begin{pmatrix}16&-12\\\\-12&9\\end{pmatrix}$。可验证 $MP=0$。",
+      "figure": null
+    },
+    {
+      "id": "FB41",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 1,
+      "question": "With $M=\\begin{pmatrix}1&1\\end{pmatrix}$ and $\\nabla f(x)=(4,0)^T$, the projected search direction is $u=-P\\nabla f(x)=$ ____.",
+      "answer": [
+        "(-2, 2)"
+      ],
+      "explanation": "$P=\\tfrac12\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$，$P\\nabla f=(2,-2)^T$，$u=(-2,2)^T$。它满足 $Mu=0$ 和 $u^T\\nabla f=-8<0$。",
+      "figure": null
+    },
+    {
+      "id": "FB42",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 2,
+      "question": "From $x=(0,0)^T$ the search direction is $u=(2,1)^T$, and the inactive constraints are $x_1\\le3$ and $x_1+x_2\\le6$. The largest feasible step length is $\\beta=$ ____.",
+      "answer": [
+        "1.5"
+      ],
+      "explanation": "$x+\\lambda u=(2\\lambda,\\lambda)^T$。$2\\lambda\\le3$ 给出 $\\lambda\\le1.5$；$3\\lambda\\le6$ 给出 $\\lambda\\le2$。取较小者 $\\beta=1.5$，此时首先碰到 $x_1\\le3$。",
+      "figure": null
+    },
+    {
+      "id": "FB43",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.3 The gradient projection algorithm",
+      "topic": "Gradient projection",
+      "difficulty": 2,
+      "question": "At a vertex the active constraints are $x_1-2\\le0$ and $x_2-1\\le0$ (rows of $M$ in this order) and $-\\nabla f(x)=(3,-2)^T$. Solving $M^T\\omega=-\\nabla f(x)$ gives $\\omega=$ ____, so the constraint to release is number ____.",
+      "answer": [
+        "(3, -2)",
+        "2"
+      ],
+      "explanation": "$M=I$，所以 $\\omega=(3,-2)^T$。$\\omega_2<0$，说明放开第二个活动约束（$x_2\\le1$）后可以继续下降；$\\omega_1>0$ 的约束保留。",
+      "figure": null
+    },
+    {
+      "id": "FB44",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 2,
+      "question": "For the problem shown in the figure (minimise $f(x)=(x_1-3)^2+(x_2-3)^2$ subject to $x_1\\ge0$, $x_2\\ge0$, $x_1+x_2\\le4$), the minimiser is $x^*=$ ____ and the multiplier of the constraint $x_1+x_2\\le4$ is ____.",
+      "answer": [
+        "(2, 2)",
+        "2"
+      ],
+      "explanation": "无约束极小点 $(3,3)$ 在可行域外，最近的可行点是它在直线 $x_1+x_2=4$ 上的投影 $(2,2)$，即半径 $\\sqrt2$ 的等高圆与该直线的切点。$\\nabla f(2,2)=(-2,-2)^T$，$\\nabla g=(1,1)^T$，由 $\\nabla f+\\lambda\\nabla g=0$ 得 $\\lambda=2$。",
+      "figure": {
+        "latex": "\\begin{tikzpicture}[scale=1.0,>=Stealth]\n  \\fill[black!15] (0,0)--(4,0)--(0,4)--cycle;\n  \\draw[->] (-0.5,0)--(5.2,0) node[below] {$x_1$};\n  \\draw[->] (0,-0.5)--(0,5.0) node[left] {$x_2$};\n  \\draw[thick] (-0.5,4.5)--(4.5,-0.5);\n  \\node[rotate=-45] at (4.2,1.1) {$x_1+x_2=4$};\n  \\foreach \\r in {0.7,1.414,2.2} \\draw[black!55] (3,3) circle (\\r);\n  \\fill (3,3) circle (1.6pt) node[above right] {$(3,3)$};\n  \\node at (1.1,1.0) {$\\Omega$};\n  \\node[below] at (4,0) {$4$};\n  \\node[left] at (0,4) {$4$};\n\\end{tikzpicture}",
+        "caption": "The feasible region x1 >= 0, x2 >= 0, x1 + x2 <= 4 (shaded) and level curves of f(x) = (x1-3)^2 + (x2-3)^2, which are circles centred at (3, 3)."
+      }
+    },
+    {
+      "id": "FB45",
+      "type": "fill_blank",
+      "unit": "C4",
+      "section": "4.2 Karush-Kuhn-Tucker conditions",
+      "topic": "KKT conditions",
+      "difficulty": 1,
+      "question": "When the KKT conditions are solved by considering every possible set of active constraints, a problem with $3$ inequality constraints has ____ cases.",
+      "answer": [
+        "8"
+      ],
+      "explanation": "每个约束或活动或不活动，共 $2^m=2^3=8$ 种活动集。",
+      "figure": null
+    },
+    {
+      "id": "FB46",
+      "type": "fill_blank",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 1,
+      "question": "In simulated annealing a move with change $\\Delta f$ at temperature $T$ is accepted with probability $\\min\\{1,\\ \\exp($ ____ $)\\}$.",
+      "answer": [
+        "$-\\Delta f/T$"
+      ],
+      "explanation": "$\\Delta f\\le0$ 时概率为 1；$\\Delta f>0$ 时概率随 $\\Delta f$ 增大、$T$ 减小而减小。",
+      "figure": null
+    },
+    {
+      "id": "FB47",
+      "type": "fill_blank",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Annealing schedule",
+      "difficulty": 1,
+      "question": "With the geometric annealing schedule $T_{i+1}=\\alpha T_i$, $T_0=100$ and $\\alpha=0.9$, the temperature after two reductions is $T_2=$ ____.",
+      "answer": [
+        "81"
+      ],
+      "explanation": "$T_2=0.9^2\\times100=81$。$\\alpha$ 通常取在 $0.75$ 到 $0.95$ 之间。",
+      "figure": null
+    },
+    {
+      "id": "FB48",
+      "type": "fill_blank",
+      "unit": "C5",
+      "section": "5.1 Simulated Annealing",
+      "topic": "Simulated annealing",
+      "difficulty": 1,
+      "question": "In simulated annealing a proposed move has $\\Delta f=0.5$ and the temperature is $T=0.5$. The probability of accepting the move is $e^{-1}\\approx$ ____ (three decimal places).",
+      "answer": [
+        "0.368"
+      ],
+      "explanation": "$\\exp(-\\Delta f/T)=\\exp(-1)\\approx0.368$。若温度降到 $T=0.1$，同一移动的接受概率只有 $e^{-5}\\approx0.007$。",
+      "figure": null
+    },
+    {
+      "id": "FB49",
+      "type": "fill_blank",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Selection",
+      "difficulty": 1,
+      "question": "A population of three individuals has fitness values $1$, $3$ and $6$. Under roulette wheel selection, the probability of selecting the third individual is ____.",
+      "answer": [
+        "0.6"
+      ],
+      "explanation": "$p_i=\\dfrac{f(x_i)}{\\sum_jf(x_j)}=\\dfrac{6}{1+3+6}=0.6$。",
+      "figure": null
+    },
+    {
+      "id": "FB50",
+      "type": "fill_blank",
+      "unit": "C5",
+      "section": "5.2 Genetic Algorithms",
+      "topic": "Chromosome encoding",
+      "difficulty": 2,
+      "question": "In the 3-bit Gray code $000,001,011,010,110,111,101,100$ for the integers $0,\\dots,7$, the code word of the integer $3$ is ____.",
+      "answer": [
+        "010"
+      ],
+      "explanation": "按顺序第 4 个码字（对应整数 3）是 $010$，它与相邻的 $011$（整数 2）和 $110$（整数 4）都只差一位。",
+      "figure": null
+    }
+  ]
+}

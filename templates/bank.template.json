@@ -1,0 +1,91 @@
+{
+  "_readme": [
+    "Copy this file to banks/<semester>/<course>.json, replace its contents and delete _readme.",
+    "Then list the course in banks/catalog.json and run: python3 tools/build.py",
+    "Text fields are LaTeX-flavoured plain text: $...$ is inline math and $$...$$ is display math, typeset by KaTeX.",
+    "Every backslash is doubled in JSON, so \\frac is written \\\\frac."
+  ],
+  "schema": "quiz-ledger/bank@1",
+  "id": "demo101-2027s1",
+  "course": {
+    "code": "DEMO 101",
+    "title": "Template Course",
+    "institution": "Your University",
+    "language": { "question": "en", "explanation": "zh" }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "updated": "2027-03-01",
+    "authors": ["Your Name"],
+    "source": "Lectures 1-12 and tutorials",
+    "note": "Anything a learner should know about the scope of this bank."
+  },
+  "figure_preamble": "\\documentclass[tikz,border=4pt]{standalone}\n\\usepackage{amsmath,amssymb}\n\\usetikzlibrary{arrows.meta}\n",
+  "units": [
+    { "id": "U1", "title": "Week 1: Sequences and limits", "group": "Part A" },
+    { "id": "U2", "title": "Week 2: Sets and integrals", "group": "Part A" }
+  ],
+  "questions": [
+    {
+      "id": "TF01",
+      "type": "true_false",
+      "unit": "U1",
+      "topic": "Bolzano-Weierstrass",
+      "difficulty": 1,
+      "question": "Every bounded sequence of real numbers has a convergent subsequence.",
+      "answer": true,
+      "explanation": "这是 Bolzano--Weierstrass 定理。有界性不能去掉：$a_n=n$ 没有收敛子列。",
+      "figure": null
+    },
+    {
+      "id": "SC01",
+      "type": "single_choice",
+      "unit": "U2",
+      "topic": "definite integrals",
+      "difficulty": 1,
+      "question": "The figure shows the graph of $f(x)=x^2$ on $[-1,1]$. What is the shaded area $\\int_{-1}^{1}x^2\\,dx$?",
+      "options": [
+        { "label": "A", "text": "$\\tfrac13$" },
+        { "label": "B", "text": "$\\tfrac23$" },
+        { "label": "C", "text": "$1$" },
+        { "label": "D", "text": "$2$" }
+      ],
+      "answer": "B",
+      "explanation": "$\\int_{-1}^{1}x^2\\,dx=\\left[\\tfrac{x^3}{3}\\right]_{-1}^{1}=\\tfrac23$。",
+      "figure": {
+        "id": "fig-parabola",
+        "caption": "The graph of $f(x)=x^2$.",
+        "latex": "\\begin{tikzpicture}[scale=1.6]\n\\fill[gray!25] (-1,0) -- plot[domain=-1:1,samples=40] (\\x,{\\x*\\x}) -- (1,0) -- cycle;\n\\draw[-{Stealth}] (-1.4,0) -- (1.4,0) node[right] {$x$};\n\\draw[-{Stealth}] (0,-0.2) -- (0,1.4) node[above] {$y$};\n\\draw[thick,domain=-1.1:1.1,samples=40] plot (\\x,{\\x*\\x});\n\\node[below] at (-1,0) {$-1$};\n\\node[below] at (1,0) {$1$};\n\\end{tikzpicture}"
+      }
+    },
+    {
+      "id": "MC01",
+      "type": "multiple_choice",
+      "unit": "U2",
+      "topic": "countability",
+      "difficulty": 2,
+      "question": "Which of the following sets are countable? Select \\emph{all} that apply.",
+      "options": [
+        { "label": "A", "text": "$\\mathbb{N}$" },
+        { "label": "B", "text": "$\\mathbb{Q}$" },
+        { "label": "C", "text": "$\\mathbb{R}$" },
+        { "label": "D", "text": "$\\mathbb{Z}\\times\\mathbb{Z}$" }
+      ],
+      "answer": ["A", "B", "D"],
+      "explanation": "$\\mathbb{Q}$ 与 $\\mathbb{Z}\\times\\mathbb{Z}$ 都能与 $\\mathbb{N}$ 建立双射；$\\mathbb{R}$ 不可数（Cantor 对角线论证）。",
+      "figure": null
+    },
+    {
+      "id": "FB01",
+      "type": "fill_blank",
+      "unit": "U1",
+      "topic": "standard limits",
+      "difficulty": 1,
+      "question": "$\\lim_{x\\to0}\\dfrac{\\sin x}{x}=$ ____ and $\\lim_{n\\to\\infty}\\left(1+\\tfrac1n\\right)^n=$ ____.",
+      "answer": ["$1$", "$e$"],
+      "accept": [["1.0"], ["2.718", "$\\mathrm{e}$"]],
+      "explanation": "两个都是标准极限。第二个是 $e$ 的定义之一，$e\\approx2.718$。",
+      "figure": null
+    }
+  ]
+}

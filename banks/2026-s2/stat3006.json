@@ -1,0 +1,2668 @@
+{
+  "schema": "quiz-ledger/bank@1",
+  "id": "stat3006-2026s2",
+  "course": {
+    "code": "STAT 3006",
+    "title": "Computational Statistics",
+    "institution": "Adelaide University",
+    "language": {
+      "question": "en",
+      "explanation": "zh"
+    }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "updated": "2026-11-13",
+    "note": "Unofficial revision material. Scope follows the examinable content: Topics 1-9; proofs and code are excluded."
+  },
+  "figure_preamble": "\\documentclass[tikz,border=4pt]{standalone}\n\\usepackage{pgfplots}\n\\pgfplotsset{compat=1.16}\n\\usetikzlibrary{arrows.meta}\n",
+  "units": [
+    {
+      "id": "T1",
+      "title": "Topic 1: Bayesian inference",
+      "group": "Module 1"
+    },
+    {
+      "id": "T2",
+      "title": "Topic 2: Monte Carlo methods",
+      "group": "Module 1"
+    },
+    {
+      "id": "T3",
+      "title": "Topic 3: Resampling methods and the bootstrap",
+      "group": "Module 1"
+    },
+    {
+      "id": "T4",
+      "title": "Topic 4: Markov chain preliminaries and the Gibbs sampler",
+      "group": "Module 2"
+    },
+    {
+      "id": "T5",
+      "title": "Topic 5: Metropolis-Hastings",
+      "group": "Module 2"
+    },
+    {
+      "id": "T6",
+      "title": "Topic 6: Hamiltonian Monte Carlo",
+      "group": "Module 2"
+    },
+    {
+      "id": "T7",
+      "title": "Topic 7: Posterior predictive checks",
+      "group": "Module 3"
+    },
+    {
+      "id": "T8",
+      "title": "Topic 8: Simulation-based inference",
+      "group": "Module 3"
+    },
+    {
+      "id": "T9",
+      "title": "Topic 9: Variational methods",
+      "group": "Module 3"
+    }
+  ],
+  "questions": [
+    {
+      "id": "TF-001",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "The posterior density satisfies $\\pi(\\theta\\mid D)=p(D\\mid\\theta)\\,\\pi(\\theta)/m(D)$, where $m(D)=\\int p(D\\mid\\theta)\\,\\pi(\\theta)\\,d\\theta$ does not depend on $\\theta$.",
+      "answer": true,
+      "explanation": "$m(D)$ 是把 $\\theta$ 积掉之后的边际似然，只起归一化作用，所以后验正比于似然乘先验，$\\pi(\\theta\\mid D)\\propto p(D\\mid\\theta)\\pi(\\theta)$。",
+      "figure": null
+    },
+    {
+      "id": "TF-002",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "A $\\text{Beta}(1,1)$ prior for a binomial success probability is improper because it is flat.",
+      "answer": false,
+      "explanation": "$\\text{Beta}(1,1)$ 就是 $\\text{Uniform}(0,1)$，在 $(0,1)$ 上积分为 1，属于 proper 先验。improper 指先验密度积分发散，与形状是否平坦无关。它同时是 Binomial 似然的共轭先验，后验为 $\\text{Beta}(1+y,\\,1+n-y)$。",
+      "figure": null
+    },
+    {
+      "id": "TF-003",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "If $y_1,\\dots,y_n\\mid\\theta\\overset{\\text{iid}}{\\sim}\\text{Exponential}(\\theta)$ and $\\theta\\sim\\text{Gamma}(a,b)$ (shape, rate), then $\\theta\\mid y\\sim\\text{Gamma}\\big(a+n,\\ b+\\sum_i y_i\\big)$.",
+      "answer": true,
+      "explanation": "似然为 $\\theta^n e^{-\\theta\\sum y_i}$，先验核为 $\\theta^{a-1}e^{-b\\theta}$，相乘得 $\\theta^{a+n-1}e^{-(b+\\sum y_i)\\theta}$，这是 $\\text{Gamma}(a+n,\\,b+\\sum y_i)$ 的核。",
+      "figure": null
+    },
+    {
+      "id": "TF-004",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "A 95\\% credible interval is an interval that, over repeated sampling of the data, contains the fixed true parameter in 95\\% of repetitions.",
+      "answer": false,
+      "explanation": "题中描述的是频率学派置信区间的覆盖率含义。可信区间 $[l,u]$ 的定义是在给定已观测数据的条件下 $P(\\theta\\in[l,u]\\mid D)=0.95$，概率陈述针对参数本身。",
+      "figure": null
+    },
+    {
+      "id": "TF-005",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "The Jeffreys prior for the success probability $\\theta$ of a $\\text{Binomial}(n,\\theta)$ model is the uniform distribution on $(0,1)$.",
+      "answer": false,
+      "explanation": "Binomial 的 Fisher 信息为 $I(\\theta)=n/\\{\\theta(1-\\theta)\\}$，所以 Jeffreys 先验 $p(\\theta)\\propto\\theta^{-1/2}(1-\\theta)^{-1/2}$，即 $\\text{Beta}(1/2,1/2)$，在 0 和 1 附近密度更高，并非均匀分布。",
+      "figure": null
+    },
+    {
+      "id": "TF-006",
+      "type": "true_false",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "The posterior predictive distribution of a new observation $\\tilde y$ is obtained by substituting the posterior mean of $\\theta$ into the sampling density $p(\\tilde y\\mid\\theta)$.",
+      "answer": false,
+      "explanation": "后验预测分布是对后验做平均：$p(\\tilde y\\mid y)=\\int p(\\tilde y\\mid\\theta)\\,\\pi(\\theta\\mid y)\\,d\\theta$。代入点估计的做法忽略了参数的不确定性，得到的预测分布通常偏窄。",
+      "figure": null
+    },
+    {
+      "id": "TF-007",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "If $\\theta_1,\\dots,\\theta_N\\overset{\\text{iid}}{\\sim}f$, then $\\hat I_N=\\frac1N\\sum_{i=1}^N h(\\theta_i)$ is an unbiased estimator of $\\mathbb{E}_f[h(\\theta)]$.",
+      "answer": true,
+      "explanation": "由期望的线性性，$\\mathbb{E}[\\hat I_N]=\\frac1N\\sum_i\\mathbb{E}_f[h(\\theta_i)]=\\mathbb{E}_f[h(\\theta)]$。大数定律进一步保证 $\\hat I_N$ 收敛到该期望。",
+      "figure": null
+    },
+    {
+      "id": "TF-008",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "The $O(1/\\sqrt N)$ convergence rate of the Monte Carlo standard error becomes slower as the dimension of $\\theta$ increases.",
+      "answer": false,
+      "explanation": "标准误为 $\\sigma/\\sqrt N$，其中 $\\sigma^2=\\mathrm{Var}_f(h(\\theta))$，收敛阶 $1/\\sqrt N$ 与维数无关，这是 Monte Carlo 相对网格积分的主要优势。维数只可能通过 $\\sigma$ 的大小影响常数。",
+      "figure": null
+    },
+    {
+      "id": "TF-009",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "In rejection sampling with normalised densities satisfying $f(\\theta)\\le c\\,g(\\theta)$, the number of proposals needed to obtain one accepted draw follows a Geometric distribution with mean $c$.",
+      "answer": true,
+      "explanation": "每次提议独立地以概率 $1/c$ 被接受，所以直到首次接受所需的提议次数服从 $\\text{Geometric}(1/c)$，均值为 $c$。$c$ 越大，采样越浪费。",
+      "figure": null
+    },
+    {
+      "id": "TF-010",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "In rejection sampling, choosing a constant $c$ smaller than $\\sup_\\theta f(\\theta)/g(\\theta)$ is a valid way to increase the acceptance rate.",
+      "answer": false,
+      "explanation": "算法要求对所有 $\\theta$ 都有 $f(\\theta)\\le c\\,g(\\theta)$。若 $c$ 取得太小，在 $f>c\\,g$ 的区域接受概率 $f/(cg)$ 会超过 1 而被截断，这些区域被采得不足，输出的样本不再服从 $f$。",
+      "figure": null
+    },
+    {
+      "id": "TF-011",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "For the target $f$ and proposal $g$ shown in the figure, the importance weights $w(\\theta)=f(\\theta)/g(\\theta)$ are bounded.",
+      "answer": false,
+      "explanation": "图中 $g$ 的尾部比 $f$ 轻，在尾部 $g$ 衰减得更快，比值 $f/g$ 随 $|\\theta|$ 增大而无界增长。偶尔落在尾部的样本会得到极大的权重，使估计量方差很大甚至无穷，ESS 很低。",
+      "figure": {
+        "id": "fig-light-tailed-proposal",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10cm,height=5.8cm,domain=-7:7,samples=200,axis lines=left,\n  xlabel={$\\theta$},ylabel={density},ytick=\\empty,ymin=0,ymax=0.45,\n  legend style={draw=none,at={(0.97,0.97)},anchor=north east,font=\\small}]\n\\addplot[very thick] {exp(-x^2/8)/sqrt(8*pi)};\n\\addplot[thick,dashed] {exp(-x^2/2)/sqrt(2*pi)};\n\\legend{target $f$,proposal $g$}\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Target density f (solid) and importance sampling proposal g (dashed); g has lighter tails than f."
+      }
+    },
+    {
+      "id": "TF-012",
+      "type": "true_false",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "With normalised densities $f$ and $g$, and $g(\\theta)>0$ wherever $h(\\theta)f(\\theta)\\neq0$, the importance sampling estimator $\\frac1N\\sum_{i=1}^N h(\\theta_i)\\,w(\\theta_i)$ with $\\theta_i\\overset{\\text{iid}}{\\sim}g$ and $w=f/g$ is unbiased for $\\mathbb{E}_f[h(\\theta)]$.",
+      "answer": true,
+      "explanation": "$\\mathbb{E}_g[h(\\theta)w(\\theta)]=\\int h(\\theta)\\frac{f(\\theta)}{g(\\theta)}g(\\theta)\\,d\\theta=\\int h(\\theta)f(\\theta)\\,d\\theta=\\mathbb{E}_f[h(\\theta)]$。支撑条件保证这一步换元成立。",
+      "figure": null
+    },
+    {
+      "id": "TF-013",
+      "type": "true_false",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "In a two-sample permutation test, each permuted dataset is generated by sampling the pooled observations with replacement.",
+      "answer": false,
+      "explanation": "置换检验是把合并后的观测值重新分配组标签，相当于无放回地打乱，每个观测值恰好出现一次。有放回抽样是 bootstrap 的做法。",
+      "figure": null
+    },
+    {
+      "id": "TF-014",
+      "type": "true_false",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "A permutation p-value computed from $B$ random permutations is a Monte Carlo estimate of the exact permutation p-value, and it becomes more precise as $B$ increases.",
+      "answer": true,
+      "explanation": "$\\hat p=\\frac1B\\sum_b\\mathbb{I}(T^{(b)}\\ge T_{\\text{obs}})$ 是对全部置换下精确 p 值的 Monte Carlo 估计，标准误约为 $\\sqrt{p(1-p)/B}$，随 $B$ 增大而减小。",
+      "figure": null
+    },
+    {
+      "id": "TF-015",
+      "type": "true_false",
+      "unit": "T3",
+      "difficulty": 3,
+      "question": "For large $n$, a bootstrap sample of size $n$ drawn from $n$ distinct observations contains, on average, about 63\\% of the distinct original observations.",
+      "answer": true,
+      "explanation": "某个观测值不被抽到的概率是 $(1-1/n)^n\\to e^{-1}\\approx0.368$，所以被抽到至少一次的概率约为 $1-e^{-1}\\approx0.632$。",
+      "figure": null
+    },
+    {
+      "id": "TF-016",
+      "type": "true_false",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "The bootstrap estimate of the standard error of $\\hat\\theta$ is the standard deviation of the bootstrap replicates $\\hat\\theta^{(1)},\\dots,\\hat\\theta^{(B)}$ divided by $\\sqrt B$.",
+      "answer": false,
+      "explanation": "bootstrap 标准误就是各 replicate 的样本标准差本身，$\\widehat{\\mathrm{SE}}=\\mathrm{sd}(\\hat\\theta^{(1)},\\dots,\\hat\\theta^{(B)})$。replicate 的分布近似 $\\hat\\theta$ 的抽样分布，增大 $B$ 只让这个标准差估得更准，不会使它趋于 0。",
+      "figure": null
+    },
+    {
+      "id": "TF-017",
+      "type": "true_false",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "The basic bootstrap 95\\% interval is $\\big[2\\hat\\theta-\\hat\\theta^*_{(0.975)},\\ 2\\hat\\theta-\\hat\\theta^*_{(0.025)}\\big]$, where $\\hat\\theta^*_{(\\alpha)}$ is the $\\alpha$-quantile of the bootstrap replicates.",
+      "answer": true,
+      "explanation": "basic 区间用 $\\hat\\theta^*-\\hat\\theta$ 的分布近似 $\\hat\\theta-\\theta$ 的分布，解出 $\\theta$ 后上下分位数的位置互换，相当于把 percentile 区间关于 $\\hat\\theta$ 做反射。",
+      "figure": null
+    },
+    {
+      "id": "TF-018",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "A distribution $\\pi$ is stationary for a Markov chain if $\\theta^{(t)}\\sim\\pi$ implies $\\theta^{(t+1)}\\sim\\pi$.",
+      "answer": true,
+      "explanation": "平稳分布的定义就是经过一步转移后分布保持不变。MCMC 的思路是构造一条以目标后验为平稳分布的链，运行足够久之后的状态可以当作来自目标的相依样本。",
+      "figure": null
+    },
+    {
+      "id": "TF-019",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "To derive the full conditional distributions used in a Gibbs sampler, the normalising constant of the joint posterior must be known.",
+      "answer": false,
+      "explanation": "full conditional 只需把联合后验看作单个坐标的函数并保留与该坐标有关的因子，$\\pi(\\theta_j\\mid\\theta_{-j},y)\\propto\\pi(\\theta\\mid y)$，联合后验的归一化常数不含 $\\theta_j$，可以直接丢掉。",
+      "figure": null
+    },
+    {
+      "id": "TF-020",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "The path in the figure, made up of moves parallel to the coordinate axes, is characteristic of a single-site Gibbs sampler.",
+      "answer": true,
+      "explanation": "单坐标 Gibbs 每一步只更新一个坐标、其余坐标保持不变，所以路径由平行于坐标轴的线段组成。图中目标的两个坐标高度相关，每一步能走的距离受条件分布限制，混合较慢。",
+      "figure": {
+        "id": "fig-gibbs-path",
+        "latex": "\\begin{tikzpicture}[scale=1.1]\n\\draw[->] (-3.2,0) -- (3.4,0) node[right] {$\\theta_1$};\n\\draw[->] (0,-3.2) -- (0,3.4) node[above] {$\\theta_2$};\n\\foreach \\a/\\b in {3.6/1.0,2.6/0.72,1.6/0.44} {\\draw[gray,rotate=45] (0,0) ellipse ({\\a} and {\\b});}\n\\draw[thick,-{Stealth[length=2mm]}] (-2.3,-1.4) -- (-0.9,-1.4);\n\\draw[thick,-{Stealth[length=2mm]}] (-0.9,-1.4) -- (-0.9,-0.2);\n\\draw[thick,-{Stealth[length=2mm]}] (-0.9,-0.2) -- (0.4,-0.2);\n\\draw[thick,-{Stealth[length=2mm]}] (0.4,-0.2) -- (0.4,0.9);\n\\draw[thick,-{Stealth[length=2mm]}] (0.4,0.9) -- (1.5,0.9);\n\\draw[thick,-{Stealth[length=2mm]}] (1.5,0.9) -- (1.5,1.9);\n\\fill (-2.3,-1.4) circle (2pt) node[below left,font=\\small] {start};\n\\end{tikzpicture}",
+        "caption": "Contours of a correlated bivariate target and the first few moves of a sampler started at the marked point."
+      }
+    },
+    {
+      "id": "TF-021",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "If the lag-$k$ autocorrelations of the draws are zero for all $k\\ge1$, the effective sample size equals the total number of draws $MN$.",
+      "answer": true,
+      "explanation": "$\\mathrm{ESS}=MN/(1+2\\sum_{k\\ge1}\\rho_k)$，当所有 $\\rho_k=0$ 时分母为 1，$\\mathrm{ESS}=MN$，此时样本相当于独立样本。",
+      "figure": null
+    },
+    {
+      "id": "TF-022",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "Warm-up draws are discarded because they are needed to estimate the autocorrelation of the chain.",
+      "answer": false,
+      "explanation": "丢弃 warm-up 的原因是链在早期还受初始值影响，尚未到达平稳分布，这部分样本不代表目标分布。自相关是用 warm-up 之后的样本估计的。",
+      "figure": null
+    },
+    {
+      "id": "TF-023",
+      "type": "true_false",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "Running several chains from dispersed starting values is useful because agreement between the chains is evidence of convergence that a single chain cannot provide.",
+      "answer": true,
+      "explanation": "$\\hat R$ 比较链间方差与链内方差，只有多条链才能计算。单条链可能一直停留在某个局部区域而看起来平稳，起点分散的多条链能发现这类问题，例如多峰后验。",
+      "figure": null
+    },
+    {
+      "id": "TF-024",
+      "type": "true_false",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "In the Metropolis algorithm with a symmetric proposal, a proposed value $\\theta^*$ with $\\pi(\\theta^*)>\\pi(\\theta)$ is always accepted.",
+      "answer": true,
+      "explanation": "对称提议下接受概率为 $\\min\\{1,\\pi(\\theta^*)/\\pi(\\theta)\\}$。当 $\\pi(\\theta^*)>\\pi(\\theta)$ 时比值大于 1，接受概率等于 1。",
+      "figure": null
+    },
+    {
+      "id": "TF-025",
+      "type": "true_false",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "A Metropolis--Hastings sampler with an independence proposal $q(\\theta^*\\mid\\theta)=q(\\theta^*)$ produces independent draws from the target.",
+      "answer": false,
+      "explanation": "提议值不依赖当前状态，但接受概率 $\\min\\{1,\\frac{\\pi(\\theta^*)q(\\theta)}{\\pi(\\theta)q(\\theta^*)}\\}$ 依赖当前状态，被拒绝时链会重复当前值，所以输出仍是相依样本。",
+      "figure": null
+    },
+    {
+      "id": "TF-026",
+      "type": "true_false",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "For random-walk Metropolis on a $d$-dimensional approximately Gaussian target with covariance $\\Sigma$, a commonly recommended proposal covariance is $\\frac{2.38^2}{d}\\Sigma$.",
+      "answer": true,
+      "explanation": "这是高斯目标下的渐近最优缩放。实际做法是先用 $\\frac{2.38^2}{d}I_d$ 试跑，再用样本协方差 $\\tilde\\Sigma$ 替换，使提议的尺度和相关结构与目标一致。",
+      "figure": null
+    },
+    {
+      "id": "TF-027",
+      "type": "true_false",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "In Metropolis--Hastings, a proposal that moves to a region of lower target density is never accepted.",
+      "answer": false,
+      "explanation": "这类提议以概率 $\\pi(\\theta^*)/\\pi(\\theta)<1$（对称提议时）被接受。正是这种有时向下走的机制让链能按正确比例访问低密度区域，否则算法就变成了求最大值。",
+      "figure": null
+    },
+    {
+      "id": "TF-028",
+      "type": "true_false",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "Gibbs sampling can be viewed as a special case of Metropolis--Hastings in which the proposal is the full conditional distribution and the acceptance probability equals 1.",
+      "answer": true,
+      "explanation": "取 $q(\\theta_j^*\\mid\\theta)=\\pi(\\theta_j^*\\mid\\theta_{-j})$ 代入 MH 接受率，分子分母恰好相消，接受概率恒为 1，所以 Gibbs 的每次更新都被接受。",
+      "figure": null
+    },
+    {
+      "id": "TF-029",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "In HMC the potential energy is $U(q)=-\\log\\pi(q)$, so regions of high posterior density correspond to high potential energy.",
+      "answer": false,
+      "explanation": "$U(q)=-\\log\\pi(q)$ 带负号，后验密度高的区域势能低。可以把粒子想象成在一个碗状曲面上运动，碗底对应后验众数。",
+      "figure": null
+    },
+    {
+      "id": "TF-030",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "With kinetic energy $K(p)=\\tfrac12p^\\top M^{-1}p$, the momentum is distributed as $N(0,M)$ and is independent of $q$ under the joint density $\\Pi(q,p)\\propto e^{-H(q,p)}$.",
+      "answer": true,
+      "explanation": "$\\Pi(q,p)\\propto e^{-U(q)}e^{-K(p)}$ 可分解为 $q$ 的函数乘 $p$ 的函数，所以二者独立；$e^{-\\frac12p^\\top M^{-1}p}$ 是 $N(0,M)$ 的核，$q$ 的边际就是目标 $\\pi(q)$。",
+      "figure": null
+    },
+    {
+      "id": "TF-031",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "In the figure, the outward-spiralling trajectory is produced by the leapfrog integrator and the closed, nearly circular trajectory is produced by Euler's method.",
+      "answer": false,
+      "explanation": "正好相反。Euler 法不保体积，能量误差不断累积，轨迹向外螺旋发散。leapfrog 保体积且时间可逆，能量只在真值附近小幅振荡，轨迹保持在接近等能量线的闭合曲线上，这是 HMC 选用 leapfrog 的原因。",
+      "figure": {
+        "id": "fig-euler-vs-leapfrog",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=8.5cm,height=8.5cm,axis lines=middle,xlabel={$q$},ylabel={$p$},xmin=-4.6,xmax=4.6,ymin=-4.6,ymax=4.6,\n  xtick={-4,-2,2,4},ytick={-4,-2,2,4},legend style={draw=none,at={(0.5,1.03)},anchor=south,legend columns=2,font=\\small}]\n\\addplot[thick,mark=*,mark size=0.9pt] coordinates {(1.000,0.000) (1.000,-0.300) (0.910,-0.600) (0.730,-0.873) (0.468,-1.092) (0.141,-1.232) (-0.229,-1.275) (-0.612,-1.206) (-0.973,-1.022) (-1.280,-0.730) (-1.499,-0.346) (-1.603,0.103) (-1.572,0.584) (-1.397,1.056) (-1.080,1.475) (-0.637,1.799) (-0.098,1.990) (0.499,2.019) (1.105,1.870) (1.666,1.538) (2.127,1.038) (2.439,0.400) (2.559,-0.332) (2.460,-1.099) (2.130,-1.837) (1.579,-2.476) (0.836,-2.950) (-0.049,-3.200) (-1.009,-3.186) (-1.965,-2.883) (-2.830,-2.293)};\n\\addplot[thick,dashed,mark=o,mark size=1.2pt] coordinates {(1.000,0.000) (0.955,-0.293) (0.824,-0.560) (0.619,-0.777) (0.358,-0.923) (0.065,-0.987) (-0.234,-0.961) (-0.512,-0.849) (-0.744,-0.661) (-0.908,-0.413) (-0.992,-0.128) (-0.985,0.168) (-0.891,0.450) (-0.716,0.691) (-0.476,0.869) (-0.194,0.970) (0.106,0.983) (0.396,0.908) (0.650,0.751) (0.846,0.527) (0.966,0.255) (0.999,-0.040) (0.942,-0.331) (0.800,-0.593) (0.586,-0.801) (0.320,-0.937) (0.024,-0.988) (-0.273,-0.951) (-0.546,-0.828) (-0.770,-0.631) (-0.925,-0.377)};\n\\legend{trajectory 1,trajectory 2}\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Two numerical trajectories for H(q,p) = q^2/2 + p^2/2 started from (1,0) with the same step size: one from Euler's method and one from the leapfrog integrator."
+      }
+    },
+    {
+      "id": "TF-032",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "HMC requires the gradient of the log target density with respect to the parameters.",
+      "answer": true,
+      "explanation": "动量的更新用到 $\\nabla U(q)=-\\nabla\\log\\pi(q)$，所以目标必须对参数可导，这也是需要把受约束参数变换到无约束空间的原因之一。",
+      "figure": null
+    },
+    {
+      "id": "TF-033",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 3,
+      "question": "To apply HMC to a parameter $\\theta\\in(0,1)$ one can use $q=\\log\\{\\theta/(1-\\theta)\\}$, for which the Jacobian of the inverse transformation is $d\\theta/dq=\\theta(1-\\theta)$.",
+      "answer": true,
+      "explanation": "逆变换为 $\\theta=1/(1+e^{-q})$，求导得 $d\\theta/dq=\\theta(1-\\theta)$。变换后的目标为 $\\pi_q(q)=\\pi_\\theta(\\theta(q))\\,\\theta(q)\\{1-\\theta(q)\\}$，对数目标需加上 $\\log\\theta+\\log(1-\\theta)$。",
+      "figure": null
+    },
+    {
+      "id": "TF-034",
+      "type": "true_false",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "Decreasing the step size $\\epsilon$ while keeping the number of leapfrog steps $L$ fixed increases both the acceptance rate and the distance travelled per iteration.",
+      "answer": false,
+      "explanation": "减小 $\\epsilon$ 使积分误差变小，接受率上升，但轨迹长度 $L\\epsilon$ 变短，每次迭代走得更近，样本自相关升高。要保持轨迹长度就得同时增大 $L$，代价是更多的梯度计算。",
+      "figure": null
+    },
+    {
+      "id": "TF-035",
+      "type": "true_false",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "In a posterior predictive check, the replicated datasets $y_{\\text{rep}}$ are simulated using parameter values drawn from the prior distribution.",
+      "answer": false,
+      "explanation": "$y_{\\text{rep}}$ 来自后验预测分布：先从后验 $\\pi(\\theta\\mid y)$ 抽 $\\theta^{(s)}$，再从 $p(y\\mid\\theta^{(s)})$ 模拟数据。用先验抽样得到的是先验预测分布。",
+      "figure": null
+    },
+    {
+      "id": "TF-036",
+      "type": "true_false",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "A posterior predictive p-value is the posterior probability that the model is correct.",
+      "answer": false,
+      "explanation": "$p_B=P(T(y_{\\text{rep}})\\ge T(y)\\mid y)$ 衡量的是观测到的 discrepancy 在模型的预测分布中处于什么位置，它针对某一个特定的 $T$，不能解释为模型正确的概率。",
+      "figure": null
+    },
+    {
+      "id": "TF-037",
+      "type": "true_false",
+      "unit": "T7",
+      "difficulty": 3,
+      "question": "Suppose a normal model with unknown mean is fitted and the discrepancy is the sample mean, $T(y)=\\bar y$. Then $p_B$ is typically close to 0.5, even if the data are strongly skewed.",
+      "answer": true,
+      "explanation": "均值正是模型用自由参数直接拟合的量，后验预测的 $\\bar y_{\\text{rep}}$ 自然集中在 $\\bar y$ 附近，所以 $p_B\\approx0.5$。这类 discrepancy 检测不出偏度等其他方面的失配，应选择模型没有直接拟合的特征，例如最大值或偏度。",
+      "figure": null
+    },
+    {
+      "id": "TF-038",
+      "type": "true_false",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "A posterior predictive check can reveal that a model fits poorly in some respect, but passing a check does not prove that the model is correct.",
+      "answer": true,
+      "explanation": "检查只针对所选 discrepancy 所反映的数据特征。$p_B$ 接近 0.5 只说明模型能重现这一特征，模型在其他方面仍可能失配。",
+      "figure": null
+    },
+    {
+      "id": "TF-039",
+      "type": "true_false",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "To estimate $p_B$ by simulation, for each posterior draw $\\theta^{(s)}$ one simulates a replicated dataset of the same size as the observed data and evaluates the discrepancy on it.",
+      "answer": true,
+      "explanation": "每个 $y_{\\text{rep}}^{(s)}$ 的样本量应与观测数据相同，这样 $T(y_{\\text{rep}}^{(s)})$ 与 $T(y)$ 才可比。$\\hat p_B$ 是 $T(y_{\\text{rep}}^{(s)})\\ge T(y)$ 的比例。",
+      "figure": null
+    },
+    {
+      "id": "TF-040",
+      "type": "true_false",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "Approximate Bayesian computation is designed for models whose likelihood is intractable but from which data can be simulated.",
+      "answer": true,
+      "explanation": "ABC 用模拟代替似然计算：只要能从 $p(y\\mid\\theta)$ 生成数据，就可以通过比较模拟数据与观测数据的摘要统计量来近似后验。",
+      "figure": null
+    },
+    {
+      "id": "TF-041",
+      "type": "true_false",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "In the ABC rejection algorithm, candidate parameter values are drawn from the posterior distribution.",
+      "answer": false,
+      "explanation": "候选值从先验 $\\pi(\\theta)$ 抽取，后验正是要近似的对象，无法直接抽样。被接受的候选值构成 ABC 后验的样本。",
+      "figure": null
+    },
+    {
+      "id": "TF-042",
+      "type": "true_false",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "The parameter values accepted by the ABC rejection algorithm are independent draws from the ABC posterior.",
+      "answer": true,
+      "explanation": "每次提议都独立地从先验抽取并独立模拟数据，是否接受只取决于本次模拟，所以被接受的值相互独立。这一点与 MCMC 输出的相依样本不同。",
+      "figure": null
+    },
+    {
+      "id": "TF-043",
+      "type": "true_false",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "Using a sufficient summary statistic removes the approximation error caused by a non-zero tolerance $\\epsilon$.",
+      "answer": false,
+      "explanation": "ABC 有两个近似来源。充分统计量只消除用 $S(y)$ 代替 $y$ 造成的信息损失，$\\epsilon>0$ 时允许不完全匹配所带来的误差依然存在。",
+      "figure": null
+    },
+    {
+      "id": "TF-044",
+      "type": "true_false",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "SMC-ABC uses an increasing sequence of tolerances, so that later populations of particles are accepted more easily.",
+      "answer": false,
+      "explanation": "SMC-ABC 使用逐步减小的容差序列 $\\epsilon_1>\\epsilon_2>\\dots$，让粒子群从接近先验的宽松近似逐步移向后验，避免一开始就用很小的 $\\epsilon$ 而几乎全部被拒绝。",
+      "figure": null
+    },
+    {
+      "id": "TF-045",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "Variational inference replaces sampling from the posterior with an optimisation problem over a family of distributions.",
+      "answer": true,
+      "explanation": "VI 在变分族 $\\{q_\\psi\\}$ 中寻找最接近后验的成员，做法是对 $\\psi$ 最大化 ELBO，等价于最小化 $\\mathrm{KL}(q_\\psi\\,\\|\\,p(z\\mid x))$。",
+      "figure": null
+    },
+    {
+      "id": "TF-046",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "$\\mathrm{KL}(q\\,\\|\\,p)\\ge0$, with equality if and only if $q=p$ almost everywhere.",
+      "answer": true,
+      "explanation": "这是 KL 散度的非负性。正因为如此，由 $\\log p(x)=\\mathcal L(\\psi)+\\mathrm{KL}$ 可得 $\\mathcal L(\\psi)\\le\\log p(x)$，ELBO 是对数证据的下界。",
+      "figure": null
+    },
+    {
+      "id": "TF-047",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "In the figure, the vertical gap between the dashed line $\\log p(x)$ and the ELBO curve at a given $\\psi$ equals $\\mathrm{KL}\\big(q_\\psi(z)\\,\\|\\,p(z\\mid x)\\big)$.",
+      "answer": true,
+      "explanation": "由恒等式 $\\log p(x)=\\mathcal L(\\psi)+\\mathrm{KL}(q_\\psi\\,\\|\\,p(z\\mid x))$，两者之差就是 KL 散度。曲线最高点对应 KL 最小的 $\\psi^*$；图中最高点仍低于虚线，说明变分族不包含真实后验。",
+      "figure": {
+        "id": "fig-elbo-gap",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10.5cm,height=6.2cm,domain=0.45:3.6,samples=200,axis lines=left,xlabel={variational parameter $\\psi$},ylabel={value},\n  ymin=-3.6,ymax=-0.9,xmin=0.3,xmax=3.8,ytick=\\empty,xtick=\\empty]\n\\addplot[very thick] {-2/x-2*ln(x)+1-0.5772};\n\\addplot[thick,dashed,domain=0.3:3.8] {-1.3863};\n\\node[anchor=south east,font=\\small] at (axis cs:3.75,-1.3863) {$\\log p(x)$};\n\\node[anchor=north west,font=\\small] at (axis cs:2.6,-2.3) {$\\mathcal{L}(\\psi)$};\n\\draw[<->,thick] (axis cs:1.8,-1.3863) -- (axis cs:1.8,-2.2637);\n\\node[anchor=west,font=\\small] at (axis cs:1.85,-1.85) {gap};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "The ELBO as a function of a scalar variational parameter psi (solid curve) and the log evidence log p(x) (dashed line)."
+      }
+    },
+    {
+      "id": "TF-048",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "If the variational family contains the exact posterior, then the maximum value of the ELBO equals $\\log p(x)$.",
+      "answer": true,
+      "explanation": "取 $q_\\psi=p(z\\mid x)$ 时 KL 为 0，$\\mathcal L=\\log p(x)$，而 ELBO 不可能超过 $\\log p(x)$，所以这就是最大值。Beta--Bernoulli 例子中用 Beta 族近似就属于这种情况。",
+      "figure": null
+    },
+    {
+      "id": "TF-049",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "A mean-field Gaussian family can capture posterior correlation between two parameters provided its variances are chosen large enough.",
+      "answer": false,
+      "explanation": "mean-field 族 $q(z_1,z_2)=q_1(z_1)q_2(z_2)$ 假定各分量独立，等高线的主轴只能平行于坐标轴，调整方差无法产生相关性。要表示相关结构需使用带完整协方差的族或其他更灵活的族。",
+      "figure": null
+    },
+    {
+      "id": "TF-050",
+      "type": "true_false",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "Evaluating the ELBO requires the normalised posterior density $p(z\\mid x)$.",
+      "answer": false,
+      "explanation": "$\\mathcal L(\\psi)=\\mathbb{E}_{q_\\psi}[\\log p(x,z)-\\log q_\\psi(z)]$ 只用到联合密度 $p(x,z)=p(z)p(x\\mid z)$ 和变分密度，不需要 $p(x)$ 或归一化的后验，这是 VI 可行的关键。",
+      "figure": null
+    },
+    {
+      "id": "MC-001",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "Let $y\\mid\\theta\\sim\\text{Binomial}(10,\\theta)$ with prior $\\theta\\sim\\text{Beta}(2,2)$, and suppose $y=7$ is observed. The posterior distribution of $\\theta$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\text{Beta}(7,3)$"
+        },
+        {
+          "label": "B",
+          "text": "$\\text{Beta}(9,5)$"
+        },
+        {
+          "label": "C",
+          "text": "$\\text{Beta}(8,4)$"
+        },
+        {
+          "label": "D",
+          "text": "$\\text{Beta}(9,12)$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Beta 先验与 Binomial 似然共轭，后验为 $\\text{Beta}(a+y,\\ b+n-y)=\\text{Beta}(2+7,\\ 2+3)=\\text{Beta}(9,5)$。",
+      "figure": null
+    },
+    {
+      "id": "MC-002",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "For $y\\mid\\theta\\sim\\text{Binomial}(n,\\theta)$ and $\\theta\\sim\\text{Beta}(a,b)$, the posterior mean can be written as $w\\cdot\\frac{y}{n}+(1-w)\\cdot\\frac{a}{a+b}$. The weight $w$ on the sample proportion is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\dfrac{a}{a+b+n}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\dfrac{n}{a+b}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\dfrac{n}{a+b+n}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\dfrac{a+b}{a+b+n}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "后验均值 $\\frac{a+y}{a+b+n}=\\frac{n}{a+b+n}\\cdot\\frac yn+\\frac{a+b}{a+b+n}\\cdot\\frac{a}{a+b}$。$n$ 越大，数据的权重越接近 1，后验均值趋向样本比例；$a+b$ 可理解为先验的等效样本量。",
+      "figure": null
+    },
+    {
+      "id": "MC-003",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "The figure shows a prior $\\mu\\sim N(0,2^2)$, the likelihood of a single observation $y=3$ from $y\\mid\\mu\\sim N(\\mu,1)$, and the resulting posterior. Which curve is the posterior?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Curve A"
+        },
+        {
+          "label": "B",
+          "text": "Curve B"
+        },
+        {
+          "label": "C",
+          "text": "Curve C"
+        },
+        {
+          "label": "D",
+          "text": "It cannot be determined from the figure"
+        }
+      ],
+      "answer": "B",
+      "explanation": "后验精度为 $1/4+1=5/4$，方差 $0.8$，均值 $\\frac{3\\times1}{5/4}=2.4$。后验的中心落在先验均值 0 与观测值 3 之间并更靠近信息量更大的似然，同时比先验和似然都更集中，对应曲线 B。A 最宽且以 0 为中心，是先验；C 以 3 为中心，是似然。",
+      "figure": {
+        "id": "fig-prior-likelihood-posterior",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10cm,height=6cm,domain=-5:7,samples=200,axis lines=left,\n  xlabel={$\\mu$},ylabel={density},ytick=\\empty,ymin=0,ymax=0.52,\n  legend style={draw=none,at={(0.03,0.97)},anchor=north west,font=\\small}]\n\\addplot[thick,dashed] {exp(-x^2/8)/sqrt(8*pi)};\n\\addplot[very thick] {exp(-(x-2.4)^2/1.6)/sqrt(1.6*pi)};\n\\addplot[thick,dotted] {exp(-(x-3)^2/2)/sqrt(2*pi)};\n\\legend{curve A,curve B,curve C}\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Three curves for a normal mean: a prior, a (scaled) likelihood and the resulting posterior, labelled A, B, C."
+      }
+    },
+    {
+      "id": "MC-004",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "The Jeffreys prior is defined in terms of the Fisher information $I(\\theta)$ by",
+      "options": [
+        {
+          "label": "A",
+          "text": "$p(\\theta)\\propto\\sqrt{I(\\theta)}$"
+        },
+        {
+          "label": "B",
+          "text": "$p(\\theta)\\propto I(\\theta)$"
+        },
+        {
+          "label": "C",
+          "text": "$p(\\theta)\\propto1/I(\\theta)$"
+        },
+        {
+          "label": "D",
+          "text": "$p(\\theta)\\propto1/\\sqrt{I(\\theta)}$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$p(\\theta)\\propto\\sqrt{I(\\theta)}$，其中 $I(\\theta)=-\\mathbb{E}\\big[\\partial^2\\log p(y\\mid\\theta)/\\partial\\theta^2\\big]$。取平方根使得该先验在重参数化下保持不变。",
+      "figure": null
+    },
+    {
+      "id": "MC-005",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "For a single observation $y\\mid\\lambda\\sim\\text{Poisson}(\\lambda)$, the Jeffreys prior for $\\lambda$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$p(\\lambda)\\propto1$"
+        },
+        {
+          "label": "B",
+          "text": "$p(\\lambda)\\propto\\lambda^{-1/2}$"
+        },
+        {
+          "label": "C",
+          "text": "$p(\\lambda)\\propto\\lambda^{-1}$"
+        },
+        {
+          "label": "D",
+          "text": "$p(\\lambda)\\propto\\lambda^{1/2}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$\\log p(y\\mid\\lambda)=y\\log\\lambda-\\lambda+\\text{const}$，二阶导为 $-y/\\lambda^2$，取期望并变号得 $I(\\lambda)=\\mathbb{E}[y]/\\lambda^2=1/\\lambda$，所以 $p(\\lambda)\\propto\\lambda^{-1/2}$。",
+      "figure": null
+    },
+    {
+      "id": "MC-006",
+      "type": "single_choice",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "Let $y_1,\\dots,y_n\\mid\\mu\\overset{\\text{iid}}{\\sim}N(\\mu,\\sigma^2)$ with $\\sigma^2$ known and prior $\\mu\\sim N(\\mu_0,\\tau_0^2)$. The posterior precision (reciprocal of the posterior variance) of $\\mu$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\tau_0^2+\\sigma^2/n$"
+        },
+        {
+          "label": "B",
+          "text": "$1/\\tau_0^2+1/\\sigma^2$"
+        },
+        {
+          "label": "C",
+          "text": "$n/\\tau_0^2+1/\\sigma^2$"
+        },
+        {
+          "label": "D",
+          "text": "$1/\\tau_0^2+n/\\sigma^2$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "正态--正态模型中精度相加：后验精度等于先验精度 $1/\\tau_0^2$ 加上数据精度 $n/\\sigma^2$。后验均值是先验均值与 $\\bar y$ 按各自精度加权的平均。",
+      "figure": null
+    },
+    {
+      "id": "MC-007",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "To reduce the standard error of a direct Monte Carlo estimator by a factor of 10, the number of samples must be multiplied by",
+      "options": [
+        {
+          "label": "A",
+          "text": "10"
+        },
+        {
+          "label": "B",
+          "text": "20"
+        },
+        {
+          "label": "C",
+          "text": "100"
+        },
+        {
+          "label": "D",
+          "text": "1000"
+        }
+      ],
+      "answer": "C",
+      "explanation": "标准误为 $\\sigma/\\sqrt N$。要缩小到原来的 $1/10$ 需要 $\\sqrt N$ 增大 10 倍，即 $N$ 增大 100 倍。",
+      "figure": null
+    },
+    {
+      "id": "MC-008",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "In the figure, $f$ is the target density and $c\\,g$ the envelope used for rejection sampling. Each point shows a proposal $\\theta^*\\sim g$ plotted at height $U\\cdot c\\,g(\\theta^*)$ with $U\\sim\\text{Uniform}(0,1)$. Which proposals are accepted?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A and C"
+        },
+        {
+          "label": "B",
+          "text": "B and D"
+        },
+        {
+          "label": "C",
+          "text": "A, B, C and D"
+        },
+        {
+          "label": "D",
+          "text": "Only B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "接受条件为 $U\\le f(\\theta^*)/\\{c\\,g(\\theta^*)\\}$，即点的高度 $U\\,c\\,g(\\theta^*)$ 不超过 $f(\\theta^*)$。落在曲线 $f$ 下方的点 A、C 被接受，位于 $f$ 与包络线之间的 B、D 被拒绝。被接受的点在 $f$ 下方均匀分布，其横坐标服从 $f$。",
+      "figure": {
+        "id": "fig-rejection-envelope",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10cm,height=6.2cm,domain=0:1,samples=120,axis lines=left,\n  xlabel={$\\theta$},ymin=0,ymax=1.85,xmin=0,xmax=1.05,ytick={0,0.5,1,1.5}]\n\\addplot[very thick] {6*x*(1-x)};\n\\addplot[thick,dashed] {1.5};\n\\node[anchor=south west,font=\\small] at (axis cs:0.02,1.5) {$c\\,g(\\theta)$};\n\\node[font=\\small] at (axis cs:0.5,0.55) {$f(\\theta)$};\n\\addplot[only marks,mark=*,mark size=2.2pt] coordinates {(0.5,0.9) (0.15,1.1) (0.8,0.5) (0.9,1.2)};\n\\node[anchor=south west] at (axis cs:0.5,0.9) {A};\n\\node[anchor=south west] at (axis cs:0.15,1.1) {B};\n\\node[anchor=south west] at (axis cs:0.8,0.5) {C};\n\\node[anchor=south west] at (axis cs:0.9,1.2) {D};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Target density f (solid), envelope c g (dashed) and four points (theta*, U c g(theta*)) labelled A-D."
+      }
+    },
+    {
+      "id": "MC-009",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "Rejection sampling is used for the target $f(\\theta)=6\\theta(1-\\theta)$ on $(0,1)$ with a $\\text{Uniform}(0,1)$ proposal. The smallest valid constant $c$ and the resulting acceptance rate are",
+      "options": [
+        {
+          "label": "A",
+          "text": "$c=6$, acceptance rate $1/6$"
+        },
+        {
+          "label": "B",
+          "text": "$c=1.5$, acceptance rate $2/3$"
+        },
+        {
+          "label": "C",
+          "text": "$c=1.5$, acceptance rate $1/3$"
+        },
+        {
+          "label": "D",
+          "text": "$c=3$, acceptance rate $1/3$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$g=1$，所以 $c=\\sup f$。$f$ 在 $\\theta=1/2$ 处取最大值 $6\\times\\tfrac14=1.5$，接受率为 $1/c=2/3$。",
+      "figure": null
+    },
+    {
+      "id": "MC-010",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "Four importance sampling draws have weights $w=(3,1,1,1)$. The effective sample size is",
+      "options": [
+        {
+          "label": "A",
+          "text": "4"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "1.5"
+        },
+        {
+          "label": "D",
+          "text": "3"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\mathrm{ESS}=\\frac{(\\sum w_i)^2}{\\sum w_i^2}=\\frac{6^2}{9+1+1+1}=3$。权重不均匀使有效样本量小于实际样本量 4。",
+      "figure": null
+    },
+    {
+      "id": "MC-011",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "Which condition must the proposal density $g$ satisfy for importance sampling to estimate $\\mathbb{E}_f[h(\\theta)]$ correctly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$g$ must be symmetric about the mean of $f$"
+        },
+        {
+          "label": "B",
+          "text": "$g(\\theta)\\le f(\\theta)$ for all $\\theta$"
+        },
+        {
+          "label": "C",
+          "text": "$g(\\theta)>0$ wherever $h(\\theta)f(\\theta)\\neq0$"
+        },
+        {
+          "label": "D",
+          "text": "$g$ must be a uniform density"
+        }
+      ],
+      "answer": "C",
+      "explanation": "提议分布必须覆盖被积函数 $h f$ 非零的全部区域，否则这些区域永远抽不到，估计会有偏。除此之外，为了方差小还希望 $g$ 的尾部不比 $f$ 轻，但那是效率要求。",
+      "figure": null
+    },
+    {
+      "id": "MC-012",
+      "type": "single_choice",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "In the resampling step of sampling-importance-resampling (SIR), the values $\\theta_1,\\dots,\\theta_N$ drawn from $g$ are resampled with replacement with probabilities proportional to",
+      "options": [
+        {
+          "label": "A",
+          "text": "the importance weights $w_i=f(\\theta_i)/g(\\theta_i)$"
+        },
+        {
+          "label": "B",
+          "text": "$1/w_i$"
+        },
+        {
+          "label": "C",
+          "text": "the proposal density $g(\\theta_i)$"
+        },
+        {
+          "label": "D",
+          "text": "$1/N$ for every $i$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "按归一化权重 $\\tilde w_i=w_i/\\sum_jw_j$ 重抽样，权重大的点（$f$ 相对 $g$ 更高的区域）被抽中得更多，重抽样后的样本近似服从 $f$。",
+      "figure": null
+    },
+    {
+      "id": "MC-013",
+      "type": "single_choice",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "The figure shows the statistics $T^{(b)}$ from $B=1000$ random permutations, with the observed statistic $T_{\\text{obs}}$ marked. The proportion of permutations in the shaded bars estimates",
+      "options": [
+        {
+          "label": "A",
+          "text": "the significance level $\\alpha$"
+        },
+        {
+          "label": "B",
+          "text": "the power of the test"
+        },
+        {
+          "label": "C",
+          "text": "the one-sided p-value $P(T\\ge T_{\\text{obs}})$ under $H_0$"
+        },
+        {
+          "label": "D",
+          "text": "the bootstrap standard error of $T$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "直方图近似 $H_0$ 下 $T$ 的分布，阴影部分是 $T^{(b)}\\ge T_{\\text{obs}}$ 的置换所占比例，即单侧 p 值的估计 $\\hat p=\\frac1B\\sum_b\\mathbb{I}(T^{(b)}\\ge T_{\\text{obs}})$。",
+      "figure": {
+        "id": "fig-permutation-null",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10cm,height=6cm,ybar,bar width=0.42cm,axis lines=left,ymin=0,\n  xlabel={permuted statistic $T^{(b)}$},ylabel={frequency},xtick={-3,-2,-1,0,1,2,3},enlarge x limits=0.06]\n\\addplot[fill=white,draw=black,bar shift=0pt] coordinates {(-3,2) (-2.5,9) (-2,27) (-1.5,65) (-1,121) (-0.5,176) (0,200) (0.5,176) (1,121) (1.5,65)};\n\\addplot[fill=gray,draw=black,bar shift=0pt] coordinates {(2,27) (2.5,9) (3,2)};\n\\draw[very thick,dashed] (axis cs:1.75,0) -- (axis cs:1.75,150);\n\\node[anchor=south,font=\\small] at (axis cs:1.75,150) {$T_{\\mathrm{obs}}$};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Histogram of permuted test statistics T^(b); the dashed line marks the observed statistic and the bars to its right are shaded."
+      }
+    },
+    {
+      "id": "MC-014",
+      "type": "single_choice",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "In a two-sample permutation test with group sizes $m=n=4$, the number of distinct ways of assigning the group labels to the pooled observations is",
+      "options": [
+        {
+          "label": "A",
+          "text": "16"
+        },
+        {
+          "label": "B",
+          "text": "70"
+        },
+        {
+          "label": "C",
+          "text": "256"
+        },
+        {
+          "label": "D",
+          "text": "40320"
+        }
+      ],
+      "answer": "B",
+      "explanation": "从 8 个观测值中选 4 个标为第一组，共 $\\binom84=70$ 种。$2^8$ 没有限制组的大小，$8!$ 把同组内的排列重复计数了。",
+      "figure": null
+    },
+    {
+      "id": "MC-015",
+      "type": "single_choice",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "In a paired permutation test with $n=5$ pairs, the number of possible sign assignments for the differences is",
+      "options": [
+        {
+          "label": "A",
+          "text": "10"
+        },
+        {
+          "label": "B",
+          "text": "25"
+        },
+        {
+          "label": "C",
+          "text": "120"
+        },
+        {
+          "label": "D",
+          "text": "32"
+        }
+      ],
+      "answer": "D",
+      "explanation": "每对差值的符号独立地取正或负，共 $2^5=32$ 种，在 $H_0$ 下等可能。",
+      "figure": null
+    },
+    {
+      "id": "MC-016",
+      "type": "single_choice",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "A statistic has estimate $\\hat\\theta=10$, and its bootstrap replicates have 2.5\\% quantile 8 and 97.5\\% quantile 13. The basic bootstrap 95\\% interval is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(8,\\ 13)$"
+        },
+        {
+          "label": "B",
+          "text": "$(7,\\ 12)$"
+        },
+        {
+          "label": "C",
+          "text": "$(7,\\ 13)$"
+        },
+        {
+          "label": "D",
+          "text": "$(8,\\ 12)$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "basic 区间为 $\\big(2\\hat\\theta-\\hat\\theta^*_{(0.975)},\\ 2\\hat\\theta-\\hat\\theta^*_{(0.025)}\\big)=(20-13,\\ 20-8)=(7,12)$。$(8,13)$ 是 percentile 区间。bootstrap 分布右偏时两者方向相反地偏离 $\\hat\\theta$。",
+      "figure": null
+    },
+    {
+      "id": "MC-017",
+      "type": "single_choice",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "Which of the following is NOT required for the non-parametric bootstrap to work well?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The observations are (approximately) independent draws from the population"
+        },
+        {
+          "label": "B",
+          "text": "The empirical distribution is a reasonable approximation to the population distribution"
+        },
+        {
+          "label": "C",
+          "text": "The statistic is recomputed in the same way on every bootstrap sample"
+        },
+        {
+          "label": "D",
+          "text": "The data follow a normal distribution"
+        }
+      ],
+      "answer": "D",
+      "explanation": "非参数 bootstrap 不对总体分布的形式作假设，它依赖的是经验分布对总体的近似，这要求数据近似 iid 且样本量不太小。",
+      "figure": null
+    },
+    {
+      "id": "MC-018",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "The figure shows trace plots of two chains for the same parameter after warm-up. Which conclusion is most appropriate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The chains are well mixed and $\\hat R\\approx1$"
+        },
+        {
+          "label": "B",
+          "text": "The chains have not converged to a common distribution, and $\\hat R$ will be well above 1"
+        },
+        {
+          "label": "C",
+          "text": "The sampler is efficient because each chain has a small within-chain variance"
+        },
+        {
+          "label": "D",
+          "text": "The effective sample size equals the total number of draws"
+        }
+      ],
+      "answer": "B",
+      "explanation": "两条链各自在不同的水平附近波动、互不重叠，链间方差 $B$ 远大于链内方差 $W$，所以 $\\hat R=\\sqrt{\\hat V/W}$ 明显大于 1。可能的原因是后验多峰或混合很慢，这些样本不能用于推断。",
+      "figure": {
+        "id": "fig-trace-two-chains",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=11cm,height=5.8cm,axis lines=left,xlabel={iteration},ylabel={$\\theta$},xmin=0,xmax=155,ymin=-1.6,ymax=4.6,\n  legend style={draw=none,at={(0.5,1.02)},anchor=south,legend columns=2,font=\\small}]\n\\addplot[thin] coordinates {(1,0.2) (2,0.35) (3,0.52) (4,0.53) (5,-0.16) (6,0.32) (7,0.39) (8,-0.15) (9,-0.21) (10,-0.32) (11,0.78) (12,0.16) (13,-0.03) (14,0.28) (15,-0.08) (16,-0.02) (17,-0.14) (18,0.35) (19,0.35) (20,-0.29) (21,0.08) (22,-0.4) (23,-0.05) (24,-0.17) (25,-0.85) (26,-0.03) (27,-0.19) (28,0.11) (29,0.36) (30,0.4) (31,-0.39) (32,-0.35) (33,0.16) (34,-0.11) (35,-0.62) (36,-0.55) (37,-0.42) (38,-0.29) (39,-0.52) (40,0.04) (41,0.03) (42,-0.15) (43,0.27) (44,-0.28) (45,-0.22) (46,-0.29) (47,-0.1) (48,0.4) (49,0.24) (50,-0.79) (51,-0.69) (52,-0.97) (53,-0.79) (54,0.12) (55,0.33) (56,-0.02) (57,-0.46) (58,0.91) (59,1.15) (60,0.8) (61,0.46) (62,-0.06) (63,-0.5) (64,-0.44) (65,-0.49) (66,-0.71) (67,-0.51) (68,-0.06) (69,0.36) (70,-0.27) (71,0.03) (72,0.33) (73,0.45) (74,1.18) (75,0.57) (76,0.42) (77,0.88) (78,0.73) (79,0.21) (80,0.35) (81,0.44) (82,0.09) (83,-0.23) (84,0.34) (85,0.53) (86,0.08) (87,-0.06) (88,-0.34) (89,-0.05) (90,0.46) (91,0.12) (92,-0.49) (93,-0.62) (94,-0.45) (95,-0.14) (96,0.26) (97,-0.33) (98,-0.19) (99,-0.12) (100,0.63) (101,0.38) (102,0.4) (103,0.21) (104,0.04) (105,0) (106,0.14) (107,-0.56) (108,-0.82) (109,-0.48) (110,-0.65) (111,-0.53) (112,-0.33) (113,0.27) (114,0.18) (115,0.39) (116,-0.15) (117,-0.33) (118,-0.42) (119,-0.56) (120,-0.11) (121,-0.06) (122,0.03) (123,-0.1) (124,0.07) (125,0.13) (126,0.46) (127,-0.68) (128,-0.15) (129,-0.79) (130,-0.49) (131,-0.37) (132,-0.46) (133,-0.04) (134,0.17) (135,-0.02) (136,-0.17) (137,-0.72) (138,-0.94) (139,-0.79) (140,-0.68) (141,-0.73) (142,-0.81) (143,-0.14) (144,-0.31) (145,-0.81) (146,0.03) (147,0.08) (148,0.8) (149,0.35) (150,0.3)};\n\\addplot[thin,dashed] coordinates {(1,2.8) (2,2.9) (3,3.08) (4,3.51) (5,2.83) (6,2.45) (7,2.74) (8,3.23) (9,3.06) (10,2.14) (11,2.43) (12,2.84) (13,2.75) (14,2.62) (15,3.05) (16,2.77) (17,2.68) (18,2.35) (19,2.2) (20,2.11) (21,2.21) (22,2.6) (23,2.48) (24,2.55) (25,2.7) (26,2.89) (27,2.69) (28,2.92) (29,2.99) (30,3.04) (31,2.6) (32,3.02) (33,2.35) (34,2.71) (35,3.19) (36,3.21) (37,3.32) (38,3.53) (39,3.21) (40,3.28) (41,3.22) (42,2.7) (43,3.18) (44,2.82) (45,2.88) (46,2.73) (47,2.71) (48,2.53) (49,2.21) (50,2.54) (51,2.72) (52,3.09) (53,2.43) (54,2.2) (55,2.74) (56,2.83) (57,2.52) (58,1.75) (59,2.57) (60,2.5) (61,2.26) (62,2.53) (63,2.8) (64,3.09) (65,2.07) (66,2.09) (67,3.17) (68,3) (69,3.52) (70,2.43) (71,2.54) (72,3.09) (73,3.99) (74,3.75) (75,3.78) (76,3.41) (77,3.27) (78,2.84) (79,3.22) (80,3.19) (81,2.95) (82,3.36) (83,3.87) (84,3.8) (85,2.92) (86,3.17) (87,3.13) (88,2.57) (89,2.71) (90,2.73) (91,2.64) (92,2.4) (93,2.55) (94,2.41) (95,2.17) (96,2.82) (97,3.2) (98,3.08) (99,3.31) (100,2.56) (101,2.15) (102,2.52) (103,2.9) (104,2.78) (105,2.22) (106,2.75) (107,2.95) (108,2.69) (109,2.6) (110,2.84) (111,2.98) (112,2.51) (113,2.58) (114,2.42) (115,2.51) (116,2.35) (117,2.27) (118,2.63) (119,3.08) (120,2.88) (121,3.01) (122,2.61) (123,3.08) (124,3.29) (125,3.17) (126,3.16) (127,4.07) (128,3.17) (129,3.04) (130,3.53) (131,3.53) (132,3.7) (133,3.17) (134,2.58) (135,2.74) (136,3.37) (137,3.46) (138,3.56) (139,3.15) (140,3.34) (141,3.5) (142,3.33) (143,2.92) (144,2.62) (145,3.4) (146,3.39) (147,3.16) (148,3.17) (149,3.59) (150,3.22)};\n\\legend{chain 1,chain 2}\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Trace plots of two chains for the same parameter after warm-up."
+      }
+    },
+    {
+      "id": "MC-019",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "The figure shows the autocorrelation functions of two samplers targeting the same posterior. For the same number of draws, which sampler has the larger effective sample size?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sampler A"
+        },
+        {
+          "label": "B",
+          "text": "Sampler B"
+        },
+        {
+          "label": "C",
+          "text": "Both have the same effective sample size"
+        },
+        {
+          "label": "D",
+          "text": "It cannot be determined from autocorrelations"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\mathrm{ESS}=MN/(1+2\\sum_k\\rho_k)$。A 的自相关衰减得快，$\\sum_k\\rho_k$ 小，ESS 大；B 的自相关衰减缓慢，相邻样本信息重复多，ESS 小。",
+      "figure": {
+        "id": "fig-acf-two-samplers",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[name=A,width=6.4cm,height=5cm,axis lines=left,xlabel={lag $k$},ylabel={$\\rho_k$},ymin=0,ymax=1.08,xmin=-0.5,xmax=20.5,title={Sampler A}]\n\\addplot[ycomb,thick,mark=*,mark size=1pt,samples at={0,1,...,20}] {0.3^x};\n\\end{axis}\n\\begin{axis}[at={(A.outer east)},anchor=outer west,width=6.4cm,height=5cm,axis lines=left,xlabel={lag $k$},ymin=0,ymax=1.08,xmin=-0.5,xmax=20.5,title={Sampler B}]\n\\addplot[ycomb,thick,mark=*,mark size=1pt,samples at={0,1,...,20}] {0.9^x};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Autocorrelation functions of the draws from two samplers, A and B, targeting the same posterior."
+      }
+    },
+    {
+      "id": "MC-020",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "A sampler produces a total of $MN=2000$ draws with $\\sum_{k=1}^\\infty\\rho_k=4.5$. The effective sample size is",
+      "options": [
+        {
+          "label": "A",
+          "text": "100"
+        },
+        {
+          "label": "B",
+          "text": "444"
+        },
+        {
+          "label": "C",
+          "text": "200"
+        },
+        {
+          "label": "D",
+          "text": "2000"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$\\mathrm{ESS}=\\frac{2000}{1+2\\times4.5}=\\frac{2000}{10}=200$。",
+      "figure": null
+    },
+    {
+      "id": "MC-021",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "Let $(\\theta_1,\\theta_2)$ be bivariate normal with zero means, unit variances and correlation $\\rho$. The full conditional used in a Gibbs sampler is $\\theta_1\\mid\\theta_2\\sim N(\\rho\\,\\theta_2,\\ v)$ with $v$ equal to",
+      "options": [
+        {
+          "label": "A",
+          "text": "$1$"
+        },
+        {
+          "label": "B",
+          "text": "$\\rho^2$"
+        },
+        {
+          "label": "C",
+          "text": "$1-\\rho$"
+        },
+        {
+          "label": "D",
+          "text": "$1-\\rho^2$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "条件方差为 $1-\\rho^2$。当 $|\\rho|$ 接近 1 时条件方差很小，每次更新只能移动很短的距离，这解释了 Gibbs 在高度相关的目标上混合慢的现象。",
+      "figure": null
+    },
+    {
+      "id": "MC-022",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "Consider $y_i\\mid\\lambda_i\\sim\\text{Poisson}(\\lambda_i)$, $\\lambda_i\\mid\\beta\\sim\\text{Exponential}(\\beta)$ independently for $i=1,\\dots,n$, with $p(\\beta)\\propto1/\\beta$. The full conditional distribution of $\\lambda_i$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\text{Gamma}(y_i,\\ \\beta)$"
+        },
+        {
+          "label": "B",
+          "text": "$\\text{Exponential}(\\beta+1)$"
+        },
+        {
+          "label": "C",
+          "text": "$\\text{Gamma}(y_i+1,\\ \\beta+1)$"
+        },
+        {
+          "label": "D",
+          "text": "$\\text{Gamma}(y_i+1,\\ \\beta)$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$p(\\lambda_i\\mid\\cdot)\\propto e^{-\\lambda_i}\\lambda_i^{y_i}\\cdot\\beta e^{-\\beta\\lambda_i}\\propto\\lambda_i^{(y_i+1)-1}e^{-(\\beta+1)\\lambda_i}$，这是 $\\text{Gamma}(y_i+1,\\ \\beta+1)$ 的核。",
+      "figure": null
+    },
+    {
+      "id": "MC-023",
+      "type": "single_choice",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "Blocked Gibbs sampling is most beneficial when",
+      "options": [
+        {
+          "label": "A",
+          "text": "the parameters within a block are strongly correlated in the posterior"
+        },
+        {
+          "label": "B",
+          "text": "all parameters are independent in the posterior"
+        },
+        {
+          "label": "C",
+          "text": "none of the full conditional distributions can be sampled"
+        },
+        {
+          "label": "D",
+          "text": "the posterior has a single parameter"
+        }
+      ],
+      "answer": "A",
+      "explanation": "把强相关的参数放在同一个 block 中联合更新，可以避免逐坐标更新时只能小步移动的问题。前提是该 block 的联合条件分布能够抽样。",
+      "figure": null
+    },
+    {
+      "id": "MC-024",
+      "type": "single_choice",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "With target $\\pi$ and proposal density $q(\\theta^*\\mid\\theta)$, the Metropolis--Hastings acceptance probability for a move from $\\theta$ to $\\theta^*$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\min\\left\\{1,\\ \\dfrac{\\pi(\\theta)\\,q(\\theta^*\\mid\\theta)}{\\pi(\\theta^*)\\,q(\\theta\\mid\\theta^*)}\\right\\}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\min\\left\\{1,\\ \\dfrac{\\pi(\\theta^*)\\,q(\\theta^*\\mid\\theta)}{\\pi(\\theta)\\,q(\\theta\\mid\\theta^*)}\\right\\}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\min\\left\\{1,\\ \\dfrac{\\pi(\\theta^*)\\,q(\\theta\\mid\\theta^*)}{\\pi(\\theta)\\,q(\\theta^*\\mid\\theta)}\\right\\}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\min\\left\\{1,\\ \\dfrac{q(\\theta\\mid\\theta^*)}{q(\\theta^*\\mid\\theta)}\\right\\}$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "分子是目标在提议点的密度乘以从提议点返回当前点的提议密度，分母是目标在当前点的密度乘以从当前点到提议点的提议密度。提议对称时 $q$ 的比值为 1，退化为 Metropolis 接受率。",
+      "figure": null
+    },
+    {
+      "id": "MC-025",
+      "type": "single_choice",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "The target is $\\pi(\\theta)\\propto\\exp(-\\theta^2/2)$. The current state is $\\theta=1$ and a symmetric proposal gives $\\theta^*=2$. The acceptance probability is approximately",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "0.607"
+        },
+        {
+          "label": "C",
+          "text": "0.368"
+        },
+        {
+          "label": "D",
+          "text": "0.223"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\alpha=\\min\\{1,\\ \\exp(-\\tfrac{4}{2}+\\tfrac12)\\}=e^{-1.5}\\approx0.223$。提议点密度更低，所以以小于 1 的概率接受。",
+      "figure": null
+    },
+    {
+      "id": "MC-026",
+      "type": "single_choice",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "The figure shows random-walk Metropolis trace plots for a $N(0,1)$ target under three proposal standard deviations. Which panel corresponds to a proposal standard deviation that is far too large?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Panel A"
+        },
+        {
+          "label": "B",
+          "text": "Panel B"
+        },
+        {
+          "label": "C",
+          "text": "Panel C"
+        },
+        {
+          "label": "D",
+          "text": "None of the panels"
+        }
+      ],
+      "answer": "C",
+      "explanation": "步长过大时提议点大多落在密度极低的区域而被拒绝，链长时间停在同一个值，轨迹呈现长的水平段，对应 Panel C。",
+      "figure": {
+        "id": "fig-rwm-three-traces",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[name=A, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xticklabels=\\empty, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel A}]\n\\addplot[thin] coordinates {(1,-1.5) (2,-1.42) (3,-1.33) (4,-1.33) (5,-1.35) (6,-1.25) (7,-1.27) (8,-1.36) (9,-1.33) (10,-1.31) (11,-1.28) (12,-1.28) (13,-1.33) (14,-1.28) (15,-1.25) (16,-1.32) (17,-1.35) (18,-1.38) (19,-1.32) (20,-1.23) (21,-1.2) (22,-1.22) (23,-1.16) (24,-1.15) (25,-1.1) (26,-1.06) (27,-1.02) (28,-1.05) (29,-1) (30,-1) (31,-1.11) (32,-1.09) (33,-1) (34,-0.96) (35,-1.05) (36,-1.07) (37,-1.1) (38,-1.05) (39,-1.05) (40,-1.07) (41,-1.16) (42,-1.15) (43,-1.2) (44,-1.22) (45,-1.3) (46,-1.3) (47,-1.38) (48,-1.32) (49,-1.29) (50,-1.37) (51,-1.24) (52,-1.2) (53,-1.13) (54,-1.15) (55,-1.14) (56,-1.14) (57,-1.18) (58,-1.29) (59,-1.33) (60,-1.5) (61,-1.47) (62,-1.49) (63,-1.49) (64,-1.52) (65,-1.56) (66,-1.62) (67,-1.62) (68,-1.63) (69,-1.54) (70,-1.49) (71,-1.39) (72,-1.4) (73,-1.4) (74,-1.46) (75,-1.34) (76,-1.33) (77,-1.3) (78,-1.33) (79,-1.36) (80,-1.41) (81,-1.41) (82,-1.47) (83,-1.4) (84,-1.33) (85,-1.42) (86,-1.45) (87,-1.43) (88,-1.44) (89,-1.46) (90,-1.33) (91,-1.44) (92,-1.45) (93,-1.42) (94,-1.49) (95,-1.47) (96,-1.51) (97,-1.5) (98,-1.46) (99,-1.39) (100,-1.36) (101,-1.45) (102,-1.44) (103,-1.48) (104,-1.48) (105,-1.59) (106,-1.51) (107,-1.47) (108,-1.49) (109,-1.43) (110,-1.42) (111,-1.36) (112,-1.4) (113,-1.47) (114,-1.5) (115,-1.55) (116,-1.47) (117,-1.51) (118,-1.63) (119,-1.51) (120,-1.46) (121,-1.5) (122,-1.51) (123,-1.48) (124,-1.39) (125,-1.41) (126,-1.38) (127,-1.29) (128,-1.26) (129,-1.25) (130,-1.26) (131,-1.26) (132,-1.23) (133,-1.23) (134,-1.22) (135,-1.18) (136,-1.2) (137,-1.28) (138,-1.25) (139,-1.22) (140,-1.26) (141,-1.26) (142,-1.25) (143,-1.3) (144,-1.25) (145,-1.28) (146,-1.29) (147,-1.34) (148,-1.37) (149,-1.35) (150,-1.33) (151,-1.38) (152,-1.37) (153,-1.37) (154,-1.4) (155,-1.4) (156,-1.34) (157,-1.28) (158,-1.24) (159,-1.34) (160,-1.33) (161,-1.34) (162,-1.3) (163,-1.3) (164,-1.19) (165,-1.23) (166,-1.21) (167,-1.24) (168,-1.23) (169,-1.19) (170,-1.19) (171,-1.16) (172,-1.03) (173,-1.08) (174,-1.04) (175,-1.03) (176,-1.03) (177,-1.02) (178,-0.96) (179,-0.92) (180,-0.97) (181,-0.98) (182,-0.9) (183,-0.91) (184,-0.86) (185,-0.87) (186,-0.83) (187,-0.85) (188,-0.9) (189,-1) (190,-0.95) (191,-0.91) (192,-0.94) (193,-0.91) (194,-0.84) (195,-0.83) (196,-0.76) (197,-0.78) (198,-0.82) (199,-0.91) (200,-0.87)};\n\\end{axis}\n\\begin{axis}[name=B,at={(A.below south west)},anchor=north west,yshift=-2mm, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xticklabels=\\empty, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel B}]\n\\addplot[thin] coordinates {(1,0) (2,0) (3,0) (4,0) (5,1.89) (6,1.89) (7,2.13) (8,0.25) (9,-1.47) (10,-1.26) (11,0.07) (12,0.07) (13,-0.07) (14,0.04) (15,-0.02) (16,0.12) (17,0.12) (18,0.12) (19,-0.81) (20,-0.81) (21,-1.28) (22,0.99) (23,0.28) (24,-0.47) (25,-0.47) (26,0.54) (27,0.54) (28,0.33) (29,-1.01) (30,-1.31) (31,-1.59) (32,1.78) (33,1.78) (34,1.78) (35,1.78) (36,1.78) (37,1.69) (38,-2.21) (39,-2.21) (40,2.5) (41,-0.39) (42,-0.39) (43,0.19) (44,0.19) (45,0.19) (46,-0.79) (47,0.1) (48,0.1) (49,0.88) (50,0.88) (51,0.88) (52,0.74) (53,0.75) (54,-0.89) (55,-0.52) (56,-0.52) (57,-0.52) (58,-0.21) (59,-0.21) (60,-0.21) (61,-0.21) (62,-0.26) (63,-0.26) (64,-0.26) (65,-0.87) (66,-0.87) (67,-0.57) (68,-1.7) (69,-0.77) (70,0.6) (71,0.34) (72,-1.37) (73,-1.37) (74,-1.37) (75,-1.11) (76,-1.11) (77,-1.56) (78,-0.79) (79,-0.79) (80,0.53) (81,0.53) (82,0.96) (83,-0.76) (84,-0.6) (85,0.02) (86,-1.3) (87,0.69) (88,0.84) (89,0.84) (90,0.25) (91,0.25) (92,0.25) (93,0.25) (94,0.25) (95,0.25) (96,0.25) (97,0.25) (98,0.35) (99,0.35) (100,0.35) (101,0.35) (102,0.91) (103,-0.18) (104,-0.18) (105,-0.29) (106,-0.29) (107,-0.29) (108,1.36) (109,1.36) (110,1.36) (111,1.42) (112,2.48) (113,2.48) (114,1.11) (115,1.11) (116,1.11) (117,0.89) (118,0.89) (119,0.89) (120,0.89) (121,0.89) (122,0.89) (123,0.97) (124,0.97) (125,0.97) (126,0.97) (127,0.87) (128,0.87) (129,0.87) (130,0.87) (131,0.98) (132,0.98) (133,0.98) (134,-0.25) (135,-0.25) (136,-0.25) (137,-0.25) (138,-0.25) (139,-0.17) (140,-0.17) (141,-0.17) (142,-0.73) (143,-0.73) (144,0.03) (145,0.03) (146,0.36) (147,-0.93) (148,-0.93) (149,0.01) (150,0.37) (151,0.37) (152,0.37) (153,0.37) (154,-0.08) (155,-0.08) (156,-0.51) (157,-0.51) (158,-0.51) (159,-0.51) (160,-0.51) (161,-0.51) (162,-0.51) (163,0.82) (164,0.82) (165,0.82) (166,1.11) (167,1.11) (168,1.11) (169,1.11) (170,1.26) (171,1.59) (172,-1.91) (173,-1.91) (174,-1.91) (175,-1.91) (176,-1.91) (177,-0.05) (178,-0.05) (179,1.27) (180,1.27) (181,1.27) (182,-0.72) (183,-0.54) (184,-0.54) (185,-0.54) (186,-0.54) (187,-0.54) (188,0.21) (189,0.21) (190,0.17) (191,0.32) (192,0.32) (193,0.32) (194,0.05) (195,0.05) (196,0.05) (197,0.05) (198,0.05) (199,0.05) (200,-1.13)};\n\\end{axis}\n\\begin{axis}[at={(B.below south west)},anchor=north west,yshift=-2mm, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xlabel={iteration}, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel C}]\n\\addplot[thin] coordinates {(1,0.4) (2,0.4) (3,0.4) (4,0.4) (5,0.4) (6,0.4) (7,0.4) (8,0.4) (9,0.4) (10,0.4) (11,0.4) (12,0.4) (13,0.4) (14,0.4) (15,0.4) (16,0.4) (17,0.4) (18,0.4) (19,0.4) (20,0.4) (21,0.4) (22,0.4) (23,0.4) (24,0.4) (25,0.4) (26,0.4) (27,0.4) (28,0.4) (29,0.4) (30,0.4) (31,0.4) (32,0.4) (33,0.4) (34,0.4) (35,0.4) (36,0.4) (37,0.4) (38,0.4) (39,0.4) (40,0.4) (41,0.4) (42,0.4) (43,0.4) (44,0.4) (45,0.4) (46,0.4) (47,0.4) (48,0.4) (49,1.69) (50,1.69) (51,1.69) (52,1.69) (53,1.69) (54,1.69) (55,1.69) (56,1.69) (57,1.69) (58,1.69) (59,1.69) (60,1.69) (61,1.69) (62,1.69) (63,1.69) (64,1.69) (65,-0.13) (66,-0.13) (67,-0.13) (68,-0.13) (69,-0.13) (70,-0.13) (71,-0.13) (72,-0.13) (73,-0.13) (74,-0.13) (75,-0.13) (76,-0.13) (77,-0.13) (78,-0.13) (79,-0.13) (80,-0.13) (81,-0.13) (82,-0.13) (83,-0.13) (84,-0.13) (85,-0.13) (86,-0.13) (87,-0.13) (88,-0.13) (89,-0.13) (90,-0.13) (91,-0.13) (92,-0.13) (93,-0.13) (94,-0.13) (95,-0.13) (96,-0.13) (97,-0.13) (98,-0.13) (99,-0.13) (100,-0.13) (101,-0.13) (102,-0.13) (103,-0.13) (104,-0.13) (105,-0.13) (106,-0.13) (107,-0.13) (108,-0.13) (109,-0.13) (110,-0.13) (111,-0.13) (112,-0.13) (113,-0.13) (114,-0.13) (115,-0.13) (116,-0.13) (117,-0.13) (118,-0.13) (119,-0.13) (120,-0.13) (121,-0.13) (122,-0.13) (123,-0.13) (124,-0.13) (125,-0.13) (126,-0.13) (127,-0.13) (128,-0.13) (129,-0.13) (130,-0.13) (131,-0.13) (132,-0.13) (133,-0.13) (134,-0.13) (135,-0.13) (136,-0.13) (137,-0.13) (138,-0.13) (139,-0.13) (140,-0.13) (141,-0.13) (142,-0.13) (143,-0.13) (144,-0.13) (145,-0.44) (146,-0.44) (147,-0.44) (148,-0.44) (149,-0.44) (150,0.74) (151,0.74) (152,0.74) (153,-0.42) (154,-0.42) (155,-0.42) (156,-0.42) (157,-0.42) (158,-0.42) (159,-0.42) (160,0.73) (161,0.73) (162,0.73) (163,0.73) (164,0.73) (165,0.73) (166,0.73) (167,0.73) (168,0.73) (169,0.73) (170,0.73) (171,0.73) (172,0.73) (173,0.73) (174,0.73) (175,0.73) (176,0.73) (177,0.73) (178,3.05) (179,3.05) (180,3.05) (181,3.05) (182,3.05) (183,3.05) (184,3.05) (185,3.05) (186,3.05) (187,2.29) (188,2.29) (189,2.29) (190,2.29) (191,2.29) (192,2.29) (193,2.29) (194,2.29) (195,2.29) (196,2.29) (197,2.29) (198,2.29) (199,2.29) (200,2.29)};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Trace plots of random-walk Metropolis for a N(0,1) target, run with three different proposal standard deviations (panels A, B, C)."
+      }
+    },
+    {
+      "id": "MC-027",
+      "type": "single_choice",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "In the same figure, which panel corresponds to a proposal standard deviation that is far too small?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Panel A"
+        },
+        {
+          "label": "B",
+          "text": "Panel B"
+        },
+        {
+          "label": "C",
+          "text": "Panel C"
+        },
+        {
+          "label": "D",
+          "text": "None of the panels"
+        }
+      ],
+      "answer": "A",
+      "explanation": "步长过小时几乎每次提议都被接受，但每步移动极小，轨迹缓慢漂移，200 次迭代还没有走遍 $N(0,1)$ 的主要范围，对应 Panel A。Panel B 在整个范围内快速来回，是调得合适的情形。接受率高并不等于效率高。",
+      "figure": {
+        "id": "fig-rwm-three-traces",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[name=A, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xticklabels=\\empty, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel A}]\n\\addplot[thin] coordinates {(1,-1.5) (2,-1.42) (3,-1.33) (4,-1.33) (5,-1.35) (6,-1.25) (7,-1.27) (8,-1.36) (9,-1.33) (10,-1.31) (11,-1.28) (12,-1.28) (13,-1.33) (14,-1.28) (15,-1.25) (16,-1.32) (17,-1.35) (18,-1.38) (19,-1.32) (20,-1.23) (21,-1.2) (22,-1.22) (23,-1.16) (24,-1.15) (25,-1.1) (26,-1.06) (27,-1.02) (28,-1.05) (29,-1) (30,-1) (31,-1.11) (32,-1.09) (33,-1) (34,-0.96) (35,-1.05) (36,-1.07) (37,-1.1) (38,-1.05) (39,-1.05) (40,-1.07) (41,-1.16) (42,-1.15) (43,-1.2) (44,-1.22) (45,-1.3) (46,-1.3) (47,-1.38) (48,-1.32) (49,-1.29) (50,-1.37) (51,-1.24) (52,-1.2) (53,-1.13) (54,-1.15) (55,-1.14) (56,-1.14) (57,-1.18) (58,-1.29) (59,-1.33) (60,-1.5) (61,-1.47) (62,-1.49) (63,-1.49) (64,-1.52) (65,-1.56) (66,-1.62) (67,-1.62) (68,-1.63) (69,-1.54) (70,-1.49) (71,-1.39) (72,-1.4) (73,-1.4) (74,-1.46) (75,-1.34) (76,-1.33) (77,-1.3) (78,-1.33) (79,-1.36) (80,-1.41) (81,-1.41) (82,-1.47) (83,-1.4) (84,-1.33) (85,-1.42) (86,-1.45) (87,-1.43) (88,-1.44) (89,-1.46) (90,-1.33) (91,-1.44) (92,-1.45) (93,-1.42) (94,-1.49) (95,-1.47) (96,-1.51) (97,-1.5) (98,-1.46) (99,-1.39) (100,-1.36) (101,-1.45) (102,-1.44) (103,-1.48) (104,-1.48) (105,-1.59) (106,-1.51) (107,-1.47) (108,-1.49) (109,-1.43) (110,-1.42) (111,-1.36) (112,-1.4) (113,-1.47) (114,-1.5) (115,-1.55) (116,-1.47) (117,-1.51) (118,-1.63) (119,-1.51) (120,-1.46) (121,-1.5) (122,-1.51) (123,-1.48) (124,-1.39) (125,-1.41) (126,-1.38) (127,-1.29) (128,-1.26) (129,-1.25) (130,-1.26) (131,-1.26) (132,-1.23) (133,-1.23) (134,-1.22) (135,-1.18) (136,-1.2) (137,-1.28) (138,-1.25) (139,-1.22) (140,-1.26) (141,-1.26) (142,-1.25) (143,-1.3) (144,-1.25) (145,-1.28) (146,-1.29) (147,-1.34) (148,-1.37) (149,-1.35) (150,-1.33) (151,-1.38) (152,-1.37) (153,-1.37) (154,-1.4) (155,-1.4) (156,-1.34) (157,-1.28) (158,-1.24) (159,-1.34) (160,-1.33) (161,-1.34) (162,-1.3) (163,-1.3) (164,-1.19) (165,-1.23) (166,-1.21) (167,-1.24) (168,-1.23) (169,-1.19) (170,-1.19) (171,-1.16) (172,-1.03) (173,-1.08) (174,-1.04) (175,-1.03) (176,-1.03) (177,-1.02) (178,-0.96) (179,-0.92) (180,-0.97) (181,-0.98) (182,-0.9) (183,-0.91) (184,-0.86) (185,-0.87) (186,-0.83) (187,-0.85) (188,-0.9) (189,-1) (190,-0.95) (191,-0.91) (192,-0.94) (193,-0.91) (194,-0.84) (195,-0.83) (196,-0.76) (197,-0.78) (198,-0.82) (199,-0.91) (200,-0.87)};\n\\end{axis}\n\\begin{axis}[name=B,at={(A.below south west)},anchor=north west,yshift=-2mm, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xticklabels=\\empty, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel B}]\n\\addplot[thin] coordinates {(1,0) (2,0) (3,0) (4,0) (5,1.89) (6,1.89) (7,2.13) (8,0.25) (9,-1.47) (10,-1.26) (11,0.07) (12,0.07) (13,-0.07) (14,0.04) (15,-0.02) (16,0.12) (17,0.12) (18,0.12) (19,-0.81) (20,-0.81) (21,-1.28) (22,0.99) (23,0.28) (24,-0.47) (25,-0.47) (26,0.54) (27,0.54) (28,0.33) (29,-1.01) (30,-1.31) (31,-1.59) (32,1.78) (33,1.78) (34,1.78) (35,1.78) (36,1.78) (37,1.69) (38,-2.21) (39,-2.21) (40,2.5) (41,-0.39) (42,-0.39) (43,0.19) (44,0.19) (45,0.19) (46,-0.79) (47,0.1) (48,0.1) (49,0.88) (50,0.88) (51,0.88) (52,0.74) (53,0.75) (54,-0.89) (55,-0.52) (56,-0.52) (57,-0.52) (58,-0.21) (59,-0.21) (60,-0.21) (61,-0.21) (62,-0.26) (63,-0.26) (64,-0.26) (65,-0.87) (66,-0.87) (67,-0.57) (68,-1.7) (69,-0.77) (70,0.6) (71,0.34) (72,-1.37) (73,-1.37) (74,-1.37) (75,-1.11) (76,-1.11) (77,-1.56) (78,-0.79) (79,-0.79) (80,0.53) (81,0.53) (82,0.96) (83,-0.76) (84,-0.6) (85,0.02) (86,-1.3) (87,0.69) (88,0.84) (89,0.84) (90,0.25) (91,0.25) (92,0.25) (93,0.25) (94,0.25) (95,0.25) (96,0.25) (97,0.25) (98,0.35) (99,0.35) (100,0.35) (101,0.35) (102,0.91) (103,-0.18) (104,-0.18) (105,-0.29) (106,-0.29) (107,-0.29) (108,1.36) (109,1.36) (110,1.36) (111,1.42) (112,2.48) (113,2.48) (114,1.11) (115,1.11) (116,1.11) (117,0.89) (118,0.89) (119,0.89) (120,0.89) (121,0.89) (122,0.89) (123,0.97) (124,0.97) (125,0.97) (126,0.97) (127,0.87) (128,0.87) (129,0.87) (130,0.87) (131,0.98) (132,0.98) (133,0.98) (134,-0.25) (135,-0.25) (136,-0.25) (137,-0.25) (138,-0.25) (139,-0.17) (140,-0.17) (141,-0.17) (142,-0.73) (143,-0.73) (144,0.03) (145,0.03) (146,0.36) (147,-0.93) (148,-0.93) (149,0.01) (150,0.37) (151,0.37) (152,0.37) (153,0.37) (154,-0.08) (155,-0.08) (156,-0.51) (157,-0.51) (158,-0.51) (159,-0.51) (160,-0.51) (161,-0.51) (162,-0.51) (163,0.82) (164,0.82) (165,0.82) (166,1.11) (167,1.11) (168,1.11) (169,1.11) (170,1.26) (171,1.59) (172,-1.91) (173,-1.91) (174,-1.91) (175,-1.91) (176,-1.91) (177,-0.05) (178,-0.05) (179,1.27) (180,1.27) (181,1.27) (182,-0.72) (183,-0.54) (184,-0.54) (185,-0.54) (186,-0.54) (187,-0.54) (188,0.21) (189,0.21) (190,0.17) (191,0.32) (192,0.32) (193,0.32) (194,0.05) (195,0.05) (196,0.05) (197,0.05) (198,0.05) (199,0.05) (200,-1.13)};\n\\end{axis}\n\\begin{axis}[at={(B.below south west)},anchor=north west,yshift=-2mm, width=11cm,height=3.6cm,axis lines=left,ylabel={$\\theta$},xmin=0,xmax=205,ymin=-3.2,ymax=3.2,ytick={-2,0,2},xlabel={iteration}, title style={at={(0.02,0.92)},anchor=north west,font=\\small\\bfseries},title={Panel C}]\n\\addplot[thin] coordinates {(1,0.4) (2,0.4) (3,0.4) (4,0.4) (5,0.4) (6,0.4) (7,0.4) (8,0.4) (9,0.4) (10,0.4) (11,0.4) (12,0.4) (13,0.4) (14,0.4) (15,0.4) (16,0.4) (17,0.4) (18,0.4) (19,0.4) (20,0.4) (21,0.4) (22,0.4) (23,0.4) (24,0.4) (25,0.4) (26,0.4) (27,0.4) (28,0.4) (29,0.4) (30,0.4) (31,0.4) (32,0.4) (33,0.4) (34,0.4) (35,0.4) (36,0.4) (37,0.4) (38,0.4) (39,0.4) (40,0.4) (41,0.4) (42,0.4) (43,0.4) (44,0.4) (45,0.4) (46,0.4) (47,0.4) (48,0.4) (49,1.69) (50,1.69) (51,1.69) (52,1.69) (53,1.69) (54,1.69) (55,1.69) (56,1.69) (57,1.69) (58,1.69) (59,1.69) (60,1.69) (61,1.69) (62,1.69) (63,1.69) (64,1.69) (65,-0.13) (66,-0.13) (67,-0.13) (68,-0.13) (69,-0.13) (70,-0.13) (71,-0.13) (72,-0.13) (73,-0.13) (74,-0.13) (75,-0.13) (76,-0.13) (77,-0.13) (78,-0.13) (79,-0.13) (80,-0.13) (81,-0.13) (82,-0.13) (83,-0.13) (84,-0.13) (85,-0.13) (86,-0.13) (87,-0.13) (88,-0.13) (89,-0.13) (90,-0.13) (91,-0.13) (92,-0.13) (93,-0.13) (94,-0.13) (95,-0.13) (96,-0.13) (97,-0.13) (98,-0.13) (99,-0.13) (100,-0.13) (101,-0.13) (102,-0.13) (103,-0.13) (104,-0.13) (105,-0.13) (106,-0.13) (107,-0.13) (108,-0.13) (109,-0.13) (110,-0.13) (111,-0.13) (112,-0.13) (113,-0.13) (114,-0.13) (115,-0.13) (116,-0.13) (117,-0.13) (118,-0.13) (119,-0.13) (120,-0.13) (121,-0.13) (122,-0.13) (123,-0.13) (124,-0.13) (125,-0.13) (126,-0.13) (127,-0.13) (128,-0.13) (129,-0.13) (130,-0.13) (131,-0.13) (132,-0.13) (133,-0.13) (134,-0.13) (135,-0.13) (136,-0.13) (137,-0.13) (138,-0.13) (139,-0.13) (140,-0.13) (141,-0.13) (142,-0.13) (143,-0.13) (144,-0.13) (145,-0.44) (146,-0.44) (147,-0.44) (148,-0.44) (149,-0.44) (150,0.74) (151,0.74) (152,0.74) (153,-0.42) (154,-0.42) (155,-0.42) (156,-0.42) (157,-0.42) (158,-0.42) (159,-0.42) (160,0.73) (161,0.73) (162,0.73) (163,0.73) (164,0.73) (165,0.73) (166,0.73) (167,0.73) (168,0.73) (169,0.73) (170,0.73) (171,0.73) (172,0.73) (173,0.73) (174,0.73) (175,0.73) (176,0.73) (177,0.73) (178,3.05) (179,3.05) (180,3.05) (181,3.05) (182,3.05) (183,3.05) (184,3.05) (185,3.05) (186,3.05) (187,2.29) (188,2.29) (189,2.29) (190,2.29) (191,2.29) (192,2.29) (193,2.29) (194,2.29) (195,2.29) (196,2.29) (197,2.29) (198,2.29) (199,2.29) (200,2.29)};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Trace plots of random-walk Metropolis for a N(0,1) target, run with three different proposal standard deviations (panels A, B, C)."
+      }
+    },
+    {
+      "id": "MC-028",
+      "type": "single_choice",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "In a Metropolis-within-Gibbs sampler, the Metropolis--Hastings step used to update coordinate $\\theta_j$ targets",
+      "options": [
+        {
+          "label": "A",
+          "text": "the joint posterior of all coordinates, updated simultaneously"
+        },
+        {
+          "label": "B",
+          "text": "the prior distribution of $\\theta_j$"
+        },
+        {
+          "label": "C",
+          "text": "the marginal posterior $\\pi(\\theta_j\\mid y)$"
+        },
+        {
+          "label": "D",
+          "text": "the full conditional $\\pi(\\theta_j\\mid\\theta_{-j},y)$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "当某个 full conditional 无法直接抽样时，用一步以该条件分布为目标的 MH 更新代替精确抽样，其余坐标照常从各自的 full conditional 抽取。条件分布只需已知到相差一个常数。",
+      "figure": null
+    },
+    {
+      "id": "MC-029",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "For the target $\\pi(q)=N(0,1)$ with $M=1$, the Hamiltonian is $H(q,p)=\\tfrac12q^2+\\tfrac12p^2$ (see figure). The exact Hamiltonian trajectories in the $(q,p)$ plane are",
+      "options": [
+        {
+          "label": "A",
+          "text": "straight lines through the origin"
+        },
+        {
+          "label": "B",
+          "text": "circles centred at the origin"
+        },
+        {
+          "label": "C",
+          "text": "spirals moving towards the origin"
+        },
+        {
+          "label": "D",
+          "text": "parabolas"
+        }
+      ],
+      "answer": "B",
+      "explanation": "精确动力学保持 $H$ 不变，轨迹沿等能量线运动，而 $\\tfrac12q^2+\\tfrac12p^2=\\text{常数}$ 是以原点为圆心的圆。每次迭代重新抽取动量相当于跳到另一条等能量线上。",
+      "figure": {
+        "id": "fig-phase-space",
+        "latex": "\\begin{tikzpicture}[scale=1.15]\n\\draw[->] (-2.9,0) -- (3.1,0) node[right] {$q$};\n\\draw[->] (0,-2.9) -- (0,3.1) node[above] {$p$};\n\\foreach \\r in {0.8,1.6,2.4} {\\draw[gray] (0,0) circle (\\r);}\n\\draw[very thick,-{Stealth[length=2.5mm]}] (1.6,0) arc[start angle=0,end angle=-130,radius=1.6];\n\\fill (1.6,0) circle (2pt) node[above right,font=\\small] {$(q_0,p_0)$};\n\\node[font=\\small,gray] at (2.05,2.05) {$H=\\mathrm{const}$};\n\\end{tikzpicture}",
+        "caption": "Phase space (q, p) for the target N(0,1) with M = 1: level sets of the Hamiltonian and one trajectory."
+      }
+    },
+    {
+      "id": "MC-030",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "With $H(q,p)=U(q)+\\tfrac12p^\\top M^{-1}p$, Hamilton's equations are",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\dfrac{dq}{dt}=M^{-1}p,\\quad\\dfrac{dp}{dt}=-\\nabla U(q)$"
+        },
+        {
+          "label": "B",
+          "text": "$\\dfrac{dq}{dt}=-\\nabla U(q),\\quad\\dfrac{dp}{dt}=M^{-1}p$"
+        },
+        {
+          "label": "C",
+          "text": "$\\dfrac{dq}{dt}=M^{-1}p,\\quad\\dfrac{dp}{dt}=\\nabla U(q)$"
+        },
+        {
+          "label": "D",
+          "text": "$\\dfrac{dq}{dt}=p,\\quad\\dfrac{dp}{dt}=-U(q)$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$dq/dt=\\partial H/\\partial p=M^{-1}p$，$dp/dt=-\\partial H/\\partial q=-\\nabla U(q)$。动量决定位置如何变化，对数目标的梯度决定动量如何变化。",
+      "figure": null
+    },
+    {
+      "id": "MC-031",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "One leapfrog step with step size $\\epsilon$ consists of",
+      "options": [
+        {
+          "label": "A",
+          "text": "a full step for the position followed by a full step for the momentum"
+        },
+        {
+          "label": "B",
+          "text": "a half step for the position, a full step for the momentum, then a half step for the position"
+        },
+        {
+          "label": "C",
+          "text": "a half step for the momentum, a full step for the position, then a half step for the momentum"
+        },
+        {
+          "label": "D",
+          "text": "a full step for the momentum, a half step for the position, then a full step for the momentum"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$p\\leftarrow p-\\tfrac\\epsilon2\\nabla U(q)$，$q\\leftarrow q+\\epsilon M^{-1}p$，$p\\leftarrow p-\\tfrac\\epsilon2\\nabla U(q)$。这种对称结构使 leapfrog 保体积且时间可逆。",
+      "figure": null
+    },
+    {
+      "id": "MC-032",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "The target is $\\pi_\\theta(\\theta)\\propto\\theta^2e^{-\\theta}$ for $\\theta>0$. With $\\phi=\\log\\theta$, the log density of $\\phi$, up to an additive constant, is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$2\\phi-e^{\\phi}$"
+        },
+        {
+          "label": "B",
+          "text": "$3\\phi-\\phi\\,e^{\\phi}$"
+        },
+        {
+          "label": "C",
+          "text": "$2\\phi-e^{\\phi}-\\phi$"
+        },
+        {
+          "label": "D",
+          "text": "$3\\phi-e^{\\phi}$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\theta=e^\\phi$，Jacobian 为 $e^\\phi$。$\\log\\pi_\\phi(\\phi)=2\\phi-e^\\phi+\\phi=3\\phi-e^\\phi$，其中最后加上的 $\\phi$ 来自 $\\log|d\\theta/d\\phi|$。选项 A 漏掉了 Jacobian。",
+      "figure": null
+    },
+    {
+      "id": "MC-033",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "After simulating a trajectory from $(q,p)$ to $(q^*,p^*)$, HMC accepts the proposal with probability",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\min\\{1,\\ \\exp[H(q^*,p^*)-H(q,p)]\\}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\min\\{1,\\ \\exp[H(q,p)-H(q^*,p^*)]\\}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\min\\{1,\\ \\pi(q^*)/\\pi(q)\\}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\min\\{1,\\ K(p)/K(p^*)\\}$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "$\\alpha=\\min\\{1,\\exp[-H(q^*,p^*)+H(q,p)]\\}$。若数值积分使能量升高则可能被拒绝，能量不变或降低则必定接受。选项 C 忽略了动量，只在 $K$ 不变时才成立。",
+      "figure": null
+    },
+    {
+      "id": "MC-034",
+      "type": "single_choice",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "If the trajectory length $L\\epsilon$ is chosen much too small, the HMC sampler will",
+      "options": [
+        {
+          "label": "A",
+          "text": "behave like a random walk, giving highly autocorrelated draws"
+        },
+        {
+          "label": "B",
+          "text": "make U-turns and waste gradient evaluations"
+        },
+        {
+          "label": "C",
+          "text": "reject almost every proposal"
+        },
+        {
+          "label": "D",
+          "text": "sample from the wrong target distribution"
+        }
+      ],
+      "answer": "A",
+      "explanation": "轨迹太短时提议点离当前点很近，样本高度相关，失去了 HMC 远距离移动的优势。U-turn 是轨迹过长的问题，接受率骤降主要由 $\\epsilon$ 过大引起。无论怎样调参，接受拒绝步骤都保证目标分布正确。",
+      "figure": null
+    },
+    {
+      "id": "MC-035",
+      "type": "single_choice",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "The figure shows the distribution of $T(y_{\\text{rep}})$ over 1000 replicated datasets and the observed value $T(y)$. With $p_B=P\\big(T(y_{\\text{rep}})\\ge T(y)\\mid y\\big)$, the estimate of $p_B$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "approximately 0.5"
+        },
+        {
+          "label": "B",
+          "text": "close to 1"
+        },
+        {
+          "label": "C",
+          "text": "close to 0"
+        },
+        {
+          "label": "D",
+          "text": "exactly 0.05"
+        }
+      ],
+      "answer": "C",
+      "explanation": "观测值 $T(y)$ 位于模拟分布的最右端之外，几乎没有 replicate 达到或超过它，所以 $\\hat p_B\\approx0$。这说明模型生成的数据在这一特征上系统性地小于观测数据，模型在该方面拟合不佳。",
+      "figure": {
+        "id": "fig-ppc-histogram",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10.5cm,height=6cm,ybar,bar width=0.38cm,axis lines=left,ymin=0,xmin=3,xmax=20.5,\n  xlabel={$T(y_{\\mathrm{rep}})$},ylabel={frequency},xtick={4,6,...,20}]\n\\addplot[fill=gray!35,draw=black] coordinates {(4,4) (5,14) (6,35) (7,72) (8,120) (9,164) (10,182) (11,164) (12,120) (13,72) (14,35) (15,14) (16,4) (17,1) (18,0)};\n\\draw[very thick,dashed] (axis cs:17.5,0) -- (axis cs:17.5,150);\n\\node[anchor=south,font=\\small] at (axis cs:17.5,150) {$T(y)$};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Histogram of the discrepancy T(y_rep) over 1000 replicated datasets; the dashed line marks the observed value T(y)."
+      }
+    },
+    {
+      "id": "MC-036",
+      "type": "single_choice",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "Which sequence of steps correctly describes the Monte Carlo estimation of a posterior predictive p-value?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Draw $\\theta$ from the prior; simulate $y_{\\text{rep}}$ from $p(y\\mid\\theta)$; compute $T(y_{\\text{rep}})$; compare with $T(y)$"
+        },
+        {
+          "label": "B",
+          "text": "Draw $\\theta^{(s)}$ from the posterior; simulate $y_{\\text{rep}}^{(s)}$ from $p(y\\mid\\theta^{(s)})$; compute $T(y_{\\text{rep}}^{(s)})$; compare with $T(y)$"
+        },
+        {
+          "label": "C",
+          "text": "Compute the MLE $\\hat\\theta$; simulate $y_{\\text{rep}}$ from $p(y\\mid\\hat\\theta)$; compute $T(y_{\\text{rep}})$; compare with $T(y)$"
+        },
+        {
+          "label": "D",
+          "text": "Resample $y$ with replacement; compute $T$ on each resample; compare with $T(y)$"
+        }
+      ],
+      "answer": "B",
+      "explanation": "后验预测分布的抽样分两层：先从后验抽参数，再在该参数下模拟一个与观测数据同样大小的数据集。A 给出的是先验预测，C 忽略了参数的不确定性，D 是 bootstrap。",
+      "figure": null
+    },
+    {
+      "id": "MC-037",
+      "type": "single_choice",
+      "unit": "T7",
+      "difficulty": 2,
+      "question": "A Poisson model with a conjugate Gamma prior is fitted to count data that are suspected to be overdispersed. Which discrepancy is most useful for detecting this?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The sample mean $\\bar y$"
+        },
+        {
+          "label": "B",
+          "text": "The sample total $\\sum_iy_i$"
+        },
+        {
+          "label": "C",
+          "text": "The sample size $n$"
+        },
+        {
+          "label": "D",
+          "text": "The ratio of the sample variance to the sample mean"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Poisson 分布的方差等于均值，方差均值比大于 1 表示 overdispersion，这一特征不由模型参数直接拟合。均值和总和正是 $\\lambda$ 所拟合的量，对应的 $p_B$ 会接近 0.5，没有检测能力。",
+      "figure": null
+    },
+    {
+      "id": "MC-038",
+      "type": "single_choice",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "The posterior predictive distribution of new data $\\tilde y$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\int p(\\tilde y\\mid\\theta)\\,\\pi(\\theta)\\,d\\theta$"
+        },
+        {
+          "label": "B",
+          "text": "$p(\\tilde y\\mid\\hat\\theta)$ with $\\hat\\theta$ the posterior mean"
+        },
+        {
+          "label": "C",
+          "text": "$\\int p(\\tilde y\\mid\\theta)\\,\\pi(\\theta\\mid y)\\,d\\theta$"
+        },
+        {
+          "label": "D",
+          "text": "$\\int p(y\\mid\\theta)\\,\\pi(\\theta\\mid\\tilde y)\\,d\\theta$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "对后验平均抽样分布。选项 A 用的是先验，得到先验预测分布。",
+      "figure": null
+    },
+    {
+      "id": "MC-039",
+      "type": "single_choice",
+      "unit": "T7",
+      "difficulty": 2,
+      "question": "Suppose the posterior for a success probability is $\\theta\\mid y\\sim\\text{Beta}(a',b')$. For one new Bernoulli trial $\\tilde y$, the posterior predictive probability $P(\\tilde y=1\\mid y)$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\dfrac{a'}{a'+b'}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\dfrac{a'-1}{a'+b'-2}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\dfrac{a'}{b'}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\dfrac12$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$P(\\tilde y=1\\mid y)=\\int_0^1\\theta\\,\\pi(\\theta\\mid y)\\,d\\theta=\\mathbb{E}[\\theta\\mid y]=\\frac{a'}{a'+b'}$。选项 B 是后验众数，把众数代入属于 plug-in 做法。",
+      "figure": null
+    },
+    {
+      "id": "MC-040",
+      "type": "single_choice",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "In the figure, each dot is a prior draw $\\theta$ together with the summary $s$ of the dataset simulated from it. Which draws does the ABC rejection algorithm accept?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The dots whose $\\theta$ value lies between 0.3 and 0.5"
+        },
+        {
+          "label": "B",
+          "text": "The dots inside the shaded band"
+        },
+        {
+          "label": "C",
+          "text": "The dots above the shaded band"
+        },
+        {
+          "label": "D",
+          "text": "All of the dots"
+        }
+      ],
+      "answer": "B",
+      "explanation": "接受条件是 $|s-s_{\\text{obs}}|\\le\\epsilon$，即模拟的摘要统计量落在阴影带内，与 $\\theta$ 的取值无直接关系。带内各点的横坐标就是 ABC 后验的样本，它们集中在 0.3 到 0.5 附近，这是接受规则带来的结果。",
+      "figure": {
+        "id": "fig-abc-band",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10.5cm,height=6.5cm,axis lines=left,xlabel={$\\theta$ (drawn from the prior)},ylabel={simulated summary $s$},xmin=0,xmax=1.02,ymin=-0.8,ymax=21,clip=false]\n\\fill[gray!30] (axis cs:0,6) rectangle (axis cs:1,10);\n\\draw[dashed] (axis cs:0,8) -- (axis cs:1,8) node[right,font=\\small] {$s_{\\mathrm{obs}}$};\n\\draw[<->] (axis cs:0.97,8) -- (axis cs:0.97,10) node[midway,left,font=\\small] {$\\epsilon$};\n\\addplot[only marks,mark=*,mark size=1.3pt] coordinates {(0.900,19.19) (0.955,19.06) (0.105,0.89) (0.031,1.14) (0.880,15.10) (0.069,1.16) (0.682,15.81) (0.136,0.98) (0.387,8.09) (0.356,5.04) (0.497,9.06) (0.817,16.96) (0.938,19.23) (0.739,12.11) (0.662,11.23) (0.020,-0.06) (0.299,4.00) (0.152,1.78) (0.167,2.80) (0.522,11.21) (0.532,12.19) (0.442,7.10) (0.095,1.97) (0.927,18.90) (0.029,1.11) (0.863,18.10) (0.278,5.10) (0.004,-0.11) (0.233,3.92) (0.787,16.78) (0.202,3.01) (0.474,6.79) (0.382,8.86) (0.803,16.88) (0.105,2.93) (0.387,10.12) (0.281,8.01) (0.533,12.15) (0.022,-0.00) (0.282,5.82) (0.021,1.17) (0.055,0.82) (0.840,16.99) (0.903,18.22) (0.133,0.78) (0.847,15.15) (0.892,16.17) (0.667,12.23) (0.202,4.02) (0.919,20.07) (0.622,12.78) (0.842,18.15) (0.419,6.82) (0.650,12.10) (0.814,14.80) (0.153,0.10) (0.636,11.86) (0.314,5.93) (0.635,13.86) (0.126,1.77) (0.436,10.86) (0.532,9.00) (0.482,5.86) (0.995,19.89) (0.593,12.17) (0.995,20.03) (0.378,9.00) (0.180,6.17) (0.726,12.85) (0.573,9.16)};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Each dot is one ABC simulation: a prior draw theta and the summary s = S(y) of the dataset simulated from it. The shaded band is s_obs - epsilon <= s <= s_obs + epsilon."
+      }
+    },
+    {
+      "id": "MC-041",
+      "type": "single_choice",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "When the tolerance $\\epsilon$ in ABC rejection is decreased,",
+      "options": [
+        {
+          "label": "A",
+          "text": "the acceptance rate increases and the approximation becomes more accurate"
+        },
+        {
+          "label": "B",
+          "text": "the acceptance rate increases and the approximation becomes less accurate"
+        },
+        {
+          "label": "C",
+          "text": "the acceptance rate decreases and the approximation becomes less accurate"
+        },
+        {
+          "label": "D",
+          "text": "the acceptance rate decreases and the approximation becomes more accurate"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\epsilon$ 越小，匹配要求越严格，ABC 后验越接近真实后验，但被接受的比例下降，计算成本上升。",
+      "figure": null
+    },
+    {
+      "id": "MC-042",
+      "type": "single_choice",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "Let $\\theta\\sim\\text{Uniform}(0,1)$ and $y\\mid\\theta\\sim\\text{Binomial}(4,\\theta)$. Averaging over the prior, the probability that a simulated dataset has $y=2$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$3/8$"
+        },
+        {
+          "label": "B",
+          "text": "$1/4$"
+        },
+        {
+          "label": "C",
+          "text": "$1/5$"
+        },
+        {
+          "label": "D",
+          "text": "$1/16$"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$P(y=k)=\\binom nk B(k+1,n-k+1)=\\frac{1}{n+1}$，对所有 $k$ 相同，这里等于 $1/5$。这也是 $\\epsilon=0$ 时 ABC 的接受概率。$3/8$ 是固定 $\\theta=1/2$ 时的概率。",
+      "figure": null
+    },
+    {
+      "id": "MC-043",
+      "type": "single_choice",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "Which of the following is NOT part of the ABC rejection algorithm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Simulating a dataset from the model for each candidate parameter"
+        },
+        {
+          "label": "B",
+          "text": "Computing a distance between simulated and observed summary statistics"
+        },
+        {
+          "label": "C",
+          "text": "Drawing candidate parameters from the prior"
+        },
+        {
+          "label": "D",
+          "text": "Evaluating the likelihood $p(y_{\\text{obs}}\\mid\\theta)$ for each candidate parameter"
+        }
+      ],
+      "answer": "D",
+      "explanation": "ABC 的出发点就是避免计算似然，接受与否完全由模拟数据与观测数据的摘要统计量是否足够接近决定。",
+      "figure": null
+    },
+    {
+      "id": "MC-044",
+      "type": "single_choice",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "Which method moves a population of particles towards the posterior through a sequence of decreasing tolerances?",
+      "options": [
+        {
+          "label": "A",
+          "text": "ABC-MCMC"
+        },
+        {
+          "label": "B",
+          "text": "SMC-ABC"
+        },
+        {
+          "label": "C",
+          "text": "Regression adjustment"
+        },
+        {
+          "label": "D",
+          "text": "ABC rejection"
+        }
+      ],
+      "answer": "B",
+      "explanation": "SMC-ABC 逐步减小 $\\epsilon$ 并让粒子群向后验移动。ABC-MCMC 用 MCMC 提议代替反复从先验抽样，regression adjustment 是对已接受样本的事后校正。三者的共同目的是减少在与数据不符的参数区域浪费的模拟。",
+      "figure": null
+    },
+    {
+      "id": "MC-045",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "The evidence lower bound (ELBO) is defined as",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\mathbb{E}_{q_\\psi}[\\log p(x,z)]-\\mathbb{E}_{q_\\psi}[\\log q_\\psi(z)]$"
+        },
+        {
+          "label": "B",
+          "text": "$\\mathbb{E}_{q_\\psi}[\\log p(z\\mid x)]-\\mathbb{E}_{q_\\psi}[\\log q_\\psi(z)]$"
+        },
+        {
+          "label": "C",
+          "text": "$\\log p(x)+\\mathrm{KL}\\big(q_\\psi(z)\\,\\|\\,p(z\\mid x)\\big)$"
+        },
+        {
+          "label": "D",
+          "text": "$\\mathbb{E}_{p(z\\mid x)}[\\log p(x,z)-\\log q_\\psi(z)]$"
+        }
+      ],
+      "answer": "A",
+      "explanation": "$\\mathcal L(\\psi)=\\mathbb{E}_{q_\\psi}[\\log p(x,z)-\\log q_\\psi(z)]$，期望对变分分布取，只涉及联合密度。选项 B 等于 $-\\mathrm{KL}$，需要未知的后验；选项 C 的符号错了，应为 $\\log p(x)-\\mathrm{KL}$。",
+      "figure": null
+    },
+    {
+      "id": "MC-046",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "Suppose $\\log p(x)=-10$ and, for some $\\psi$, the ELBO equals $-12.5$. Then $\\mathrm{KL}\\big(q_\\psi(z)\\,\\|\\,p(z\\mid x)\\big)$ equals",
+      "options": [
+        {
+          "label": "A",
+          "text": "$-2.5$"
+        },
+        {
+          "label": "B",
+          "text": "$22.5$"
+        },
+        {
+          "label": "C",
+          "text": "$2.5$"
+        },
+        {
+          "label": "D",
+          "text": "It cannot be determined"
+        }
+      ],
+      "answer": "C",
+      "explanation": "$\\mathrm{KL}=\\log p(x)-\\mathcal L(\\psi)=-10-(-12.5)=2.5$。KL 不可能为负，所以 ELBO 永远不超过 $\\log p(x)$。",
+      "figure": null
+    },
+    {
+      "id": "MC-047",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "The figure shows the contours of an exact posterior and of its mean-field Gaussian approximation. Which feature of the posterior does the approximation fail to capture?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The location of the posterior mean"
+        },
+        {
+          "label": "B",
+          "text": "The correlation between $z_1$ and $z_2$"
+        },
+        {
+          "label": "C",
+          "text": "The support of the posterior"
+        },
+        {
+          "label": "D",
+          "text": "The normalising constant of the posterior"
+        }
+      ],
+      "answer": "B",
+      "explanation": "mean-field 近似假定 $z_1$ 与 $z_2$ 独立，等高线主轴平行于坐标轴，无法表示图中沿对角线拉长的相关结构，同时明显低估了各分量的边际方差。两者的中心是一致的。",
+      "figure": {
+        "id": "fig-mean-field-contours",
+        "latex": "\\begin{tikzpicture}[scale=1.1]\n\\draw[->] (-3.2,0) -- (3.4,0) node[right] {$z_1$};\n\\draw[->] (0,-3.2) -- (0,3.4) node[above] {$z_2$};\n\\foreach \\a/\\b in {3.4/0.9,2.3/0.6,1.2/0.32} {\\draw[thick,rotate=45] (0,0) ellipse ({\\a} and {\\b});}\n\\foreach \\r in {1.25,0.85,0.45} {\\draw[thick,dashed] (0,0) circle (\\r);}\n\\node[font=\\small] at (2.9,1.5) {exact posterior};\n\\node[font=\\small] at (-1.9,1.6) {mean-field $q$};\n\\draw[->,gray] (-1.9,1.4) -- (-0.75,0.95);\n\\end{tikzpicture}",
+        "caption": "Contours of an exact posterior (solid) and of the fitted mean-field Gaussian approximation q(z1) q(z2) (dashed)."
+      }
+    },
+    {
+      "id": "MC-048",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "For the model $z\\sim\\text{Exponential}(1)$, $x\\mid z\\sim\\text{Exponential}(z)$ with variational family $q_\\lambda(z)=\\text{Exponential}(\\lambda)$, the ELBO is $\\mathcal L(\\lambda)=-\\frac{1+x}{\\lambda}-2\\log\\lambda+C$. For $x=3$ the optimal value of $\\lambda$ is",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0.5$"
+        },
+        {
+          "label": "B",
+          "text": "$1$"
+        },
+        {
+          "label": "C",
+          "text": "$4$"
+        },
+        {
+          "label": "D",
+          "text": "$2$"
+        }
+      ],
+      "answer": "D",
+      "explanation": "$\\mathcal L'(\\lambda)=\\frac{1+x}{\\lambda^2}-\\frac2\\lambda=0$ 得 $\\lambda^*=\\frac{1+x}{2}=2$。此时 $q$ 的均值 $1/\\lambda^*=0.5$ 等于真实后验 $\\text{Gamma}(2,4)$ 的均值。",
+      "figure": null
+    },
+    {
+      "id": "MC-049",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "A posterior distribution has two well-separated modes. Which variational family is able to represent this feature?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A mean-field Gaussian family"
+        },
+        {
+          "label": "B",
+          "text": "A single Gaussian with full covariance matrix"
+        },
+        {
+          "label": "C",
+          "text": "A mixture family $\\sum_kw_kq_k(z)$"
+        },
+        {
+          "label": "D",
+          "text": "A point mass at the posterior mode"
+        }
+      ],
+      "answer": "C",
+      "explanation": "单个高斯无论是否带完整协方差都只有一个峰。mixture 族由多个分量加权组合，可以表示多峰或偏斜的后验，代价是参数更多、ELBO 更难计算和优化。",
+      "figure": null
+    },
+    {
+      "id": "MC-050",
+      "type": "single_choice",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "Which statement correctly compares variational inference (VI) with MCMC?",
+      "options": [
+        {
+          "label": "A",
+          "text": "VI is usually faster, but its accuracy is limited by the variational family; MCMC is asymptotically exact but usually slower"
+        },
+        {
+          "label": "B",
+          "text": "VI returns exact samples from the posterior, whereas MCMC returns an approximation"
+        },
+        {
+          "label": "C",
+          "text": "MCMC cannot quantify posterior uncertainty, whereas VI can"
+        },
+        {
+          "label": "D",
+          "text": "VI requires the evidence $p(x)$ to be computed, whereas MCMC does not"
+        }
+      ],
+      "answer": "A",
+      "explanation": "VI 把推断变成优化，速度快且易于扩展到大模型，但只能给出族内的最优近似，族不含真实后验时误差不会随计算量消失。MCMC 在迭代次数趋于无穷时收敛到真实后验。",
+      "figure": null
+    },
+    {
+      "id": "FB-001",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "In Bayes' theorem $\\pi(\\theta\\mid D)=p(D\\mid\\theta)\\,\\pi(\\theta)/m(D)$, the quantity $m(D)=$ (1) ____ is called the (2) ____.",
+      "answer": [
+        "$\\int p(D\\mid\\theta)\\,\\pi(\\theta)\\,d\\theta$",
+        "marginal likelihood (also called the evidence)"
+      ],
+      "explanation": "$m(D)$ 把似然对先验积分，与 $\\theta$ 无关，是后验的归一化常数。它通常难以计算，这是需要 MCMC、VI 等方法的原因。",
+      "figure": null
+    },
+    {
+      "id": "FB-002",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "Let $y_1,\\dots,y_n\\mid\\lambda\\overset{\\text{iid}}{\\sim}\\text{Poisson}(\\lambda)$ with prior $\\lambda\\sim\\text{Gamma}(a,b)$ (shape, rate). Then $\\lambda\\mid y\\sim\\text{Gamma}($(1) ____$,\\ $(2) ____$)$.",
+      "answer": [
+        "$a+\\sum_{i=1}^ny_i$",
+        "$b+n$"
+      ],
+      "explanation": "似然核为 $\\lambda^{\\sum y_i}e^{-n\\lambda}$，乘以先验核 $\\lambda^{a-1}e^{-b\\lambda}$ 得 $\\lambda^{a+\\sum y_i-1}e^{-(b+n)\\lambda}$。后验均值为 $(a+\\sum y_i)/(b+n)$。",
+      "figure": null
+    },
+    {
+      "id": "FB-003",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "Let $y_1,\\dots,y_n\\mid\\theta\\overset{\\text{iid}}{\\sim}\\text{Geometric}(\\theta)$ with $p(y\\mid\\theta)=\\theta(1-\\theta)^{y-1}$, $y=1,2,\\dots$, and prior $\\theta\\sim\\text{Beta}(a,b)$. With $S=\\sum_iy_i$, the posterior is $\\text{Beta}($(1) ____$,\\ $(2) ____$)$.",
+      "answer": [
+        "$a+n$",
+        "$b+S-n$"
+      ],
+      "explanation": "似然为 $\\theta^n(1-\\theta)^{S-n}$，乘以先验核 $\\theta^{a-1}(1-\\theta)^{b-1}$ 得 $\\theta^{a+n-1}(1-\\theta)^{b+S-n-1}$。",
+      "figure": null
+    },
+    {
+      "id": "FB-004",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 1,
+      "question": "The Jeffreys prior is $p(\\theta)\\propto$ (1) ____, where the Fisher information is $I(\\theta)=-\\mathbb{E}\\big[$ (2) ____ $\\big]$.",
+      "answer": [
+        "$\\sqrt{I(\\theta)}$",
+        "$\\dfrac{\\partial^2}{\\partial\\theta^2}\\log p(y\\mid\\theta)$"
+      ],
+      "explanation": "Fisher 信息是对数似然二阶导数的期望的相反数，期望对 $y\\mid\\theta$ 取。$n$ 个 iid 观测的信息量是单个观测的 $n$ 倍，所以用单个观测推导即可。",
+      "figure": null
+    },
+    {
+      "id": "FB-005",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "For a single observation $y\\mid\\lambda\\sim\\text{Exponential}(\\lambda)$, the Fisher information is $I(\\lambda)=$ (1) ____, so the Jeffreys prior is $p(\\lambda)\\propto$ (2) ____.",
+      "answer": [
+        "$1/\\lambda^2$",
+        "$1/\\lambda$"
+      ],
+      "explanation": "$\\log p(y\\mid\\lambda)=\\log\\lambda-\\lambda y$，二阶导为 $-1/\\lambda^2$，不含 $y$，所以 $I(\\lambda)=1/\\lambda^2$，$p(\\lambda)\\propto\\sqrt{I(\\lambda)}=1/\\lambda$。这是一个 improper 先验。",
+      "figure": null
+    },
+    {
+      "id": "FB-006",
+      "type": "fill_blank",
+      "unit": "T1",
+      "difficulty": 2,
+      "question": "Suppose $y\\mid\\theta\\sim N(\\theta,1)$ (a single observation) with prior $\\theta\\sim N(0,1)$. The posterior is $N($(1) ____$,\\ $(2) ____$)$, written as (mean, variance).",
+      "answer": [
+        "$y/2$",
+        "$1/2$"
+      ],
+      "explanation": "后验精度为 $1+1=2$，方差 $1/2$；后验均值是先验均值 0 与观测值 $y$ 按精度加权的平均，两者精度相同，所以是 $y/2$。",
+      "figure": null
+    },
+    {
+      "id": "FB-007",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "If $\\theta_1,\\dots,\\theta_N\\overset{\\text{iid}}{\\sim}f$ and $\\sigma^2=\\mathrm{Var}_f\\big(h(\\theta)\\big)$, the standard error of $\\hat I_N=\\frac1N\\sum_ih(\\theta_i)$ is ____.",
+      "answer": [
+        "$\\sigma/\\sqrt N$"
+      ],
+      "explanation": "$\\mathrm{Var}(\\hat I_N)=\\sigma^2/N$。实际中 $\\sigma$ 用 $h(\\theta_i)$ 的样本标准差估计。",
+      "figure": null
+    },
+    {
+      "id": "FB-008",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 1,
+      "question": "In rejection sampling with $f(\\theta)\\le c\\,g(\\theta)$, a proposal $\\theta^*\\sim g$ is accepted if $U\\le$ ____, where $U\\sim\\text{Uniform}(0,1)$.",
+      "answer": [
+        "$\\dfrac{f(\\theta^*)}{c\\,g(\\theta^*)}$"
+      ],
+      "explanation": "接受概率 $f(\\theta^*)/\\{c\\,g(\\theta^*)\\}\\in[0,1]$。在 $f$ 相对 $g$ 较高的位置更容易接受，从而把 $g$ 的样本修正为 $f$ 的样本。",
+      "figure": null
+    },
+    {
+      "id": "FB-009",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "A rejection sampler for normalised densities uses $c=2.5$. Its acceptance rate is (1) ____, and the expected number of proposals needed to obtain 1000 accepted draws is (2) ____.",
+      "answer": [
+        "$1/c=0.4$",
+        "$2500$"
+      ],
+      "explanation": "整体接受率为 $1/c=0.4$，平均每接受一个样本需要 $c=2.5$ 次提议，1000 个样本需要 $2500$ 次。",
+      "figure": null
+    },
+    {
+      "id": "FB-010",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "When the target is known only up to a constant, importance sampling uses unnormalised weights $w^\\star(\\theta_i)$ and the self-normalised estimator $\\hat I_N=$ ____.",
+      "answer": [
+        "$\\dfrac{\\sum_{i=1}^Nh(\\theta_i)\\,w^\\star(\\theta_i)}{\\sum_{i=1}^Nw^\\star(\\theta_i)}$"
+      ],
+      "explanation": "分子分母中的未知常数相互抵消，所以不需要归一化常数。这在后验只知道到正比关系时很常用。",
+      "figure": null
+    },
+    {
+      "id": "FB-011",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "The effective sample size of importance weights $w_1,\\dots,w_N$ is $\\mathrm{ESS}=$ (1) ____. For the weights $(2,2,1,1)$ it equals (2) ____.",
+      "answer": [
+        "$\\dfrac{\\left(\\sum_iw_i\\right)^2}{\\sum_iw_i^2}$",
+        "$3.6$"
+      ],
+      "explanation": "$(2+2+1+1)^2/(4+4+1+1)=36/10=3.6$。权重全相等时 $\\mathrm{ESS}=N$，单个权重占主导时 $\\mathrm{ESS}$ 接近 1。",
+      "figure": null
+    },
+    {
+      "id": "FB-012",
+      "type": "fill_blank",
+      "unit": "T2",
+      "difficulty": 2,
+      "question": "To estimate $P(X>2)$ for $X\\sim N(0,1)$ by direct Monte Carlo, write it as $\\mathbb{E}[h(X)]$ with $h(x)=$ (1) ____; the estimator based on $X_1,\\dots,X_N\\overset{\\text{iid}}{\\sim}N(0,1)$ is (2) ____.",
+      "answer": [
+        "$\\mathbb{I}(x>2)$",
+        "$\\dfrac1N\\sum_{i=1}^N\\mathbb{I}(X_i>2)$"
+      ],
+      "explanation": "概率是示性函数的期望，估计量就是样本中超过 2 的比例。真实值约 0.023，样本中只有约 2\\% 落在该区域，相对误差较大，这类尾部概率适合用重要性采样。",
+      "figure": null
+    },
+    {
+      "id": "FB-013",
+      "type": "fill_blank",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "The figure shows the exact permutation distribution of $T$ for $m=n=3$ (20 equally likely relabellings), with $T_{\\text{obs}}=2$. The one-sided p-value $P(T\\ge T_{\\text{obs}})$ is (1) ____ and the two-sided p-value $P(|T|\\ge|T_{\\text{obs}}|)$ is (2) ____.",
+      "answer": [
+        "$3/20=0.15$",
+        "$6/20=0.30$"
+      ],
+      "explanation": "$T\\ge2$ 的重标记有 $2+1=3$ 种，单侧 p 值为 $3/20$。$|T|\\ge2$ 还要加上左尾的 $2+1=3$ 种，共 6 种，双侧 p 值为 $6/20$。观测到的标记方式本身计入其中。",
+      "figure": {
+        "id": "fig-permutation-exact",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10cm,height=6cm,ybar,bar width=0.6cm,axis lines=left,ymin=0,ymax=7.5,\n  xlabel={value of $T$},ylabel={number of relabellings},xtick={-3,-2,-1,0,1,2,3},\n  nodes near coords,enlarge x limits=0.1]\n\\addplot[fill=gray!35,draw=black] coordinates {(-3,1) (-2,2) (-1,4) (0,6) (1,4) (2,2) (3,1)};\n\\draw[very thick,dashed] (axis cs:1.55,0) -- (axis cs:1.55,6.6);\n\\node[anchor=south,font=\\small] at (axis cs:1.75,6.6) {$T_{\\mathrm{obs}}=2$};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Exact permutation distribution of T over all 20 relabellings (m = n = 3); the number above each bar is the number of relabellings giving that value. The observed value is T_obs = 2."
+      }
+    },
+    {
+      "id": "FB-014",
+      "type": "fill_blank",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "A permutation test is valid because, under $H_0$, the observations are ____, meaning their joint distribution is unchanged when the group labels are permuted.",
+      "answer": [
+        "exchangeable"
+      ],
+      "explanation": "exchangeability 是置换检验唯一需要的假设。$H_0$ 下标签不携带信息，所有重标记等可能，$T$ 在重标记下的分布就是它的零分布。",
+      "figure": null
+    },
+    {
+      "id": "FB-015",
+      "type": "fill_blank",
+      "unit": "T3",
+      "difficulty": 1,
+      "question": "A bootstrap sample is obtained by drawing (1) ____ observations (2) ____ replacement from the original sample of size $n$.",
+      "answer": [
+        "$n$",
+        "with"
+      ],
+      "explanation": "有放回地抽取 $n$ 个观测，等价于从经验分布 $\\hat F_n$ 抽取 $n$ 个 iid 样本。无放回抽取 $n$ 个只会得到原样本的一个排列。",
+      "figure": null
+    },
+    {
+      "id": "FB-016",
+      "type": "fill_blank",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "With $\\hat\\theta=5$, bootstrap standard error $0.5$ and $z_{0.025}=1.96$, the normal bootstrap 95\\% confidence interval is ____.",
+      "answer": [
+        "$(4.02,\\ 5.98)$"
+      ],
+      "explanation": "$\\hat\\theta\\pm1.96\\,\\widehat{\\mathrm{SE}}=5\\pm0.98$。normal 区间假定 bootstrap 分布近似对称钟形，分布偏斜时应改用 percentile 或 basic 区间。",
+      "figure": null
+    },
+    {
+      "id": "FB-017",
+      "type": "fill_blank",
+      "unit": "T3",
+      "difficulty": 2,
+      "question": "For a sample of $n=10$ distinct observations, the probability that a particular observation appears at least once in a bootstrap sample is ____ (to three decimal places).",
+      "answer": [
+        "$1-(0.9)^{10}\\approx0.651$"
+      ],
+      "explanation": "单次抽取没抽到它的概率为 $0.9$，10 次都没抽到的概率为 $0.9^{10}\\approx0.349$，取补得 $0.651$。",
+      "figure": null
+    },
+    {
+      "id": "FB-018",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "For the model $y_i\\mid\\lambda_i\\sim\\text{Poisson}(\\lambda_i)$, $\\lambda_i\\mid\\beta\\sim\\text{Exponential}(\\beta)$, $i=1,\\dots,n$, with $p(\\beta)\\propto1/\\beta$, the full conditional of $\\beta$ is $\\text{Gamma}($(1) ____$,\\ $(2) ____$)$.",
+      "answer": [
+        "$n$",
+        "$\\sum_{i=1}^n\\lambda_i$"
+      ],
+      "explanation": "$p(\\beta\\mid\\lambda,y)\\propto\\big[\\prod_i\\beta e^{-\\beta\\lambda_i}\\big]\\cdot\\frac1\\beta=\\beta^{n-1}e^{-\\beta\\sum_i\\lambda_i}$，这是 $\\text{Gamma}(n,\\ \\sum_i\\lambda_i)$ 的核。注意每个指数先验的归一化因子 $\\beta$ 必须保留。",
+      "figure": null
+    },
+    {
+      "id": "FB-019",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "The potential scale reduction factor is $\\hat R=$ (1) ____, where $W$ is the within-chain variance and $\\hat V$ the pooled variance estimate; a common requirement for convergence is $\\hat R\\le$ (2) ____.",
+      "answer": [
+        "$\\sqrt{\\hat V/W}$",
+        "$1.01$"
+      ],
+      "explanation": "$\\hat V=\\frac{N-1}{N}W+\\frac BN$ 综合了链内与链间方差。各链探索同一分布时 $\\hat V\\approx W$，$\\hat R\\approx1$。",
+      "figure": null
+    },
+    {
+      "id": "FB-020",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "For $M$ chains of length $N$, $\\mathrm{ESS}=$ (1) ____. If $MN=9000$ and $\\rho_k=0.8^k$ for $k\\ge1$, then $\\mathrm{ESS}=$ (2) ____.",
+      "answer": [
+        "$\\dfrac{MN}{1+2\\sum_{k=1}^\\infty\\rho_k}$",
+        "$1000$"
+      ],
+      "explanation": "$\\sum_{k\\ge1}0.8^k=0.8/0.2=4$，所以 $\\mathrm{ESS}=9000/(1+8)=1000$。9000 个相依样本只相当于 1000 个独立样本。",
+      "figure": null
+    },
+    {
+      "id": "FB-021",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "The initial part of a Markov chain, which is discarded because the chain has not yet reached its stationary distribution, is called the ____ period.",
+      "answer": [
+        "warm-up (burn-in)"
+      ],
+      "explanation": "这一段样本受初始值影响，不代表目标分布。warm-up 取多长可以借助 trace plot 和 $\\hat R$ 判断。",
+      "figure": null
+    },
+    {
+      "id": "FB-022",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 2,
+      "question": "Let $(\\theta_1,\\theta_2)$ be bivariate normal with zero means, unit variances and correlation $\\rho$. The Gibbs sampler draws $\\theta_1\\mid\\theta_2\\sim N($(1) ____$,\\ $(2) ____$)$.",
+      "answer": [
+        "$\\rho\\,\\theta_2$",
+        "$1-\\rho^2$"
+      ],
+      "explanation": "二元正态的条件分布仍为正态，条件均值 $\\rho\\theta_2$，条件方差 $1-\\rho^2$。$\\theta_2\\mid\\theta_1$ 的形式对称。",
+      "figure": null
+    },
+    {
+      "id": "FB-023",
+      "type": "fill_blank",
+      "unit": "T4",
+      "difficulty": 1,
+      "question": "In a random-scan Gibbs sampler, each iteration selects an index $j$ (1) ____ from $\\{1,\\dots,p\\}$ and draws $\\theta_j$ from (2) ____, leaving the other coordinates unchanged.",
+      "answer": [
+        "uniformly at random",
+        "its full conditional $\\pi(\\theta_j\\mid\\theta_{-j})$"
+      ],
+      "explanation": "random-scan 每次只更新一个随机选中的坐标；systematic-scan 则在一次迭代内按固定顺序把所有坐标各更新一遍。两者的平稳分布都是目标分布。",
+      "figure": null
+    },
+    {
+      "id": "FB-024",
+      "type": "fill_blank",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "For a symmetric proposal, the Metropolis acceptance probability is $\\alpha(\\theta,\\theta^*)=$ ____.",
+      "answer": [
+        "$\\min\\left\\{1,\\ \\dfrac{\\pi(\\theta^*)}{\\pi(\\theta)}\\right\\}$"
+      ],
+      "explanation": "对称提议满足 $q(\\theta^*\\mid\\theta)=q(\\theta\\mid\\theta^*)$，提议密度相消，只剩目标密度之比，归一化常数也在比值中消去。",
+      "figure": null
+    },
+    {
+      "id": "FB-025",
+      "type": "fill_blank",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "For a general proposal, the Metropolis ratio $\\pi(\\theta^*)/\\pi(\\theta)$ is multiplied by the factor ____ to give the Metropolis--Hastings ratio.",
+      "answer": [
+        "$\\dfrac{q(\\theta\\mid\\theta^*)}{q(\\theta^*\\mid\\theta)}$"
+      ],
+      "explanation": "这个因子修正提议的不对称：如果从 $\\theta$ 提议到 $\\theta^*$ 比反方向更容易，就相应降低接受概率，保证目标是平稳分布。",
+      "figure": null
+    },
+    {
+      "id": "FB-026",
+      "type": "fill_blank",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "The target is $\\pi(\\theta)\\propto\\theta(1-\\theta)$ on $(0,1)$. With a symmetric proposal, a move from $\\theta=0.5$ to $\\theta^*=0.9$ is accepted with probability ____.",
+      "answer": [
+        "$0.36$"
+      ],
+      "explanation": "$\\pi(0.9)/\\pi(0.5)=\\frac{0.9\\times0.1}{0.5\\times0.5}=\\frac{0.09}{0.25}=0.36$。",
+      "figure": null
+    },
+    {
+      "id": "FB-027",
+      "type": "fill_blank",
+      "unit": "T5",
+      "difficulty": 2,
+      "question": "For a $d$-dimensional random-walk Metropolis sampler the recommended proposal covariance is $\\frac{2.38^2}{d}\\Sigma$. For $d=2$ the scaling factor $2.38^2/d$ equals ____ (two decimal places).",
+      "answer": [
+        "$2.83$"
+      ],
+      "explanation": "$2.38^2=5.6644$，除以 2 得 $2.83$。维数越高，这个因子越小，每一步越保守。",
+      "figure": null
+    },
+    {
+      "id": "FB-028",
+      "type": "fill_blank",
+      "unit": "T5",
+      "difficulty": 1,
+      "question": "When Metropolis--Hastings with a symmetric proposal is implemented on the log scale, the proposal is accepted if $\\log u<$ ____, where $u\\sim\\text{Uniform}(0,1)$.",
+      "answer": [
+        "$\\log\\pi(\\theta^*)-\\log\\pi(\\theta)$"
+      ],
+      "explanation": "$\\log u<\\log r$ 与 $u<r$ 是同一事件。取对数是为了数值稳定，避免许多很小的似然项相乘造成下溢。提议不对称时还要加上 $\\log q(\\theta\\mid\\theta^*)-\\log q(\\theta^*\\mid\\theta)$。",
+      "figure": null
+    },
+    {
+      "id": "FB-029",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "The Hamiltonian is $H(q,p)=U(q)+K(p)$ with potential energy $U(q)=$ (1) ____ and kinetic energy $K(p)=$ (2) ____.",
+      "answer": [
+        "$-\\log\\pi(q)$",
+        "$\\tfrac12\\,p^\\top M^{-1}p$"
+      ],
+      "explanation": "联合密度 $\\Pi(q,p)\\propto e^{-H(q,p)}=\\pi(q)\\,e^{-\\frac12p^\\top M^{-1}p}$，$q$ 的边际是目标分布，$p\\sim N(0,M)$ 是辅助变量。",
+      "figure": null
+    },
+    {
+      "id": "FB-030",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 1,
+      "question": "Hamilton's equations are $\\dfrac{dq}{dt}=$ (1) ____ and $\\dfrac{dp}{dt}=$ (2) ____.",
+      "answer": [
+        "$\\dfrac{\\partial H}{\\partial p}=M^{-1}p$",
+        "$-\\dfrac{\\partial H}{\\partial q}=-\\nabla U(q)$"
+      ],
+      "explanation": "位置随动量变化，动量随势能的负梯度变化，也就是朝后验密度升高的方向加速。",
+      "figure": null
+    },
+    {
+      "id": "FB-031",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "One leapfrog step with step size $\\epsilon$ and $M=I$: $p_{1/2}=p-$ (1) ____; $q'=q+$ (2) ____; $p'=p_{1/2}-$ (3) ____.",
+      "answer": [
+        "$\\tfrac\\epsilon2\\nabla U(q)$",
+        "$\\epsilon\\,p_{1/2}$",
+        "$\\tfrac\\epsilon2\\nabla U(q')$"
+      ],
+      "explanation": "第二个半步动量更新使用的是新位置 $q'$ 处的梯度。连续执行 $L$ 步时，相邻两步的半步动量更新可以合并成一个整步。",
+      "figure": null
+    },
+    {
+      "id": "FB-032",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 3,
+      "question": "For the target $N(0,1)$ with $M=1$ we have $\\nabla U(q)=q$. Starting from $(q,p)=(1,0)$, one leapfrog step with $\\epsilon=0.2$ gives $q'=$ (1) ____ and $p'=$ (2) ____.",
+      "answer": [
+        "$0.98$",
+        "$-0.198$"
+      ],
+      "explanation": "$p_{1/2}=0-0.1\\times1=-0.1$；$q'=1+0.2\\times(-0.1)=0.98$；$p'=-0.1-0.1\\times0.98=-0.198$。能量由 $0.5$ 变为 $0.98^2/2+0.198^2/2\\approx0.4998$，只有很小的误差。",
+      "figure": {
+        "id": "fig-phase-space",
+        "latex": "\\begin{tikzpicture}[scale=1.15]\n\\draw[->] (-2.9,0) -- (3.1,0) node[right] {$q$};\n\\draw[->] (0,-2.9) -- (0,3.1) node[above] {$p$};\n\\foreach \\r in {0.8,1.6,2.4} {\\draw[gray] (0,0) circle (\\r);}\n\\draw[very thick,-{Stealth[length=2.5mm]}] (1.6,0) arc[start angle=0,end angle=-130,radius=1.6];\n\\fill (1.6,0) circle (2pt) node[above right,font=\\small] {$(q_0,p_0)$};\n\\node[font=\\small,gray] at (2.05,2.05) {$H=\\mathrm{const}$};\n\\end{tikzpicture}",
+        "caption": "Phase space (q, p) for the target N(0,1) with M = 1: level sets of the Hamiltonian and one trajectory."
+      }
+    },
+    {
+      "id": "FB-033",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "For $\\theta>0$ with $\\phi=\\log\\theta$, the Jacobian factor is $|d\\theta/d\\phi|=$ (1) ____. For $\\theta\\in(0,1)$ with $q=\\text{logit}(\\theta)$, it is $|d\\theta/dq|=$ (2) ____.",
+      "answer": [
+        "$e^{\\phi}$ (that is, $\\theta$)",
+        "$\\theta(1-\\theta)$"
+      ],
+      "explanation": "变换后的密度为 $\\pi_q(q)=\\pi_\\theta(T(q))\\,|\\det J_T(q)|$。在对数目标中分别加上 $\\phi$ 和 $\\log\\theta+\\log(1-\\theta)$。漏掉 Jacobian 会让采样器针对错误的目标。",
+      "figure": null
+    },
+    {
+      "id": "FB-034",
+      "type": "fill_blank",
+      "unit": "T6",
+      "difficulty": 2,
+      "question": "Exact Hamiltonian dynamics are energy conserving, (1) ____ and (2) ____. The leapfrog integrator retains the last two properties but conserves energy only approximately.",
+      "answer": [
+        "volume preserving",
+        "time reversible"
+      ],
+      "explanation": "保体积和时间可逆使 MH 接受率中不出现额外的 Jacobian 或提议比项；能量的数值误差则由接受概率 $\\min\\{1,e^{-\\Delta H}\\}$ 修正。",
+      "figure": null
+    },
+    {
+      "id": "FB-035",
+      "type": "fill_blank",
+      "unit": "T7",
+      "difficulty": 1,
+      "question": "For a discrepancy $T$, the posterior predictive p-value is $p_B=P\\big($ ____ $\\mid y\\big)$.",
+      "answer": [
+        "$T(y_{\\text{rep}})\\ge T(y)$"
+      ],
+      "explanation": "概率对后验预测分布取，其中 $y_{\\text{rep}}$ 是与观测数据同样大小的 replicated dataset。若 $T$ 还依赖参数，则对 $(y_{\\text{rep}},\\theta)$ 的联合后验取。",
+      "figure": null
+    },
+    {
+      "id": "FB-036",
+      "type": "fill_blank",
+      "unit": "T7",
+      "difficulty": 2,
+      "question": "The figure shows $T(y_{\\text{rep}})$, the number of zeros, for 1000 replicated datasets; the observed value is $T(y)=5$. The estimated posterior predictive p-value is $\\hat p_B=$ ____.",
+      "answer": [
+        "$0.04$"
+      ],
+      "explanation": "$T(y_{\\text{rep}})\\ge5$ 的 replicate 共有 $30+8+2=40$ 个，$\\hat p_B=40/1000=0.04$。数值接近 0，说明观测数据中零的个数多于模型通常能生成的数量，提示存在 zero inflation。",
+      "figure": {
+        "id": "fig-ppc-counts",
+        "latex": "\\begin{tikzpicture}\n\\begin{axis}[width=10.5cm,height=6cm,ybar,bar width=0.6cm,axis lines=left,ymin=0,ymax=345,\n  xlabel={$T(y_{\\mathrm{rep}})$ = number of zeros},ylabel={frequency},xtick={0,1,...,7},nodes near coords,enlarge x limits=0.08]\n\\addplot[fill=gray!35,draw=black] coordinates {(0,150) (1,300) (2,270) (3,160) (4,80) (5,30) (6,8) (7,2)};\n\\draw[very thick,dashed] (axis cs:4.5,0) -- (axis cs:4.5,250);\n\\node[anchor=south west,font=\\small] at (axis cs:4.5,235) {$T(y)=5$};\n\\end{axis}\n\\end{tikzpicture}",
+        "caption": "Number of zeros T(y_rep) in each of 1000 replicated datasets; the number above each bar is its frequency. The observed data contain T(y) = 5 zeros."
+      }
+    },
+    {
+      "id": "FB-037",
+      "type": "fill_blank",
+      "unit": "T7",
+      "difficulty": 2,
+      "question": "Let $y\\mid\\theta\\sim\\text{Binomial}(n,\\theta)$ with prior $\\theta\\sim\\text{Beta}(a,b)$. For a single new Bernoulli trial, $P(\\tilde y=1\\mid y)=$ ____.",
+      "answer": [
+        "$\\dfrac{a+y}{a+b+n}$"
+      ],
+      "explanation": "后验为 $\\text{Beta}(a+y,\\ b+n-y)$，$P(\\tilde y=1\\mid y)=\\mathbb{E}[\\theta\\mid y]=\\frac{a+y}{a+b+n}$。",
+      "figure": null
+    },
+    {
+      "id": "FB-038",
+      "type": "fill_blank",
+      "unit": "T7",
+      "difficulty": 2,
+      "question": "Because the observed data are used twice (to fit the model and to check it), posterior predictive p-values are not uniformly distributed under a correct model; they tend to concentrate around ____.",
+      "answer": [
+        "$0.5$"
+      ],
+      "explanation": "因此 $p_B$ 不能按经典 p 值的 0.05 阈值机械解读。接近 0 或 1 表示失配，接近 0.5 表示模型能重现该特征。",
+      "figure": null
+    },
+    {
+      "id": "FB-039",
+      "type": "fill_blank",
+      "unit": "T7",
+      "difficulty": 3,
+      "question": "Let $x_i\\mid\\lambda\\sim\\text{Exponential}(\\lambda)$ with posterior $\\lambda\\mid x\\sim\\text{Gamma}(\\alpha,\\beta)$. The posterior predictive density of a new observation is $p(x^*\\mid x)=$ ____ for $x^*>0$.",
+      "answer": [
+        "$\\dfrac{\\alpha\\,\\beta^{\\alpha}}{(\\beta+x^*)^{\\alpha+1}}$"
+      ],
+      "explanation": "$\\int_0^\\infty\\lambda e^{-\\lambda x^*}\\frac{\\beta^\\alpha}{\\Gamma(\\alpha)}\\lambda^{\\alpha-1}e^{-\\beta\\lambda}d\\lambda=\\frac{\\beta^\\alpha}{\\Gamma(\\alpha)}\\cdot\\frac{\\Gamma(\\alpha+1)}{(\\beta+x^*)^{\\alpha+1}}$，再用 $\\Gamma(\\alpha+1)=\\alpha\\Gamma(\\alpha)$。它的尾部比任何指数分布都重，反映了 $\\lambda$ 的不确定性。",
+      "figure": null
+    },
+    {
+      "id": "FB-040",
+      "type": "fill_blank",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "In ABC rejection, a candidate $\\theta$ with simulated data $y$ is accepted if ____.",
+      "answer": [
+        "$d\\big(S(y),S(y_{\\text{obs}})\\big)\\le\\epsilon$"
+      ],
+      "explanation": "$S$ 是摘要统计量，$d$ 是距离，$\\epsilon$ 是容差。三者的选择共同决定近似的质量与计算效率。",
+      "figure": null
+    },
+    {
+      "id": "FB-041",
+      "type": "fill_blank",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "The ABC rejection algorithm targets $\\pi_{\\text{ABC}}(\\theta\\mid y_{\\text{obs}})\\propto\\pi(\\theta)\\times$ ____.",
+      "answer": [
+        "$P\\big(d(S(y),S(y_{\\text{obs}}))\\le\\epsilon\\mid\\theta\\big)$"
+      ],
+      "explanation": "与真实后验 $\\pi(\\theta)\\,p(y_{\\text{obs}}\\mid\\theta)$ 相比，似然被替换成了模拟摘要统计量落在观测值 $\\epsilon$ 邻域内的概率。",
+      "figure": null
+    },
+    {
+      "id": "FB-042",
+      "type": "fill_blank",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "As $\\epsilon\\to\\infty$ the ABC posterior becomes the (1) ____; if $S$ is sufficient, then as $\\epsilon\\to0$ it becomes the (2) ____.",
+      "answer": [
+        "prior",
+        "exact posterior"
+      ],
+      "explanation": "$\\epsilon$ 很大时所有候选值都被接受，输出就是先验样本。$\\epsilon\\to0$ 时得到 $\\pi(\\theta\\mid S(y_{\\text{obs}}))$，$S$ 充分时它等于 $\\pi(\\theta\\mid y_{\\text{obs}})$。",
+      "figure": null
+    },
+    {
+      "id": "FB-043",
+      "type": "fill_blank",
+      "unit": "T8",
+      "difficulty": 2,
+      "question": "Let $\\theta\\sim\\text{Uniform}(0,1)$, $y\\mid\\theta\\sim\\text{Binomial}(9,\\theta)$, $y_{\\text{obs}}=4$, $S(y)=y$ and $d(s,s')=|s-s'|$. With $\\epsilon=1$, the probability that a candidate is accepted is ____.",
+      "answer": [
+        "$3/10$"
+      ],
+      "explanation": "均匀先验下 $P(y=k)=1/(n+1)=1/10$ 对每个 $k$ 成立。$\\epsilon=1$ 时接受 $y\\in\\{3,4,5\\}$，概率为 $3/10$。",
+      "figure": null
+    },
+    {
+      "id": "FB-044",
+      "type": "fill_blank",
+      "unit": "T8",
+      "difficulty": 1,
+      "question": "If each ABC proposal is accepted with probability $0.02$, the expected number of simulations needed to obtain 500 accepted draws is ____.",
+      "answer": [
+        "$25\\,000$"
+      ],
+      "explanation": "$500/0.02=25\\,000$。接受率低时 rejection ABC 代价很高，这是引入 ABC-MCMC 和 SMC-ABC 的动机。",
+      "figure": null
+    },
+    {
+      "id": "FB-045",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "The Kullback--Leibler divergence from $q$ to $p$ is $\\mathrm{KL}(q\\,\\|\\,p)=\\mathbb{E}_q\\big[$ ____ $\\big]$.",
+      "answer": [
+        "$\\log q(z)-\\log p(z)$"
+      ],
+      "explanation": "也可写成 $\\int q(z)\\log\\frac{q(z)}{p(z)}dz$。期望对 $q$ 取；它非负、不对称，所以不是距离。",
+      "figure": null
+    },
+    {
+      "id": "FB-046",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "The log evidence decomposes as $\\log p(x)=\\mathcal L(\\psi)+$ (1) ____, which implies $\\mathcal L(\\psi)$ (2) ____ $\\log p(x)$.",
+      "answer": [
+        "$\\mathrm{KL}\\big(q_\\psi(z)\\,\\|\\,p(z\\mid x)\\big)$",
+        "$\\le$"
+      ],
+      "explanation": "KL 非负，所以 ELBO 是 $\\log p(x)$ 的下界。$\\log p(x)$ 与 $\\psi$ 无关，最大化 ELBO 等价于最小化 KL。",
+      "figure": null
+    },
+    {
+      "id": "FB-047",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "A mean-field variational family for $z=(z_1,\\dots,z_d)$ has the form $q_\\psi(z)=$ ____.",
+      "answer": [
+        "$\\prod_{j=1}^dq_j(z_j;\\psi_j)$"
+      ],
+      "explanation": "各分量在 $q$ 下相互独立。这种族优化简单，可用 coordinate ascent variational inference，但无法表示后验中的相关结构。",
+      "figure": null
+    },
+    {
+      "id": "FB-048",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "For $z\\sim\\text{Exponential}(1)$, $x\\mid z\\sim\\text{Exponential}(z)$ and $q_\\lambda(z)=\\text{Exponential}(\\lambda)$, the exact posterior is $z\\mid x\\sim\\text{Gamma}($(1) ____$,\\ $(2) ____$)$ and the ELBO is maximised at $\\lambda^*=$ (3) ____.",
+      "answer": [
+        "$2$",
+        "$1+x$",
+        "$(1+x)/2$"
+      ],
+      "explanation": "$p(z\\mid x)\\propto ze^{-zx}e^{-z}=z^{2-1}e^{-(1+x)z}$。ELBO 为 $-\\frac{1+x}{\\lambda}-2\\log\\lambda+C$，求导置零得 $\\lambda^*=(1+x)/2$。此时 $q$ 的均值 $2/(1+x)$ 与后验均值相同，但后验是 Gamma 分布，不属于 $\\text{Exponential}(\\lambda)$ 这一变分族，所以 KL 大于 0。",
+      "figure": null
+    },
+    {
+      "id": "FB-049",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 2,
+      "question": "A variational approximation has $\\mathrm{KL}\\big(q_\\psi(z)\\,\\|\\,p(z\\mid x)\\big)=0.3$ and the log evidence is $\\log p(x)=-3.2$. The ELBO equals ____.",
+      "answer": [
+        "$-3.5$"
+      ],
+      "explanation": "$\\mathcal L(\\psi)=\\log p(x)-\\mathrm{KL}=-3.2-0.3=-3.5$。",
+      "figure": null
+    },
+    {
+      "id": "FB-050",
+      "type": "fill_blank",
+      "unit": "T9",
+      "difficulty": 1,
+      "question": "A mixture variational family has the form $q_\\psi(z)=$ (1) ____, where the weights satisfy $w_k\\ge0$ and (2) ____.",
+      "answer": [
+        "$\\sum_{k=1}^Kw_k\\,q_k(z;\\theta_k)$",
+        "$\\sum_{k=1}^Kw_k=1$"
+      ],
+      "explanation": "mixture 族能表示多峰或偏斜的后验，比 mean-field 灵活，但参数更多，ELBO 的计算与优化也更困难。",
+      "figure": null
+    }
+  ]
+}

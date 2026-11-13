@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "quiz-ledger/catalog@1",
+  "title": "Quiz Ledger catalog",
+  "type": "object",
+  "required": ["schema", "semesters"],
+  "properties": {
+    "schema": { "const": "quiz-ledger/catalog@1" },
+    "default_semester": { "type": "string", "description": "id of the semester opened first; the last one when omitted." },
+    "semesters": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["id", "courses"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "label": { "type": "object", "properties": { "zh": { "type": "string" }, "en": { "type": "string" } } },
+          "courses": {
+            "type": "array",
+            "items": {
+              "type": "object", "required": ["id", "bank"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "description": "Must equal the id inside the bank file." },
+                "code": { "type": "string" }, "title": { "type": "string" },
+                "bank": { "type": "string", "description": "Path of the bank file relative to banks/." },
+                "color": { "enum": [1, 2, 3, 4, 5], "description": "Optional palette slot for the course stripe." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

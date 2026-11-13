@@ -1,0 +1,123 @@
+/* i18n.js — interface strings. Add a language by adding one more dictionary. */
+(function (root) {
+  'use strict';
+  var QL = root.QL = root.QL || {};
+
+  var zh = {
+    'app.name': 'Quiz Ledger', 'app.tagline': '题目，逐一过手', 'ui.skip': '跳到正文',
+    'nav.home': '题库', 'nav.quiz': '作答', 'nav.wrong': '错题集', 'nav.stats': '统计', 'nav.history': '记录',
+    'nav.palette': '配色', 'nav.contribute': '接入题库',
+    'ui.settings': '备份与设置', 'ui.help': '帮助', 'ui.close': '关闭', 'ui.cancel': '取消', 'ui.confirm': '确定',
+    'ui.copy': '复制', 'ui.copied': '已复制', 'ui.copyFail': '复制失败，请手动选择文本', 'ui.all': '全部', 'ui.back': '返回',
+    'ui.loading': '正在加载题库…', 'ui.prev': '上一页', 'ui.next': '下一页', 'ui.page': '第 {a} / {b} 页',
+    'meter.done': '已做', 'meter.acc': '正确率', 'meter.note': '{n} 道错题待复习',
+    'type.true_false': '判断题', 'type.single_choice': '单选题', 'type.multiple_choice': '多选题', 'type.fill_blank': '填空题',
+    'tf.true': '正确', 'tf.false': '错误',
+    'home.sub': '{sem} · {c} 门课程 · {q} 题', 'home.total': '题库总量', 'home.attempted': '已作答', 'home.accuracy': '正确率',
+    'home.wrong': '错题', 'home.attempts': '累计作答 {n} 次', 'home.ofTotal': '占 {p}%', 'home.wrongRule': '错误率高于 30%',
+    'home.courses': '课程', 'home.coursesNote': '点选要练的课程，可多选',
+    'home.done': '已做', 'home.figs': '含图 {n}', 'home.loadFail': '题库文件读取失败：{e}',
+    'home.resume': '有一轮作答进行中：已答 {a} / {n} 题。', 'home.resumeBtn': '继续作答', 'home.endBtn': '结束本轮',
+    'setup.title': '本轮设置', 'setup.scope': '范围', 'setup.scope.all': '完整题库', 'setup.scope.wrong': '错题集', 'setup.scope.unseen': '未做过',
+    'setup.types': '题型', 'setup.units': '章节', 'setup.diff': '难度', 'setup.order': '顺序', 'setup.order.seq': '按章节顺序',
+    'setup.order.shuffle': '乱序', 'setup.limit': '题量', 'setup.selectAll': '全选', 'setup.clear': '清空',
+    'setup.count': '题', 'setup.countNote': '符合当前设置', 'setup.start': '开始作答', 'setup.pick': '先在上方选择至少一门课程。',
+    'setup.replace': '开始新一轮会结束进行中的这一轮（已答 {a} 题会照常计入统计）。继续吗？',
+    'quiz.none': '当前没有进行中的作答。', 'quiz.toHome': '去题库选题', 'quiz.answered': '已答 {a} / {n}',
+    'quiz.submit': '提交本题', 'quiz.prev': '← 上一题', 'quiz.next': '下一题 →', 'quiz.finish': '完成本轮', 'quiz.end': '结束作答',
+    'quiz.endConfirm': '还有 {n} 题未作答，确定结束本轮吗？', 'quiz.pickFirst': '请先选择一个选项', 'quiz.pickMulti': '请至少选择一个选项',
+    'quiz.correct': '回答正确', 'quiz.wrong': '回答错误。正确答案：', 'quiz.yourPick': '你的选择', 'quiz.rightAnswer': '正确答案',
+    'quiz.ref': '参考答案', 'quiz.yours': '你的作答：', 'quiz.blankHint': '第 {n} 空，可留空直接看答案',
+    'quiz.judge': '对照参考答案，这道题你答对了吗？', 'quiz.judgeOk': '我答对了', 'quiz.judgeBad': '我答错了',
+    'quiz.explain': '解析', 'quiz.notes': '笔记', 'quiz.notesLocked': '提交本题后可以记笔记', 'quiz.notesPh': '记下这道题的要点，自动保存',
+    'quiz.card': '答题卡', 'quiz.hint': '1–9 选择选项 · T / F 判断 · Enter 提交或下一题 · ← → 翻题',
+    'quiz.figMissing': '图形尚未编译，下面是它的 LaTeX 源码。运行 tools/build.py 后即可显示。',
+    'quiz.diff': '难度 {n}', 'sum.title': '本轮结果', 'sum.answered': '本轮作答', 'sum.correct': '答对', 'sum.acc': '本轮正确率',
+    'sum.of': '共 {n} 题', 'sum.wrongList': '本轮答错的题', 'sum.allRight': '本轮没有答错的题。', 'sum.again': '再来一轮', 'sum.none': '本轮没有作答任何题目。',
+    'wrong.sub': '错误率高于 30% 的题目会留在这里，答对次数多了自然退出', 'wrong.empty': '所选课程没有错误率高于 30% 的题目。',
+    'wrong.start': '作答这 {n} 道错题', 'col.course': '课程', 'col.id': '题号', 'col.type': '题型', 'col.question': '题干',
+    'col.attempts': '作答', 'col.correct': '答对', 'col.acc': '正确率', 'col.errRate': '错误率', 'col.time': '时间',
+    'col.yours': '你的答案', 'col.answer': '正确答案', 'col.result': '结果',
+    'stats.sub': '按题目累计，点一行查看详情', 'stats.attempted': '做过的题', 'stats.attempts': '作答次数', 'stats.trend': '每日正确率',
+    'stats.trendAll': '总体', 'stats.noData': '还没有作答数据。', 'stats.table': '逐题统计', 'stats.onlyDone': '只看做过的',
+    'history.sub': '最近 {n} 条作答，点一行回看当时的选择', 'history.empty': '还没有作答记录。', 'history.clear': '清空记录',
+    'history.clearConfirm': '清空全部作答记录吗？逐题统计和错题集不受影响。',
+    'detail.title': '题目详情', 'detail.sub': '累计作答 {a} 次 · 正确率 {p}', 'detail.never': '尚未作答', 'detail.freq': '{n} 次',
+    'detail.then': '当时的作答：', 'detail.missing': '这道题所在的题库没有加载，或者题目已被移除。',
+    'palette.sub': '悬停预览，点选保存', 'contribute.sub': '一份 JSON 加一条目录，就能接入一门新课',
+    'set.lang': '界面语言', 'set.backup': '备份', 'set.backupNote': '作答数据保存在这台设备的浏览器里，换设备或清理浏览器数据前请先导出。',
+    'set.export': '导出备份文件', 'set.copyBackup': '复制备份内容', 'set.import': '从文件导入', 'set.importPaste': '导入下面粘贴的内容',
+    'set.pastePh': '也可以把备份内容粘贴到这里', 'set.importConfirm': '导入会覆盖这台设备上现有的全部作答数据。继续吗？',
+    'set.imported': '备份已导入', 'set.badFile': '这不是 Quiz Ledger 的备份文件', 'set.exported': '备份文件已保存', 'set.exportFail': '浏览器没有保存文件，请改用复制',
+    'set.danger': '清空数据', 'set.clear': '清空全部作答数据', 'set.clearConfirm': '将删除统计、错题、记录和笔记，无法恢复。继续吗？', 'set.cleared': '作答数据已清空',
+    'help.keys': '键盘', 'help.k1': '选择第 1 至 9 个选项；多选题再按一次取消', 'help.k2': '判断题选正确或错误', 'help.k3': '提交本题；已提交时进入下一题',
+    'help.k4': '上一题、下一题', 'help.how': '计分规则', 'help.h1': '判断、单选、多选题提交后立即判分；多选题须与标准答案完全一致。',
+    'help.h2': '填空题先自动比对（忽略空格与 $，1/2 与 0.5 视为相同）；比对不上时显示参考答案，由你自己判定。',
+    'help.h3': '一道题的错误率高于 30% 就进入错题集。', 'help.h4': '结束作答后才结算本轮正确率，中途离开页面不会丢失进度。',
+    'err.catalog': '题库目录没有加载成功', 'err.catalogHint': '请通过线上地址或本地服务器打开（在项目目录运行 python3 -m http.server），直接双击 index.html 时浏览器不允许读取题库文件。'
+  };
+
+  var en = {
+    'app.name': 'Quiz Ledger', 'app.tagline': 'questions, kept', 'ui.skip': 'Skip to content',
+    'nav.home': 'Banks', 'nav.quiz': 'Practice', 'nav.wrong': 'Mistakes', 'nav.stats': 'Statistics', 'nav.history': 'History',
+    'nav.palette': 'Palette', 'nav.contribute': 'Add a bank',
+    'ui.settings': 'Backup & settings', 'ui.help': 'Help', 'ui.close': 'Close', 'ui.cancel': 'Cancel', 'ui.confirm': 'Confirm',
+    'ui.copy': 'Copy', 'ui.copied': 'Copied', 'ui.copyFail': 'Copy failed; select the text by hand', 'ui.all': 'All', 'ui.back': 'Back',
+    'ui.loading': 'Loading banks…', 'ui.prev': 'Previous', 'ui.next': 'Next', 'ui.page': 'Page {a} of {b}',
+    'meter.done': 'Done', 'meter.acc': 'Accuracy', 'meter.note': '{n} mistakes to review',
+    'type.true_false': 'True / false', 'type.single_choice': 'Single choice', 'type.multiple_choice': 'Multiple choice', 'type.fill_blank': 'Fill in',
+    'tf.true': 'True', 'tf.false': 'False',
+    'home.sub': '{sem} · {c} courses · {q} questions', 'home.total': 'Questions', 'home.attempted': 'Attempted', 'home.accuracy': 'Accuracy',
+    'home.wrong': 'Mistakes', 'home.attempts': '{n} attempts in total', 'home.ofTotal': '{p}% of the bank', 'home.wrongRule': 'error rate above 30%',
+    'home.courses': 'Courses', 'home.coursesNote': 'Pick one or more courses to practise',
+    'home.done': 'done', 'home.figs': '{n} with figures', 'home.loadFail': 'Could not read the bank file: {e}',
+    'home.resume': 'A round is in progress: {a} of {n} answered.', 'home.resumeBtn': 'Resume', 'home.endBtn': 'End round',
+    'setup.title': 'This round', 'setup.scope': 'Scope', 'setup.scope.all': 'Whole bank', 'setup.scope.wrong': 'Mistakes', 'setup.scope.unseen': 'Unseen',
+    'setup.types': 'Types', 'setup.units': 'Units', 'setup.diff': 'Difficulty', 'setup.order': 'Order', 'setup.order.seq': 'By unit',
+    'setup.order.shuffle': 'Shuffled', 'setup.limit': 'Length', 'setup.selectAll': 'All', 'setup.clear': 'None',
+    'setup.count': 'questions', 'setup.countNote': 'match this set-up', 'setup.start': 'Start', 'setup.pick': 'Pick at least one course above.',
+    'setup.replace': 'Starting a new round ends the one in progress ({a} answers already count towards your statistics). Continue?',
+    'quiz.none': 'No round is in progress.', 'quiz.toHome': 'Choose questions', 'quiz.answered': '{a} of {n} answered',
+    'quiz.submit': 'Submit', 'quiz.prev': '← Previous', 'quiz.next': 'Next →', 'quiz.finish': 'Finish round', 'quiz.end': 'End round',
+    'quiz.endConfirm': '{n} questions are unanswered. End the round anyway?', 'quiz.pickFirst': 'Pick an option first', 'quiz.pickMulti': 'Pick at least one option',
+    'quiz.correct': 'Correct', 'quiz.wrong': 'Incorrect. Answer: ', 'quiz.yourPick': 'your pick', 'quiz.rightAnswer': 'answer',
+    'quiz.ref': 'Answer', 'quiz.yours': 'You wrote: ', 'quiz.blankHint': 'Blank {n}; leave empty to see the answer',
+    'quiz.judge': 'Compare with the answer. Did you get it right?', 'quiz.judgeOk': 'I was right', 'quiz.judgeBad': 'I was wrong',
+    'quiz.explain': 'Explanation', 'quiz.notes': 'Notes', 'quiz.notesLocked': 'Notes open once you submit', 'quiz.notesPh': 'Key points for this question; saved as you type',
+    'quiz.card': 'Answer sheet', 'quiz.hint': '1–9 pick an option · T / F · Enter submit or next · ← → move',
+    'quiz.figMissing': 'This figure has not been compiled; its LaTeX source is shown. Run tools/build.py to render it.',
+    'quiz.diff': 'Level {n}', 'sum.title': 'Round result', 'sum.answered': 'Answered', 'sum.correct': 'Correct', 'sum.acc': 'Round accuracy',
+    'sum.of': 'of {n}', 'sum.wrongList': 'Missed in this round', 'sum.allRight': 'Nothing missed in this round.', 'sum.again': 'Another round', 'sum.none': 'No question was answered in this round.',
+    'wrong.sub': 'Questions with an error rate above 30% stay here until you get them right often enough', 'wrong.empty': 'No question in the chosen courses has an error rate above 30%.',
+    'wrong.start': 'Practise these {n}', 'col.course': 'Course', 'col.id': 'No.', 'col.type': 'Type', 'col.question': 'Question',
+    'col.attempts': 'Tries', 'col.correct': 'Right', 'col.acc': 'Accuracy', 'col.errRate': 'Error rate', 'col.time': 'Time',
+    'col.yours': 'Yours', 'col.answer': 'Answer', 'col.result': 'Result',
+    'stats.sub': 'Per question; click a row for details', 'stats.attempted': 'Questions tried', 'stats.attempts': 'Attempts', 'stats.trend': 'Daily accuracy',
+    'stats.trendAll': 'Overall', 'stats.noData': 'No attempts yet.', 'stats.table': 'By question', 'stats.onlyDone': 'Tried only',
+    'history.sub': 'Latest {n} attempts; click a row to see what you chose', 'history.empty': 'No attempts yet.', 'history.clear': 'Clear history',
+    'history.clearConfirm': 'Clear the whole history? Statistics and mistakes are kept.',
+    'detail.title': 'Question', 'detail.sub': '{a} attempts · accuracy {p}', 'detail.never': 'Not attempted yet', 'detail.freq': '{n}×',
+    'detail.then': 'Your answer then: ', 'detail.missing': 'The bank for this question is not loaded, or the question was removed.',
+    'palette.sub': 'Hover to preview, click to keep', 'contribute.sub': 'One JSON file and one catalog entry add a course',
+    'set.lang': 'Language', 'set.backup': 'Backup', 'set.backupNote': 'Your attempts live in this browser. Export before switching devices or clearing browser data.',
+    'set.export': 'Export backup file', 'set.copyBackup': 'Copy backup', 'set.import': 'Import from file', 'set.importPaste': 'Import pasted text',
+    'set.pastePh': 'Or paste a backup here', 'set.importConfirm': 'Importing replaces all attempt data on this device. Continue?',
+    'set.imported': 'Backup imported', 'set.badFile': 'Not a Quiz Ledger backup', 'set.exported': 'Backup saved', 'set.exportFail': 'The browser did not save the file; use Copy instead',
+    'set.danger': 'Clear data', 'set.clear': 'Clear all attempt data', 'set.clearConfirm': 'Statistics, mistakes, history and notes will be deleted for good. Continue?', 'set.cleared': 'Attempt data cleared',
+    'help.keys': 'Keyboard', 'help.k1': 'pick option 1 to 9; press again to unpick in multiple choice', 'help.k2': 'true or false', 'help.k3': 'submit; once submitted, next question',
+    'help.k4': 'previous and next question', 'help.how': 'Scoring', 'help.h1': 'True/false, single and multiple choice are marked on submit; multiple choice must match the answer exactly.',
+    'help.h2': 'Fill-in answers are compared automatically first (spaces and $ ignored, 1/2 equals 0.5); otherwise the answer is shown and you mark yourself.',
+    'help.h3': 'A question joins Mistakes once its error rate is above 30%.', 'help.h4': 'A round is settled when you end it; leaving the page keeps your place.',
+    'err.catalog': 'The bank catalog could not be loaded', 'err.catalogHint': 'Open the site from its web address or a local server (run python3 -m http.server in the project folder). Browsers refuse to read the bank files when index.html is opened directly.'
+  };
+
+  QL.langs = { zh: { name: '中文', dict: zh }, en: { name: 'English', dict: en } };
+  QL.lang = 'zh';
+
+  QL.t = function (key, vars) {
+    var d = QL.langs[QL.lang].dict;
+    var s = key in d ? d[key] : (key in zh ? zh[key] : key);
+    if (vars) Object.keys(vars).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  };
+})(typeof window !== 'undefined' ? window : globalThis);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-palette="warm">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Ledger</title>
+<meta name="description" content="A question-bank practice site for university courses: pick courses, practise with LaTeX-rendered questions, review mistakes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%238b1a1a'/><path d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='%23f5f0eb' stroke-width='3'/></svg>">
+</head>
+<body>
+
+<button class="skip" id="skip" type="button" data-act="skip">跳到正文</button>
+
+<div class="shell">
+  <aside class="spine">
+    <div class="spine__mark">
+      <span class="spine__no">№</span>
+      <h1 class="spine__title">Quiz Ledger</h1>
+      <p class="spine__sub" id="tagline">题目，逐一过手</p>
+    </div>
+    <nav class="nav" id="nav" aria-label="Views"></nav>
+    <div class="spine__meter" id="meter" aria-live="polite"></div>
+    <footer class="spine__foot">
+      <button class="linkbtn" id="btnSettings" type="button" data-act="open-settings">备份与设置</button>
+      <span class="spine__dot">·</span>
+      <button class="linkbtn" id="btnHelp" type="button" data-act="open-help">帮助</button>
+    </footer>
+  </aside>
+
+  <main class="main" id="main" tabindex="-1">
+    <header class="topbar">
+      <div class="topbar__left">
+        <h2 class="topbar__title" id="viewTitle">题库</h2>
+        <p class="topbar__sub" id="viewSub"></p>
+      </div>
+      <div class="topbar__right" id="viewRight"></div>
+    </header>
+    <div class="view" id="view"></div>
+  </main>
+</div>
+
+<dialog class="sheet" id="sheet">
+  <div class="sheet__form">
+    <header class="sheet__head">
+      <h3 class="sheet__title" id="sheetTitle"></h3>
+      <button class="iconbtn" type="button" data-act="close-sheet" aria-label="Close">✕</button>
+    </header>
+    <div class="sheet__body" id="sheetBody"></div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="confirmSheet" style="width:min(420px, calc(100vw - 32px))">
+  <div class="sheet__form">
+    <div class="sheet__body"><p id="confirmText"></p></div>
+    <footer class="sheet__foot">
+      <span class="spacer"></span>
+      <button class="btn btn--ghost" id="confirmNo" type="button">取消</button>
+      <button class="btn btn--solid" id="confirmYes" type="button">确定</button>
+    </footer>
+  </div>
+</dialog>
+
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- KaTeX from the CDN; the copy in vendor/ takes over when the CDN cannot be reached. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js" crossorigin="anonymous"></script>
+<script>
+if (!window.katex) {
+  var local = document.createElement('script');
+  local.src = 'vendor/katex/katex.min.js';
+  local.onload = function () { if (window.QL && QL.rerender) QL.rerender(); };
+  document.head.appendChild(local);
+}
+</script>
+<script src="js/i18n.js"></script>
+<script src="js/palettes.js"></script>
+<script src="js/tex.js"></script>
+<script src="js/store.js"></script>
+<script src="js/bank.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/views.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
