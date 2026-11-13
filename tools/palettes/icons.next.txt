@@ -1,5 +1,5 @@
 # Candidate icons, second round. One row per palette:  id | icon
-# 'U set:name [x y size]' places an icon from an open icon set (see lib.json for sources and licences).
+# A part that begins with U places an icon from an open icon set (see lib.json for sources and licences).
 # The first block replaces icons judged weak; the second block offers alternatives for icons that were liked.
 # Nothing here is live until a row is copied into the palette tables.
 
@@ -38,7 +38,7 @@ zima-blue | r 2 2 20 20; r 6 6 12 12; R 10 10 4 4@a
 the-godfather | U ph:orange
 blade-runner | U lucide:origami
 farewell-my-concubine | U fe:folding-hand-fan
-space-odyssey | R 9.5 6 5 15; L 3 21 21 21; U ph:sun 14.5 1 8@b
+space-odyssey | R 10 5 4 14@k; e 12 12 10 3.6; C 20.6 9.6 1.3@a; C 4.2 15.2 .8@a
 in-the-mood-for-love | U ph:lamp
 amelie | U fe:custard
 pulp-fiction | U ph:briefcase 2 5 20; L 12 1 12 3.5@b; L 6 2.5 7.5 4.5@b; L 18 2.5 16.5 4.5@b
@@ -151,7 +151,7 @@ caesar | U ph:dice-five
 cleopatra | U tabler:ankh
 zhuge-liang | U gi:feather
 wu-zetian | U fe:phoenix-bird
-li-bai | U gi:boat-fishing 0 5 19; U ph:moon 16 1 7@b
+li-bai | D M2 16h20c-1.2 3.2-4.5 5-10 5s-8.8-1.8-10-5z; C 9.6 7.6 1.8; D M6.6 16c.1-3.4 1.2-6 3.2-6 1.4 0 2.4.9 3.4 2.2l3.3-3.4 1 .9-3.7 4.900V16z; C 17.6 8.3 .9@b; C 20.5 3.5 2@b; d M3 23c2-.8 4-.8 6 0s4 .8 6 0 4-.8 6 0
 du-fu | U gi:hut
 su-shi | U ip:straw-hat 2 -2 20; L 6 15 5 18@b; L 12 16 11 19@b; L 18 15 17 18@b
 li-qingzhao | U gi:daisy

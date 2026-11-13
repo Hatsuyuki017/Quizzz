@@ -25,7 +25,11 @@ Icon notation (24 x 24 box, parts separated by ';'):
   L x1 y1 x2 y2    line
   P x,y x,y ...    filled polygon     p  open polyline
   D <path data>    filled path        d  stroked path
-A part may end in @a @b @c @d (a palette colour), @k (ink) or @g (paper).
+  U set:name [x y size] [flip]   an icon from an open icon set (tools/palettes/lib.json,
+                                 filled by tools/pull_icons.py); placed at x, y with the given size
+  G name           a computed figure: wheel (colour circle), grid (a grid bent by a mass)
+A part may end in @a @b @c @d (a palette colour), @k (ink) or @g (paper), and
+then in /0.4 for an opacity.
 """
 import colorsys
 import json
@@ -118,19 +122,93 @@ def style_of(bg, accents):
 
 
 NUM = r"-?\d*\.?\d+"
+LIB = {}
+STROKED = {"tabler": "2", "lucide": "2", "ip": "4"}
+
+
+def load_lib():
+    f = SRC / "lib.json"
+    if f.exists():
+        LIB.update(json.loads(f.read_text(encoding="utf-8")))
+
+
+def lib_icon(ref, args, flip, colour, where):
+    """An icon from an open icon set, scaled into the 24 x 24 box at x, y, size."""
+    if ref not in LIB:
+        raise SystemExit(f"{where}: {ref} is not in lib.json; run tools/pull_icons.py")
+    ic, short = LIB[ref], ref.split(":")[0]
+    x, y, size = (float(v) for v in (args + ["0", "0", "24"][len(args):])[:3])
+    k = size / max(ic["w"], ic["h"])
+    body = ic["body"]
+    if short in STROKED:
+        # line icons take the page's stroke width; icon-park draws on a 48 box, so its lines are doubled
+        body = body.replace(f'stroke-width="{STROKED[short]}"', 'stroke-width="3"' if short == "ip" else "")
+    body = re.sub(r'\bid="', 'id="~', body)
+    body = re.sub(r'url\(#', "url(#~", body)
+    body = re.sub(r'href="#', 'href="#~', body)
+    t = f"translate({x:g} {y:g}) scale({k:.5g})"
+    if flip:
+        t = f"translate({x + size:g} {y:g}) scale({-k:.5g} {k:.5g})"
+    style = f' style="color:{colour}"' if colour != "currentColor" else ""
+    return f'<g transform="{t}" fill="currentColor"{style}>{body}</g>'
+
+
+def gen_wheel():
+    """Goethe's colour circle: six wedges in the palette's own colours."""
+    import math
+    out, cols = [], ["var(--p-a)", "var(--p-c)", "var(--p-d)", "var(--p-b)", "var(--p-a)", "var(--p-d)"]
+    for i in range(6):
+        a0, a1 = math.radians(i * 60 - 90), math.radians(i * 60 - 30)
+        pts = [(12 + r * math.cos(a), 12 + r * math.sin(a)) for r, a in ((9.5, a0), (9.5, a1), (3.4, a1), (3.4, a0))]
+        d = "M{:.2f} {:.2f}A9.5 9.5 0 0 1 {:.2f} {:.2f}L{:.2f} {:.2f}A3.4 3.4 0 0 0 {:.2f} {:.2f}z".format(*[v for pt in pts for v in pt])
+        op = ' opacity=".55"' if i > 3 else ""
+        out.append(f'<path d="{d}" fill="{cols[i]}"{op}/>')
+    return "".join(out) + '<circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor"/>'
+
+
+def gen_grid():
+    """A flat grid bent by one mass: every line is pulled toward the point (12, 13)."""
+    import math
+    def warp(x, y):
+        dx, dy = 12 - x, 12.5 - y
+        pull = 0.62 * math.exp(-(dx * dx + dy * dy) / 30)
+        return x + dx * pull, y + dy * pull
+    paths = []
+    for c in (3.5, 9, 15, 20.5):
+        for horizontal in (True, False):
+            pts = [warp(t, c) if horizontal else warp(c, t) for t in [2 + i * 0.8 for i in range(26)]]
+            paths.append("M" + "L".join(f"{x:.2f} {y:.2f}" for x, y in pts))
+    return f'<path d="{"".join(paths)}" fill="none" stroke="currentColor"/><circle cx="12" cy="12.5" r="2.1" fill="var(--p-a)"/>'
+
+
+GENERATORS = {"wheel": gen_wheel, "grid": gen_grid}
 
 
 def icon_svg(spec, where):
     out = []
     for part in [p.strip() for p in spec.split(";") if p.strip()]:
-        colour = "currentColor"
-        m = re.search(r"@([abcdkg])$", part)
-        if m:
-            colour = {"k": "var(--p-ink)", "g": "var(--p-bg)"}.get(m.group(1), "var(--p-%s)" % m.group(1))
+        colour, opacity = "currentColor", ""
+        m = re.search(r"(?:@([abcdkg]))?(?:/(\d*\.?\d+))?$", part)
+        if m and (m.group(1) or m.group(2)):
+            if m.group(1):
+                colour = {"k": "var(--p-ink)", "g": "var(--p-bg)"}.get(m.group(1), "var(--p-%s)" % m.group(1))
+            if m.group(2):
+                opacity = f' opacity="{m.group(2)}"'
             part = part[:m.start()].strip()
         kind, rest = part[0], part[1:].strip()
+        if kind == "U":
+            words = rest.split()
+            flip = "flip" in words
+            piece = lib_icon(words[0], [w for w in words[1:] if w != "flip"], flip, colour, where)
+            out.append(piece.replace("<g ", f"<g{opacity} ", 1) if opacity else piece)
+            continue
+        if kind == "G":
+            if rest not in GENERATORS:
+                raise SystemExit(f"{where}: unknown generator {rest!r}")
+            out.append(GENERATORS[rest]())
+            continue
         filled = kind.isupper()
-        paint = f'fill="{colour}"' if filled else f'fill="none" stroke="{colour}"'
+        paint = (f'fill="{colour}"' if filled else f'fill="none" stroke="{colour}"') + opacity
         k = kind.lower()
         nums = re.findall(NUM, rest)
         try:
@@ -142,7 +220,7 @@ def icon_svg(spec, where):
             elif k == "e":
                 out.append(f'<ellipse cx="{nums[0]}" cy="{nums[1]}" rx="{nums[2]}" ry="{nums[3]}" {paint}/>')
             elif k == "l":
-                out.append(f'<line x1="{nums[0]}" y1="{nums[1]}" x2="{nums[2]}" y2="{nums[3]}" stroke="{colour}"/>')
+                out.append(f'<line x1="{nums[0]}" y1="{nums[1]}" x2="{nums[2]}" y2="{nums[3]}" stroke="{colour}"{opacity}/>')
             elif k == "p":
                 tag = "polygon" if filled else "polyline"
                 out.append(f'<{tag} points="{rest}" {paint}/>')
@@ -167,6 +245,7 @@ def rows(path, n):
 
 def main():
     out, seen, problems = [], set(), []
+    load_lib()
     seed = json.loads((SRC / "seed.json").read_text(encoding="utf-8"))
     core = {c[0]: c for _, c in rows(SRC / "core.txt", 5)}
     in_rock = False
