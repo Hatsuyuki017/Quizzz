@@ -38,6 +38,55 @@
     $('spineMotif').innerHTML = svg;
   }
 
+  function showPeek(card) {
+    var p = QL.palette(card.getAttribute('data-preview')), peek = $('peek'), box = card.getBoundingClientRect();
+    var w = 304, hgt = 190, gap = 12, right = box.right + gap + w <= root.innerWidth;
+    if (root.innerWidth < 720 || p.id === applied) { hidePeek(); return; }
+    peek.setAttribute('style', QL.paletteVars(p));
+    peek.setAttribute('data-palette', p.id);
+    if (p.dark) peek.setAttribute('data-paper', 'dark'); else peek.removeAttribute('data-paper');
+    peek.innerHTML = QL.palettePeek(p);
+    peek.style.left = Math.round(right ? box.right + gap : Math.max(8, box.left - gap - w)) + 'px';
+    peek.style.top = Math.round(Math.min(Math.max(8, box.top + box.height / 2 - hgt / 2), root.innerHeight - hgt - 8)) + 'px';
+    peek.style.setProperty('--peek-origin', right ? 'left center' : 'right center');
+    peek.classList.add('is-on');
+  }
+  function hidePeek() { $('peek').classList.remove('is-on'); }
+
+  /* Keep the choice and repaint. Where the browser can, the new palette opens
+     as a circle from (x, y); elsewhere a disc of the new paper colour does the
+     same job; with reduced motion the change is immediate. */
+  var wiping = false;
+  function switchPalette(id, x, y) {
+    var p = QL.palette(id), el = doc.documentElement;
+    var commit = function () { QL.store.setPref('palette', p.id); applyPalette(p.id); render(true); };
+    var still = root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var r = Math.ceil(Math.sqrt(Math.pow(Math.max(x, root.innerWidth - x), 2) + Math.pow(Math.max(y, root.innerHeight - y), 2)));
+    var from = 'circle(0px at ' + x + 'px ' + y + 'px)', to = 'circle(' + r + 'px at ' + x + 'px ' + y + 'px)';
+    hidePeek();
+    if (still || wiping || p.id === applied || !el.animate) { commit(); return; }
+    wiping = true;
+    if (doc.startViewTransition) {
+      el.classList.add('is-wiping');
+      var vt = doc.startViewTransition(commit), done = function () { el.classList.remove('is-wiping'); wiping = false; };
+      vt.ready.then(function () {
+        el.animate({ clipPath: [from, to] }, { duration: 760, easing: 'cubic-bezier(.3, .7, .2, 1)', pseudoElement: '::view-transition-new(root)' });
+      }).catch(function () {});
+      vt.finished.then(done, done);
+      return;
+    }
+    var disc = doc.createElement('div');
+    disc.className = 'wipe';
+    disc.style.background = p.bg;
+    doc.body.appendChild(disc);
+    var grow = disc.animate({ clipPath: [from, to] }, { duration: 520, easing: 'cubic-bezier(.3, .7, .2, 1)', fill: 'forwards' });
+    grow.onfinish = function () {
+      commit();
+      disc.style.opacity = '0';
+      root.setTimeout(function () { disc.remove(); wiping = false; }, 280);
+    };
+  }
+
   /* ---------- shell ---------- */
 
   function shell() {
@@ -318,7 +367,10 @@
     'clear-history': function () {
       ask(t('history.clearConfirm')).then(function (yes) { if (yes) { QL.store.clearHistory(); render(); } });
     },
-    'palette': function (id) { QL.store.setPref('palette', id); applyPalette(id); render(true); },
+    'palette': function (id, el, e) {
+      var box = el.getBoundingClientRect(), keyed = !e || (!e.clientX && !e.clientY);
+      switchPalette(id, keyed ? box.left + box.width / 2 : e.clientX, keyed ? box.top + box.height / 2 : e.clientY);
+    },
     'pal-filter': function (v, el) { ui.pal[el.getAttribute('data-key')] = v; render(true); },
     'pal-reset': function () { ui.pal = { g: 'all', h: 'all', s: 'all', d: 'all', q: '' }; render(true); },
     'copy': function (id) { copyText($(id).textContent); },
@@ -389,19 +441,21 @@
       }
     });
 
-    // palette preview on hover or focus
-    var preview = function (e) {
+    // a small sample of the palette beside the card under the pointer or the focus
+    var over = function (e) {
       var el = e.target.closest ? e.target.closest('[data-preview]') : null;
-      if (el) applyPalette(el.getAttribute('data-preview'));
+      if (el) showPeek(el);
     };
-    var restore = function (e) {
+    var out = function (e) {
       var el = e.target.closest ? e.target.closest('[data-preview]') : null;
-      if (el && !(e.relatedTarget && el.contains(e.relatedTarget))) applyPalette(QL.store.pref('palette', 'warm'));
+      if (el && !(e.relatedTarget && el.contains(e.relatedTarget))) hidePeek();
     };
-    doc.addEventListener('mouseover', preview);
-    doc.addEventListener('focusin', preview);
-    doc.addEventListener('mouseout', restore);
-    doc.addEventListener('focusout', restore);
+    doc.addEventListener('mouseover', over);
+    doc.addEventListener('focusin', over);
+    doc.addEventListener('mouseout', out);
+    doc.addEventListener('focusout', out);
+    $('view').addEventListener('scroll', hidePeek, { passive: true });
+    root.addEventListener('scroll', hidePeek, { passive: true });
 
     doc.addEventListener('keydown', function (e) {
       var tag = e.target.tagName;

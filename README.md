@@ -36,7 +36,7 @@ The site currently holds three courses of 2026 Semester 2, 450 questions in tota
 - Data stays in the browser and can be exported and imported as a JSON backup.
 
 **Interface**
-- 241 palettes in twelve collections, 191 on light paper and 50 on dark: the original ledger set, rock album sleeves, anime, classical and Renaissance painting, film, Chinese and Japanese art, places, literature, games and people. Each palette has its own mark beside the title, a faint texture in the margins and a short note (written in Chinese). The palette page filters by collection, hue, style and paper and searches names and notes; hover to preview, click to keep.
+- 241 palettes in twelve collections, 191 on light paper and 50 on dark: the original ledger set, rock album sleeves, anime, classical and Renaissance painting, film, Chinese and Japanese art, places, literature, games and people. Each palette has its own mark beside the title, a faint texture in the margins and a short note in English and Chinese. The palette page filters by collection, hue, style and paper and searches names and notes. Hovering over a palette shows a small sample of the interface in its colours; clicking switches to it, the new palette opening as a circle from the point clicked.
 - English and Chinese. The first visit follows the browser language, and Settings switches it.
 
 ## Layout
@@ -60,6 +60,7 @@ templates/bank.template.json   bank template
 schema/         JSON Schemas for banks and the catalog
 tools/build.py  validates banks and compiles figures
 tools/build_palettes.py        builds js/palettes.js from the tables in tools/palettes/
+tools/pull_icons.py            copies the library icons the tables use into tools/palettes/lib.json
 docs/CONTRIBUTING.md           full guide to adding a bank (in Chinese)
 vendor/katex/   KaTeX 0.16.11: stylesheet, fonts, and a copy of the script used when the CDN is unreachable
 ```
@@ -93,7 +94,7 @@ A palette is one row in `tools/palettes/<collection>.txt`:
 id | Name | 中文名 | source | paper a b c d | texture | icon | note
 ```
 
-Only five colours are written, the paper and four accents. `python3 tools/build_palettes.py` derives the ink and the fifth colour, lifts every colour until text and accents reach their contrast floors, tags the hue and style used by the filters, and writes `js/palettes.js`. The icon is drawn in a 24 by 24 box with a short notation described at the top of the script, and the texture is one of the names it lists. The first 51 palettes keep their hand-set colours in `tools/palettes/seed.json`, with their marks and notes in `core.txt`.
+Only five colours are written, the paper and four accents. `python3 tools/build_palettes.py` derives the ink and the fifth colour, lifts every colour until text and accents reach their contrast floors, tags the hue and style used by the filters, and writes `js/palettes.js`. The icon is drawn in a 24 by 24 box with a short notation described at the top of the script: plain shapes, computed figures, or `U set:name` for an icon from an open icon set (`python3 tools/pull_icons.py <node_modules>` copies the ones in use into `tools/palettes/lib.json`). The texture is one of the names the script lists. The English note goes in `tools/palettes/notes.en.txt` as `id | note`. The first 51 palettes keep their hand-set colours in `tools/palettes/seed.json`, with their marks and notes in `core.txt`.
 
 ## Data storage
 
@@ -103,6 +104,7 @@ Attempt data is read and written through `QL.store.backend` in `js/store.js`. Th
 
 - Layout, typography and the first 25 palettes follow [Stylish-Calendar](https://github.com/Hatsuyuki017/Stylish-Calendar) (Study Ledger); the palettes come from Thomas Shang's Tufte-Style Book Template.
 - The bank structure and the practice flow follow [26-Xi-quizbank](https://github.com/Hatsuyuki017/26-Xi-quizbank).
+- Some palette marks come from open icon sets, vendored in `tools/palettes/lib.json`: [Phosphor](https://phosphoricons.com) (MIT), [Tabler Icons](https://tabler.io/icons) (MIT), [Lucide](https://lucide.dev) (ISC), [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) high contrast (MIT, Microsoft), [Game-icons.net](https://game-icons.net) (CC BY 3.0, by Lorc, Delapouite and contributors), [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0), [IconPark](https://github.com/bytedance/IconPark) (Apache 2.0), [Font Awesome Free](https://fontawesome.com) (CC BY 4.0), and Maki and Temaki (CC0).
 - Formulas are typeset with [KaTeX](https://katex.org) (MIT License, see `vendor/katex/LICENSE`).
 
 ## License

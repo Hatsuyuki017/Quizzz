@@ -36,7 +36,7 @@
 - 数据保存在浏览器本地，可导出、导入 JSON 备份。
 
 **界面**
-- 241 套配色，分十二个系列，191 套浅色纸，50 套深色纸：账簿原色、摇滚唱片、日本动画、西方古典与文艺复兴绘画、电影、中国古典与日本传统艺术、地域风情、文学、游戏和人物。每套配色有自己的标记（标题旁的小图标）、页边一层很淡的底纹和一段小传。配色页可以按系列、色系、风格、纸色筛选，也可以搜索名称和小传；悬停预览，点选保存。
+- 241 套配色，分十二个系列，191 套浅色纸，50 套深色纸：账簿原色、摇滚唱片、日本动画、西方古典与文艺复兴绘画、电影、中国古典与日本传统艺术、地域风情、文学、游戏和人物。每套配色有自己的标记（标题旁的小图标）、页边一层很淡的底纹和一段中英文小传。配色页可以按系列、色系、风格、纸色筛选，也可以搜索名称和小传。鼠标停在某套配色上会弹出一张用它画的界面小样；点击换上，新配色从点击的位置以圆形铺开。
 - 中文和英文两种界面语言。首次打开时跟随浏览器语言，可在备份与设置里切换。
 
 ## 目录结构
@@ -60,6 +60,7 @@ templates/bank.template.json   题库模版
 schema/         题库与目录的 JSON Schema
 tools/build.py  校验题库并编译图形
 tools/build_palettes.py        从 tools/palettes/ 的表格生成 js/palettes.js
+tools/pull_icons.py            把表格用到的图标库图标拷进 tools/palettes/lib.json
 docs/CONTRIBUTING.md           接入题库的完整说明
 vendor/katex/   KaTeX 0.16.11 的样式和字体，以及 CDN 无法访问时使用的脚本副本
 ```
@@ -93,7 +94,7 @@ python3 -m http.server 8000
 id | Name | 中文名 | 出处 | 纸色 a b c d | 底纹 | 图标 | 小传
 ```
 
-颜色只写五个：纸色和四个主色。运行 `python3 tools/build_palettes.py`，脚本会推出墨色和第五个颜色，把每个颜色调到满足对比度下限，标好筛选用的色系和风格，然后写出 `js/palettes.js`。图标画在 24×24 的格子里，记法写在脚本开头；底纹从脚本列出的名字里选。最早的 51 套配色颜色是手调的，存在 `tools/palettes/seed.json`，标记和小传在 `core.txt`。
+颜色只写五个：纸色和四个主色。运行 `python3 tools/build_palettes.py`，脚本会推出墨色和第五个颜色，把每个颜色调到满足对比度下限，标好筛选用的色系和风格，然后写出 `js/palettes.js`。图标画在 24×24 的格子里，记法写在脚本开头：可以写基本图形、程序算出的图形，也可以用 `U set:name` 引用开源图标库里的图标（`python3 tools/pull_icons.py <node_modules>` 会把用到的图标拷进 `tools/palettes/lib.json`）。底纹从脚本列出的名字里选。英文小传写在 `tools/palettes/notes.en.txt`，格式是 `id | note`。最早的 51 套配色颜色是手调的，存在 `tools/palettes/seed.json`，标记和小传在 `core.txt`。
 
 ## 数据存储
 
@@ -103,6 +104,7 @@ id | Name | 中文名 | 出处 | 纸色 a b c d | 底纹 | 图标 | 小传
 
 - 界面的版式、字体和最初的 25 套配色沿用 [Stylish-Calendar](https://github.com/Hatsuyuki017/Stylish-Calendar)（Study Ledger），配色出自 Thomas Shang 的 Tufte-Style Book Template。
 - 题库结构和做题流程参考 [26-Xi-quizbank](https://github.com/Hatsuyuki017/26-Xi-quizbank)。
+- 部分配色标记取自开源图标库，存放在 `tools/palettes/lib.json`：[Phosphor](https://phosphoricons.com)（MIT）、[Tabler Icons](https://tabler.io/icons)（MIT）、[Lucide](https://lucide.dev)（ISC）、[Fluent Emoji](https://github.com/microsoft/fluentui-emoji) 高对比度版（MIT，Microsoft）、[Game-icons.net](https://game-icons.net)（CC BY 3.0，作者 Lorc、Delapouite 等）、[Material Design Icons](https://pictogrammers.com/library/mdi/)（Apache 2.0）、[IconPark](https://github.com/bytedance/IconPark)（Apache 2.0）、[Font Awesome Free](https://fontawesome.com)（CC BY 4.0），以及 Maki 和 Temaki（CC0）。
 - 公式渲染使用 [KaTeX](https://katex.org)（MIT License，见 `vendor/katex/LICENSE`）。
 
 ## 许可

@@ -461,26 +461,40 @@
     for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
     return all[0];
   };
-  QL.icon = function (p) { return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + p.icon + '</svg>'; };
+  var iconSeq = 0;
+  /* Library icons that carry ids (masks) are written with '~' in front of each id; every drawing gets its own prefix. */
+  QL.icon = function (p) {
+    var body = p.icon.indexOf('~') < 0 ? p.icon : p.icon.replace(/~/g, 'i' + (++iconSeq) + '-');
+    return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + body + '</svg>';
+  };
+  function palNote(p) { return QL.lang === 'zh' ? p.bio : p.be; }
 
   function palName(p) { return QL.lang === 'zh' ? p.z : p.n; }
   function palAlt(p) { return QL.lang === 'zh' ? (p.n === p.z ? p.src : p.n) : (p.src === p.n ? p.z : p.src); }
+  /* The hover sample: the interface in miniature, drawn in palette p. */
+  QL.palettePeek = function (p) {
+    return '<div class="peek__spine"><div class="peek__mark">' + QL.icon(p) + '<b>Quiz Ledger</b></div><div class="peek__nav"><i></i><i class="on"></i><i></i><i></i></div><div class="peek__motif">' + QL.icon(p) +
+      '</div></div><div class="peek__main"><div class="peek__top"><b>' + h(palName(p)) + '</b><span>' + h(palAlt(p)) + '</span></div><div class="peek__body"><div class="peek__q"><small>STATX 303 · ' + t('peek.kind') +
+      '</small>' + t('peek.q') + '</div><div class="peek__opts"><span class="on">' + t('peek.t') + '</span><span>' + t('peek.f') + '</span></div><div class="peek__foot">' +
+      p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') + '<em>' + t('peek.go') + '</em></div></div></div>';
+  };
+  QL.paletteVars = function (p) { return palVars(p); };
   function palMatch(p) {
     var f = ui.pal, q = f.q.trim().toLowerCase();
     if (f.g !== 'all' && p.g !== f.g) return false;
     if (f.h !== 'all' && p.h !== f.h) return false;
     if (f.s !== 'all' && p.s !== f.s) return false;
     if (f.d !== 'all' && p.dark !== (f.d === 'dark')) return false;
-    return !q || (p.z + ' ' + p.n + ' ' + p.src + ' ' + p.bio + ' ' + p.id).toLowerCase().indexOf(q) >= 0;
+    return !q || (p.z + ' ' + p.n + ' ' + p.src + ' ' + p.bio + ' ' + p.be + ' ' + p.id).toLowerCase().indexOf(q) >= 0;
   }
   function palVars(p) {
     return '--p-bg:' + p.bg + ';--p-ink:' + p.ink + ';--p-a:' + p.cats[0] + ';--p-b:' + p.cats[1] + ';--p-c:' + p.cats[2] + ';--p-d:' + p.cats[3] + ';--p-e:' + p.cats[4];
   }
   function palCard(p, cur) {
-    return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '" title="' + h(p.src + ' — ' + p.bio) +
+    return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '" title="' + h(p.src) +
       '"><span class="pcard__chips"><span class="pcard__plate" style="' + palVars(p) + '">' + QL.icon(p) + '</span>' + p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') +
       '</span><span class="pcard__head"><span><span class="pcard__name">' + h(palName(p)) + '</span><span class="pcard__alt">' + h(palAlt(p)) + '</span></span>' +
-      (p.id === cur ? '<span class="pcard__tick">✓</span>' : '') + '</span><span class="pcard__bio"' + (QL.lang === 'zh' ? '' : ' lang="zh-CN"') + '>' + h(p.bio) + '</span></button>';
+      (p.id === cur ? '<span class="pcard__tick">✓</span>' : '') + '</span><span class="pcard__bio">' + h(palNote(p)) + '</span></button>';
   }
   /* The filtered cards, grouped by collection unless one collection is chosen.
      Kept apart from the view so typing in the search box redraws only this. */
@@ -508,7 +522,7 @@
     var active = f.g !== 'all' || f.h !== 'all' || f.s !== 'all' || f.d !== 'all' || f.q;
     var now = '<section class="panel pal-now"><div class="pal-now__plate">' + QL.icon(p) + '</div><div class="pal-now__head"><span class="eyebrow">' + t('pal.current') +
       '</span><h3 class="pal-now__name">' + h(palName(p)) + '</h3><span class="pal-now__alt">' + h(palAlt(p)) + (palAlt(p) !== p.src ? ' · ' + h(p.src) : '') + '</span></div>' +
-      '<div class="pal-now__body"><p class="pal-now__bio"' + (QL.lang === 'zh' ? '' : ' lang="zh-CN"') + '>' + h(p.bio) + '</p><div class="pal-now__meta"><span class="pal-now__sw"><i style="background:' + p.bg + '"></i>' +
+      '<div class="pal-now__body"><p class="pal-now__bio">' + h(palNote(p)) + '</p><div class="pal-now__meta"><span class="pal-now__sw"><i style="background:' + p.bg + '"></i>' +
       p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') + '</span><span class="tag">' + t('pal.g.' + p.g) + '</span><span class="tag">' + t('pal.h.' + p.h) +
       '</span><span class="tag">' + t('pal.s.' + p.s) + '</span><span class="tag">' + t(p.dark ? 'pal.dark' : 'pal.light') + '</span></div></div></section>';
     var filters = '<section class="panel pfilter">' +
@@ -520,7 +534,7 @@
       '" autocomplete="off" spellcheck="false"><span class="pfilter__count num" id="palCount">' + list.count + '</span>' +
       (active ? '<button type="button" class="linkbtn" data-act="pal-reset">' + t('pal.reset') + '</button>' : '') + '</div></section>';
     var body = '<div class="pad"><div class="pal">' + now + filters + '<div id="palList">' + list.html + '</div></div></div>';
-    return { title: t('nav.palette'), sub: t('palette.sub', { n: QL.PALETTES.length }) + (t('pal.noteLang') ? ' · ' + t('pal.noteLang') : ''), right: '', body: body };
+    return { title: t('nav.palette'), sub: t('palette.sub', { n: QL.PALETTES.length }), right: '', body: body };
   }
 
   /* ---------- adding a bank ---------- */

@@ -175,7 +175,7 @@ html[data-palette="guns-n-roses"] {
 /* Zima Blue: flat colour and black outlines. The spine is the blue field,
    panels are white, secondary surfaces grey; type is black throughout and
    colour is kept for fills, stripes and the red accent. */
-html[data-palette="zima-blue"] {
+html[data-palette="zima-blue"], .pal-scope[data-palette="zima-blue"] {
   --surface:   #FFFFFF;
   --surface-2: #F0F1F2;
   --surface-3: #E1E3E5;
@@ -216,7 +216,7 @@ html[data-palette="dark-side-of-the-moon"] .topbar { border-bottom-width: 2px; b
 
 /* The Velvet Underground & Nico: the yellow is the spine, the sleeve stays
    white, and every control is black. */
-html[data-palette="velvet-underground"] {
+html[data-palette="velvet-underground"], .pal-scope[data-palette="velvet-underground"] {
   --surface:   #FFFDF8;
   --surface-2: #F5F1E6;
   --surface-3: #EAE4D4;

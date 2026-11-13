@@ -1,0 +1,242 @@
+# id | note in English. One row for every palette; the Chinese notes live in the palette tables.
+warm | The first palette: cream ledger paper with annotations in dark red ink. Every other palette starts from this one.
+ouc-default | The colours of Ocean University of China, sea blue running from pale to deep like a ship's log.
+brunneophobia | Brown all the way through, from coffee to caramel. The name means a fear of brown, yet it wears better than most.
+van-dyke | Van Dyke brown is the shadow on a portrait painter's palette, laid here over a faded pink like old silk.
+back-in-black | Near-black type on a grey mauve ground. Composed, with a trace of a bell still ringing.
+belle-of-the-ball | An olive gown and a touch of vermilion at a ball, with warm pink light behind the masks.
+pine-tree | Resin yellow, bark brown and the dark green under the trees: a conifer wood in autumn.
+provence-blue | A lavender field on an overcast day: grey-green ground, blue-violet spikes, everything spoken quietly.
+fresco-blue | The sky blue of a fresco, painted into wet plaster and still clear centuries later.
+monet | The pond at Giverny: pink water lilies, green willows and light breaking on the water.
+narcissus | The orange-yellow heart of a daffodil and its reflection, on a warm grey bank.
+roman-empire | Tyrian purple on a senator's toga, the red of the legion's standards and olive green, set on marble.
+greece | Aegean blue, the ochre red of pottery and olive green, in the shade of white columns.
+kanagawa | The Prussian blue of the great wave in the woodblock print, on yellowed paper with a small snow peak beyond.
+starry-night | The night sky at Saint-Remy: chrome yellow stars and moon, cobalt swirls, an ink-green cypress.
+a-thousand-li | The azurite and malachite of blue-green landscape painting on yellowed silk. Wang Ximeng painted it at eighteen and left nothing else.
+and-quiet-flows-the-don | Earth yellow and iron grey deep in the steppe, a river moving through a war without comment.
+cyberpunk-edgerunners | Night City on a fluorescent yellow ground, magenta and deep blue neon, current running through chrome.
+grand-budapest-hotel | A pink hotel, purple uniforms and the ribbon on a pastry box: an old world folded with great care.
+renaissance-florence | The brick red of the dome, lapis blue and the stone walls along the Arno. One city's fifteenth century.
+soviet-avant-garde | The red and black of a Constructivist poster, a wedge driven into a circle, on coarse grey paper.
+constantinople | Byzantine purple, mosaic gold and the deep blue of the strait, a thousand years of echo under the dome.
+france | The tricolour after it has faded: brick red, grey blue and a little violet at dusk.
+kyoto | Moss-garden green, cedar brown and the ink black of townhouses. The stone lane makes no sound after rain.
+siamese-dream | The Smashing Pumpkins' 1993 album: an overexposed summer afternoon, orange distortion, two children side by side.
+mellon-collie | The petrol-blue night sky of the original sleeve, a gold star carrying a dreamer across it.
+mellon-collie-deluxe | The 2012 reissue sets the same picture inside a larger tapestry. The night turns indigo and the frame is gilt.
+ok-computer | Washed-out white and ice blue, a motorway interchange crossing in fog, the unease of 1997.
+guns-n-roses | The gold of the cross on black, a red rose wound with green vine. Los Angeles, 1987.
+zima-blue | The blue at the centre of the murals that grew with every canvas and ended as one tile in a swimming pool. Black outlines, and red used once.
+sgt-pepper | Four satin uniforms in pink, blue, orange-red and lime: a military band in the summer of 1967.
+velvet-underground | A banana on a white sleeve with a signature in black. The yellow takes one edge and the rest stays empty.
+electric-ladyland | A face lit yellow and red out of the dark, guitar feedback catching like fire.
+abbey-road | London in August: the pale stone of a zebra crossing, denim blue, leaf green and one black suit.
+crimson-king | A screaming face, crimson and pink flesh against blue. Progressive rock opens here.
+master-of-reality | Purple letters writhing on black with the title embossed in grey, heavy as a down-tuned guitar.
+ziggy-stardust | A night street after rain, a lit window, and a visitor from elsewhere in a turquoise jumpsuit.
+close-to-the-edge | One green moving from its darkest to its palest, by way of moss, lake water and lichen.
+dark-side-of-the-moon | A beam of white light through a prism, spread into a spectrum on black. The progress bar is drawn the same way.
+houses-of-the-holy | An orange-pink sky pressing on blue-grey basalt columns, fair-haired children climbing.
+aladdin-sane | A red and blue flash across pale skin, orange hair, a silver tear on the collarbone.
+animals | A power station at dusk: brick-red walls, four chimneys, a pink pig adrift under dark cloud.
+never-mind-the-bollocks | Acid yellow, a magenta band and black letters cut from newsprint. Punk has no colour theory.
+unknown-pleasures | A stack of white ridges on black, the signal of a pulsar. Nothing else at all.
+london-calling | A grey live photograph with pink and green lettering, the second before the bass hits the stage.
+ride-the-lightning | A deep cobalt night, arcs running from blue to violet, one pale yellow flash on steel.
+the-queen-is-dead | A film still stained dark green with pink type. Manchester rain and gladioli.
+nevermind | Pool water from shallow to deep, a dollar bill on a fish hook, the autumn of 1991.
+loveless | A guitar dissolved in pink and magenta, the sound too thick to show its outline.
+kid-a | A row of ice peaks under a blue-black sky with fire in the distance. The chill of the century's first year.
+lamplight | One desk lamp at night: charcoal paper and amber light, for people who work late.
+spirited-away | The vermilion railings of the bathhouse, jade roof tiles and the lamps lit at dusk. A story about keeping your own name.
+totoro | Camphor green, summer blue and an acorn in a pocket. Country rain comes fast and leaves fast.
+mononoke | The ink green of an ancient forest with a glow on the moss, and one streak of blood red for what both sides pay.
+howl | The green of a flower meadow, sky blue and a falling star. Turn the dial on the door and the world outside changes.
+akira | Neo-Tokyo at night, tail lights drawing red lines. Neon yellow and cyan over towers about to fall.
+ghost-in-the-shell | Cyan data streams over a city like black water. The body can be replaced and memory edited; the question is what remains.
+evangelion | Purple and fluorescent green armour, alarm orange. Hexagonal barriers unfold around a boy who would rather not get in.
+cowboy-bebop | The buff of an old record sleeve, a navy suit, a little red and mustard. The jazz starts and the bounty hunters go hungry again.
+your-name | The sky at twilight where pink meets blue, a comet trailing across it. A name gone on waking.
+weathering-with-you | Months of rain and one shaft of light through the cloud. Tokyo has many layers of blue.
+attack-on-titan | Olive cloaks, brown leather straps and the grey of the walls. Seeing what lies outside has a price.
+demon-slayer | Night in the Taisho era, a green and black check. Where wisteria blooms, demons keep away.
+fullmetal-alchemist | A red coat, a brass pocket watch and an arm of steel. Equivalent exchange, nothing over and nothing short.
+death-note | A black cover, white pages and a red apple. The one who writes the names believes he holds justice.
+one-piece | The blue of the Grand Line, a straw-yellow hat and a red vest. A turn of the wheel and the next island is ahead.
+naruto | An orange jacket that stands out in any crowd, the navy of a headband, village green. The boy at the bottom of the class wants everyone to remember him.
+dragon-ball | An orange and blue training suit and an obedient yellow cloud. Thirty-odd years on, the boy is still heading somewhere stronger.
+sailor-moon | The pink and navy of a sailor uniform and a gold crescent. Under a nineties moon one phrase is enough to transform.
+kiki | A navy dress, a red bow and the rooftops of a town by the sea. Thirteen, and leaving home alone.
+violet-evergarden | A Prussian blue jacket, an emerald brooch and white letter paper. A writer of other people's letters slowly learns what one sentence means.
+mushishi | Grey-green mountain mist and the colour of damp earth. The creatures are neither good nor evil, only another way of being alive.
+samurai-champloo | An indigo kimono with sunflower yellow, hip-hop on the streets of Edo, and a search for a samurai who smells of sunflowers.
+jujutsu-kaisen | School uniforms of a navy close to black, cursed energy in blue-violet, blood in red. Curses grow out of people.
+spy-family | Pink hair, a mint suit and a black dress. Three people, each with a secret, assembled into a family.
+frieren | Silver white and pale blue with a small field of flowers by the road. Only after the hero dies does the elf begin to grasp how long fifty human years are.
+made-in-abyss | A great pit going down layer by layer, the green darkening until only the amber of a lantern is left. The deeper, the lovelier, and the harder to return.
+steins-gate | The yellowed filter of an Akihabara summer and the olive of a cathode-ray tube. One text message rewrites the world line.
+haikyu | Karasuno orange and black on a wooden gym floor. Until the ball lands, the point is still alive.
+slam-dunk | The red of a Shohoku jersey, the orange-brown of a basketball, the blue of the coast. A beginner learns in four months to love the game.
+grave-of-the-fireflies | Night in an air-raid shelter, fireflies glowing and going out. The summer of 1945, and two children.
+black-figure | Heroes and chariots in black slip on orange-red clay, the detail scratched in. The first language of the Athenian potters.
+red-figure | The colours reversed: the ground painted black and the figures left in bare clay. Lines could now be drawn with a brush, and bodies began to turn.
+knossos | Sea blue and ochre red on the walls of the Minoan palace, dolphins and a youth vaulting a bull. Brightness from thirty-five centuries ago.
+akrotiri | Lilies on red rock and swallows flying in pairs. Volcanic ash sealed this spring away whole.
+villa-of-mysteries | A whole wall of Pompeian red, life-size figures circling the room in a rite no one has explained.
+livia-garden | Laurel, pomegranate and birds painted on all four walls of an underground dining room, the air blue-green. A garden that never drops a leaf.
+alexander-mosaic | More than a million small stones make up the battle of Issus in earth colours only: brown, ochre, grey and a little dark red.
+fayum | Faces in wax on wooden panels: warm brown skin, a wreath in gold leaf and eyes that look straight at you.
+flora-stabiae | On pale green, a figure seen from behind reaches to pick a flower. A small painting, light as if someone had just walked past.
+tarquinia | The Etruscans painted banquets and dancing in their tombs: brick-red skin, blue-green hems, the lyre never stopping.
+birth-of-venus | A blue-green sea, pink flowers on the wind and a shell coming to shore. Line matters more than volume.
+primavera | Hundreds of kinds of flowers in the dark green of an orange grove, the fruit golden. One Medici spring.
+mona-lisa | Sfumato dissolves the outlines into air, olive brown and old gold. Behind her a road winds to a small bridge.
+last-supper | Every line runs to the single point at the centre. Faded blue and red, the moment after a sentence has been spoken.
+creation-of-adam | On the ceiling a small gap is left between two fingers. A rose cloak, a grey-blue sky, the warmth of flesh.
+school-of-athens | Under arch after arch the philosophers each hold forth. Stone white, robes in blue and red, everything in order.
+bacchus-and-ariadne | Ultramarine sky fills half the canvas as Bacchus leaps from his chariot in a rose cloak. The Venetians gave colour the leading part.
+arnolfini | A dim room, a green gown, red bed hangings and a brass chandelier. The convex mirror on the wall holds two more people.
+hunters-in-the-snow | White snow, blue-green ice, black trees and men. The hunters come down the hill with very little.
+earthly-delights | Pink fountains, giant berries and blue spheres. The middle panel of the triptych, sweet enough to be unsettling.
+the-godfather | A study lit by one amber lamp, the blinds cutting the light into strips. Wherever oranges turn up, something is about to happen.
+blade-runner | Los Angeles in 2019 and the rain never stops, cyan and magenta neon lying in the puddles. In the last minutes on the roof the rain thins everything out.
+farewell-my-concubine | The red of the stage, the pink of rouge, the gold of a phoenix crown. One of them sang the part all his life and never stepped out of it.
+space-odyssey | The sterile white of a ship's interior, a black slab and one red eye. From a bone to a star child.
+in-the-mood-for-love | Hong Kong in 1962: dark red and ink green in a narrow corridor under a dim yellow wall lamp. The two are always one step apart.
+seven-samurai | Black and white film, mud and heavy rain. Seven men defend a village, and the farmers are the ones who win.
+kill-bill | A bright yellow jumpsuit with black stripes and red spattered on snow. A list, crossed off one name at a time.
+amelie | The red and green of Montmartre under a golden filter. Cracking a creme brulee with a spoon is her small private pleasure.
+pulp-fiction | The red and yellow of a paperback cover and a diner booth. A five-dollar milkshake and a few stories told out of order.
+lawrence-of-arabia | The desert on seventy-millimetre film: gold dunes, a sky bleached almost white, a black dot on the horizon coming slowly nearer.
+the-shining | The orange, red and brown of a hotel carpet, long corridors and snow at the windows. The maze is outside the house and inside it too.
+apocalypse-now | Jungle burning in orange light, helicopters crossing the setting sun. Up the river into the heart of darkness.
+raise-the-red-lantern | A compound of grey brick and grey tile, square within square. Only the courtyard where the lanterns are lit has any colour.
+hero | The same story told several times, each time in one colour: red, blue, white, green. The last is the black of Qin.
+crouching-tiger | Bamboo green and mist grey, a duel fought on the tips of the stalks. Close your hand tight and there is nothing in it.
+la-la-land | The violet blue before night in Los Angeles, a bright yellow dress and a dance under a street lamp on the hill.
+mad-max-fury-road | Orange dust and a teal sky with the saturation pushed to the limit. Engines, petrol and one road back.
+the-matrix | Green characters running down a black screen. Those who wake find that even the colours were supplied by the program.
+parasite | The grey of bare concrete, the green of a lawn and one peach. Going up takes many flights of stairs; coming down takes a single night of rain.
+schindlers-list | The whole film is black and white except for one small red coat and the candle flames at the beginning and the end.
+qingming | On tea-brown old silk the noise of the market spreads along both banks of the Bian River. The rainbow bridge is crowded, and under it a boat is lowering its mast.
+fuchun | Ink alone, wet and dry, dark and pale, makes a river and the hills on both banks. Seven years in the painting, and later burned into two pieces.
+night-revels | Vermilion robes, malachite screens and black furniture. Through the lute music the host's mind is always somewhere else.
+dunhuang | Azurite, malachite and earth red painted in caves at the edge of the desert. The ribbons of the flying figures have not come down in a thousand years.
+ru-ware | The colour of the sky where the clouds part after rain. The glaze is finely crackled, and fewer than a hundred pieces survive.
+blue-and-white | One cobalt blue on a white body, purple where it pools and like water where it thins. Sold all the way from Jingdezhen to Istanbul.
+tang-sancai | Yellow, green and brown glazes run of their own accord in the kiln and blur where they meet. The camels and foreign grooms of the high Tang.
+nymph-of-luo | Under willows by the Luo River he sees her come across the water. The line is as fine as silk from the worm and the colour nearly gone.
+auspicious-cranes | Azurite sky fills the picture and twenty white cranes wheel over the golden roof of the palace gate. The emperor painted that first-month evening himself.
+orchid-pavilion | Ink, paper and the red seals later owners pressed all over it. Late spring, cups floating down a winding stream, and 324 characters written after wine.
+red-fuji | An early morning at the end of summer with a south wind, Mount Fuji turned ochre red by the rising sun. Blue sky, clouds like fish scales.
+ohashi-rain | A sudden shower drives slantwise onto a wooden bridge and people run with their backs bent. The rain is black lines, cut one by one.
+plum-blossoms | A gold-leaf ground with a dark stream eddying down the middle and a plum tree on each bank. The Rinpa school trims nature into pattern.
+irises | Only ultramarine flowers and green leaves on gold, set out again and again like a phrase of music. No water and no bank.
+utamaro | A mica ground with a soft sheen, ink-black hair, one line of rouge red at the collar. He drew only the instant they lower their heads.
+sharaku | An exaggerated face against dark mica. He worked for ten months, left more than 140 prints, and vanished.
+pine-trees | A pine wood in morning mist, the near trees dark and the far ones almost gone. The large blank areas are the mist.
+kano-gold | A gold cloud across the whole wall and a huge cypress reaching out of it. The lords of the Azuchi-Momoyama castles wanted exactly this force.
+aizome | The colour fermented from indigo leaves, a shade deeper with each dip, with forty-eight names from the palest to the darkest. It looks better the more it is washed.
+raku | A black bowl pinched by hand without a wheel, the rim slightly uneven. Sen no Rikyu wanted that one imperfection.
+santorini | Whitewashed walls, cobalt domes and the sea held in a crater below. At dusk the whole island turns pink.
+marrakech | Ochre-red walls of rammed earth, the blue of the Majorelle garden, saffron on a spice stall. Lanes just wide enough for a donkey.
+tuscany | Ochre farmhouses, rolling wheat and cypresses in a line along the ridge. The light at the end of summer is the colour of honey.
+iceland | Basalt black, tundra green and glacier blue, with now and then a band of aurora overhead. Hardly a tree.
+patagonia | Granite towers standing in the wind, glacial meltwater turning the lakes a milky blue. The end of the continent.
+havana | Faded colonial buildings painted turquoise, pink and lemon yellow, and the old cars in the same colours. Someone is always playing guitar on the sea wall.
+jaipur | The whole old city washed pink, the saris saffron and peacock blue. The Palace of Winds has more than nine hundred small windows.
+jiangnan | White walls and dark tiles, grey-green water, willows just in bud. A black-awning boat slips under a stone bridge almost without sound.
+tibet | The maroon of monks' robes, the gold of butter lamps and the blue of the plateau sky. Five-coloured prayer flags are read aloud by the wind on the pass.
+nordic | Pale birch, a grey-blue wool blanket and a little mustard yellow. The winter is long, so the room must be bright, warm and spare.
+dream-of-the-red-chamber | The vermilion and jade green of the Grand View Garden, and a stone found unfit to mend the sky. Splendour written to its limit, ending on a clean white empty earth.
+journey-to-the-west | The gold and red of a monk's robe, the white of a somersault cloud and the orange of the Flaming Mountains. Eighteen thousand leagues and eighty-one trials, squabbling all the way.
+three-kingdoms | Wei blue, Shu green and Wu red, iron and fire under three banners. The great river rolls east, and right or wrong, won or lost, all comes to nothing.
+water-margin | The reed green of the Liangshan marsh, the earth brown of wine jars and an apricot-yellow banner. A hundred and eight people driven up the same mountain.
+tale-of-genji | The purple that was the noblest colour of the Heian court, and the palettes of layered sleeves. Under the shining prince's whole life lies a sadness at passing things.
+odyssey | Homer calls the sea wine-dark. Bronze spears, a bed of olive wood, and a man who takes ten years to get home.
+divine-comedy | The red of hell fire, the grey of purgatory and the gold of paradise, ring inside ring. Midway through life he lost his way in a dark wood.
+don-quixote | The yellow earth of La Mancha and a blue sky far too large. A man who has read too many romances charges the windmills.
+hamlet | Night at Elsinore, mourning black and a skull held in the hand. There is one question and he thinks about it for five acts.
+pride-and-prejudice | Regency pastels: muslin white, lawn green and one very long letter. Well-mannered people finally say what is true.
+les-miserables | A faded tricolour on a Paris barricade and the grey of the sewers. A bishop gives away two silver candlesticks and changes the rest of a man's life.
+moby-dick | The sea is lead grey and deep blue and the whale is white, white enough to frighten. Call me Ishmael.
+crime-and-punishment | The close heat of a Petersburg July and yellowing wallpaper. A theory worked out in a garret comes down to earth as an axe.
+war-and-peace | The green and red of uniforms, the gold of a ball and the high sky over Austerlitz. More than five hundred characters and not one of them minor.
+anna-karenina | A black velvet gown, snow and steam on a railway platform. Happy families are all alike; every unhappy family is unhappy in its own way.
+great-gatsby | The Long Island night is deep blue, the parties are gold, and at the end of a dock across the bay there is a green light.
+hundred-years-of-solitude | In Macondo the rain goes on for years and yellow butterflies follow the same man. Seven generations of one family, the names coming round again.
+nineteen-eighty-four | Concrete grey, the blue-black of overalls, the red of slogans. The eyes on the poster follow you wherever you walk.
+little-prince | Night-sky blue, star gold and one flower on a very small planet. Grown-ups want figures; the child only asks how the flower is.
+old-man-and-the-sea | The blue of the Gulf Stream, a sun-bleached sail and eighty-four days without a fish. All he brings home is a skeleton.
+metamorphosis | The brown of a carapace and a sickroom grey-green. Waking one morning, his first worry is that he will be late for work.
+ulysses | The snot-green of Dublin Bay and the Greek blue of the first edition's cover. On 16 June 1904 a man walks about the city all day.
+lost-time | The pale gold of lime-blossom tea, the cream of a madeleine, hawthorn pink. One mouthful of cake soaks open the whole of Combray.
+catcher-in-the-rye | A red hunting hat, the gold of a carousel and New York in December. At sixteen everyone looks like a fake to him, except his sister.
+lord-of-the-rings | The green of the Shire, one gold ring and a shadow pressing in from the east. The smallest people walk the farthest.
+norwegian-wood | The first edition came in two volumes, one red and one green, colours the author chose himself. Tokyo at the end of the sixties, and a few young people learning to live with loss.
+snow-country | The train comes out of a long tunnel and everything outside is snow. White in the dark, and a touch of red reflected in the window glass.
+call-to-arms | The first edition had a dark red cover with a block of black and two characters. Someone has woken in the iron house and has to shout.
+things-fall-apart | Red earth, cassava and the dust of the dry season, drums at the edge of the village. After the strangers arrive, the centre cannot hold.
+arabian-nights | The Baghdad night is lapis blue and the lamps are gold. Each evening she stops at the crucial point and so lives one more day.
+red-dead-redemption | The West in 1899: dust, leather and the red of sunset. An age is ending and someone still means to settle a last debt.
+ghost-of-tsushima | White pampas grass, red maple leaves and silhouettes in ink, the wind pointing the way. Between the way of the samurai and the ghost there is only a blade.
+elden-ring | A vast glowing tree stands under the sky of the Lands Between, gold falling on ash. However many times you fall, you get up again beside a site of grace.
+breath-of-the-wild | Grassland and sky like watercolour, and every distant mountain can be climbed. After a hundred years asleep you set out from a plateau.
+hollow-knight | The deep blue, near black, of an underground kingdom, with only lamps and white masks giving a cold light. Down, and further down.
+journey | Gold dunes, a red scarf and a light on a far summit. The strangers met on the way never say a word.
+witcher-3 | Steel for humans, silver for monsters. Northern marshes, war, and a hand of Gwent in a tavern.
+disco-elysium | Teal and orange in the brushwork of an oil painting, a harbour city after a failed revolution. A detective wakes from a binge having forgotten even his own name.
+hades | Firelight flickering in the dark red of the underworld, each god's boon in its own colour. Escape, die, escape again.
+monument-valley | Impossible buildings in pink, teal and apricot; give one a turn and the path joins up. A silent princess returns the geometry piece by piece.
+laozi | Black and white, water and valley. Five thousand characters on the soft overcoming the hard; tradition says he then rode a dark ox out through the Hangu Pass.
+confucius | The earth yellow of the Apricot Terrace and the brown of bamboo slips. He travelled between states for fourteen years without office, then went home to Lu to edit the classics and teach three thousand students.
+socrates | The limestone white of the Athenian marketplace and the green of a cup of hemlock. He wrote nothing down and only kept asking, until the other person admitted to not knowing.
+aristotle | The colonnades and olive trees of the Lyceum. He classified animals, arguments and constitutions, and most later disciplines were split off from his table of contents.
+alexander | Macedonian purple and gold, and sand all the way east. King at twenty, at the Indus within ten years, dead in Babylon at thirty-two. A knot that would not untie he cut with a sword.
+qu-yuan | The vermilion and black of Chu lacquer and the orchids by the river. He turned fragrant plants into virtues, was exiled and drowned himself in the Miluo; the dragon boats race for him.
+qin-shi-huang | Qin honoured black, in banners and in dress, and the terracotta army is the colour of fired clay. He unified the script, the axle width and the measures, and had all coins cast to one pattern.
+caesar | The red of the legion's standards and laurel green. He crossed the Rubicon, reformed the calendar and died in the Senate on 15 March 44 BC.
+cleopatra | Lapis blue, gold and the turquoise of the Nile. The last pharaoh of the Ptolemies, said to have spoken nine languages and the first of her house to learn Egyptian.
+zhuge-liang | A feather fan, a silk cap and the thatched cottage at Longzhong. He left it at twenty-seven and did not rest for the next twenty-seven years, dying in camp at Wuzhang Plains.
+wang-xizhi | Black ink, white paper and one red seal. In 353 he wrote a preface at the Orchid Pavilion; no one living has seen the original, and it has been copied for more than a thousand years.
+wu-zetian | The gold of the high Tang, peony red and a purple robe. The only woman to rule China as emperor, she left a memorial stone with not a single character cut on it.
+li-bai | Moonlight, wine and a small boat on the Yangtze. He wrote poems the way wine is poured, all at once, and legend has him drowning drunk as he reached for the moon in the water.
+du-fu | A thatched hut in the autumn wind and a blue gown washed pale. He set the wars and upheavals of an age into his poems line by line, and later readers called them history in verse.
+charlemagne | The gold and blue of manuscripts and the purple of the court at Aachen. Crowned in Rome on Christmas Day 800; the later France and Germany were both divided out of his empire.
+murasaki-shikibu | Wisteria purple and the moon at Ishiyama temple. A lady-in-waiting who wrote a novel of fifty-four chapters in kana, while her own given name went unrecorded.
+su-shi | A bamboo staff, straw sandals and a shower met without an umbrella. Wherever he was banished he farmed, cooked, built dykes and wrote, and Huangzhou, Huizhou and Danzhou all keep something of his.
+li-qingzhao | Crabapple red, plantain green and the yellow flowers of the Double Ninth. Her early lyrics are about idle sorrow behind a raised blind; after the flight south, with state and home both lost, they are about searching.
+saladin | The yellow banner of the Ayyubids and the stone walls of Damascus. He retook Jerusalem in 1187 without a massacre, and even his opponents' chronicles praise him for keeping his word.
+genghis-khan | Steppe green, the blue of the Eternal Sky and the white of felt tents. He united the Mongol tribes, and the empire that followed ran from the Pacific to eastern Europe.
+zheng-he | The sails of the treasure ships and the blue of the Indian Ocean. Seven voyages in twenty-eight years reached the coast of East Africa, and the giraffe he brought back was taken for a qilin.
+joan-of-arc | A white standard and the steel grey of armour. A farmer's daughter of seventeen raised the siege of Orleans and was burned at Rouen at nineteen.
+leonardo-da-vinci | The brown ink and red chalk of the notebooks. He painted, dissected and designed flying machines, and filled thousands of pages in mirror writing from right to left.
+elizabeth-i | Pearl white, Tudor red and green, and a stiffly starched ruff. Forty-four years on the throne, never married; she saw off the Armada, and playhouse after playhouse opened in her London.
+shakespeare | The oak of the Globe and the deep red of its hangings. Thirty-seven plays and 154 sonnets, comedies, tragedies and histories alike, and a good many English phrases he was the first to use.
+galileo | In January 1610 he turned a telescope on Jupiter and saw four small stars circling it. From those nights on, the earth was no longer the centre of everything in the sky.
+newton | The stone of Trinity College, the red of an apple and a beam of light taken apart by a prism. In two plague years in the country he worked out gravitation, optics and the calculus.
+goethe | His yellow house in Weimar and the colour circle he painted himself. He wrote poems, ran mines and studied plants and colour, and spent sixty years on Faust.
+mozart | Rococo pink, blue and gold. Composing at five and dead at thirty-five, he left more than six hundred works that sound as if they cost no effort at all.
+napoleon | The dark blue of the Guard, imperial gold and the sea off Elba. A Corsican artillery officer became emperor, left a civil code and lost at Waterloo in 1815.
+beethoven | The colour of cloud before a storm with a little orange from the hearth. After he went deaf he wrote the Ninth Symphony. The original mark is the rhythm that opens the Fifth: three short, one long.
+darwin | The logbooks of the Beagle, and the finches and tortoises of the Galapagos. After coming home he thought for more than twenty years before handing the book to a publisher.
+lincoln | Union blue, a black broadcloth coat and a log cabin in Kentucky. He held the Union together through the Civil War, signed the Emancipation Proclamation and was shot five days after the main Confederate army surrendered.
+dostoevsky | The yellow walls of Petersburg and a candle stub. He stood before a firing squad, was reprieved at the last moment, wore fetters in Siberia for four years and came back to write about the darkest places in people.
+tolstoy | The birch woods of Yasnaya Polyana and a peasant's coarse shirt. After two great novels the count tried to give his land away, left home at eighty-two and died at a small railway station.
+van-gogh | The yellow of Arles and the cobalt of the night sky, the paint laid on thick. More than two thousand works in ten years, almost none sold in his lifetime, and over six hundred letters to his brother.
+tagore | The Bengal monsoon, golden rice fields and boats on the river. He wrote in Bengali, translated himself into English and received the Nobel Prize in Literature in 1913.
+sun-yat-sen | The grey of the suit named after him and the blue of the sea. Trained as a physician, he became provisional president after the 1911 revolution and later drew a plan for a hundred thousand miles of railway.
+marie-curie | At night in the shed that served as a laboratory, radium salts gave off a faint blue-green glow in their glass tubes. Two Nobel Prizes, one in physics and one in chemistry; her notebooks are still radioactive.
+gandhi | The off-white of hand-spun cloth, the white of salt and a dirt road walked barefoot. He led a march of twenty-four days to the sea to make salt and met an empire with non-cooperation.
+einstein | A desk at the patent office, a violin and chalk dust on a blackboard. In 1905, at twenty-six, he published four papers in one year, and space and time have been able to bend ever since.
+lu-xun | The black and white of a woodcut with a little dark red. He studied medicine in Sendai, gave it up to write, and wrote short sentences that are cold on the surface and warm underneath.
+chaplin | The black, white and silver grey of silent film. After sound arrived he went on making silent pictures for nearly ten years; his hero never says a word and audiences everywhere understand him.
+mao-zedong | Born in Hunan; a poet, and the principal founder of the People's Republic of China. The colours come from his 1936 poem on snow: the snowfields of the north and a red sun after the snow.
+hemingway | The black of a typewriter, the amber of rum and the sea at Key West. He wrote standing up and cut his sentences shorter and shorter, letting only the tip of the iceberg show.
+oppenheimer | Before dawn in the New Mexico desert, a light brighter than the sun. A theoretical physicist who directed the Los Alamos laboratory in wartime and afterwards argued for international control of nuclear weapons.
+frida-kahlo | The cobalt of the Blue House, marigold orange and the magenta of a Tehuana dress. After the bus accident at eighteen she spent long periods in bed and painted her pain from a mirror.
+turing | A hut at Bletchley Park and an endless paper tape. In 1936 he designed on paper a machine that could only read, write and move left or right; every later computer is a realisation of it.
+mandela | The limestone of Robben Island and the green and gold of a patterned shirt. He spent twenty-seven years in prison, was elected president four years after his release, and chose reconciliation.
+audrey-hepburn | A little black dress, pearls and a large pair of sunglasses. She went hungry as a girl in occupied Holland, and late in life went to Ethiopia and Somalia as a UNICEF goodwill ambassador.
