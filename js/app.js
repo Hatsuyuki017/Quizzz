@@ -20,15 +20,22 @@
 
   /* ---------- palette ---------- */
 
-  function isDark(hex) {
-    var n = parseInt(hex.slice(1), 16), r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255;
-    return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.4;
-  }
+  /* A palette is seven colours, a margin texture and a motif. The colours go
+     onto <html> as custom properties; themes.css reads the three attributes. */
+  var applied = null;
   function applyPalette(id) {
-    var p = QL.PALETTES.filter(function (x) { return x.id === id; })[0] || QL.PALETTES[0];
-    doc.documentElement.setAttribute('data-palette', p.id);
-    if (isDark(p.bg)) doc.documentElement.setAttribute('data-paper', 'dark');
-    else doc.documentElement.removeAttribute('data-paper');
+    var p = QL.palette(id), el = doc.documentElement, svg;
+    if (applied === p.id) return;
+    applied = p.id;
+    ['--p-bg', '--p-ink', '--p-a', '--p-b', '--p-c', '--p-d', '--p-e'].forEach(function (k, i) {
+      el.style.setProperty(k, i === 0 ? p.bg : i === 1 ? p.ink : p.cats[i - 2]);
+    });
+    el.setAttribute('data-palette', p.id);
+    el.setAttribute('data-tex', p.tex);
+    if (p.dark) el.setAttribute('data-paper', 'dark'); else el.removeAttribute('data-paper');
+    svg = QL.icon(p);
+    $('spineIcon').innerHTML = svg;
+    $('spineMotif').innerHTML = svg;
   }
 
   /* ---------- shell ---------- */
@@ -312,6 +319,8 @@
       ask(t('history.clearConfirm')).then(function (yes) { if (yes) { QL.store.clearHistory(); render(); } });
     },
     'palette': function (id) { QL.store.setPref('palette', id); applyPalette(id); render(true); },
+    'pal-filter': function (v, el) { ui.pal[el.getAttribute('data-key')] = v; render(true); },
+    'pal-reset': function () { ui.pal = { g: 'all', h: 'all', s: 'all', d: 'all', q: '' }; render(true); },
     'copy': function (id) { copyText($(id).textContent); },
     'lang': function (k) { QL.lang = k; QL.store.setPref('lang', k); shell(); render(true); settingsSheet(); },
     'open-settings': settingsSheet,
@@ -352,6 +361,11 @@
       if (el.hasAttribute('data-blank')) {
         ui.pick = ui.pick || [];
         ui.pick[Number(el.getAttribute('data-blank'))] = el.value;
+      } else if (el.id === 'palSearch') {
+        ui.pal.q = el.value;
+        var list = QL.paletteList();
+        $('palList').innerHTML = list.html;
+        $('palCount').textContent = list.count;
       } else if (el.hasAttribute('data-note')) {
         root.clearTimeout(noteTimer);
         noteTimer = root.setTimeout(function () { QL.store.setNote(el.getAttribute('data-note'), el.value); }, 250);
@@ -381,7 +395,8 @@
       if (el) applyPalette(el.getAttribute('data-preview'));
     };
     var restore = function (e) {
-      if (e.target.closest && e.target.closest('[data-preview]')) applyPalette(QL.store.pref('palette', 'warm'));
+      var el = e.target.closest ? e.target.closest('[data-preview]') : null;
+      if (el && !(e.relatedTarget && el.contains(e.relatedTarget))) applyPalette(QL.store.pref('palette', 'warm'));
     };
     doc.addEventListener('mouseover', preview);
     doc.addEventListener('focusin', preview);

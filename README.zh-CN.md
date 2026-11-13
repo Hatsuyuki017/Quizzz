@@ -36,15 +36,16 @@
 - 数据保存在浏览器本地，可导出、导入 JSON 备份。
 
 **界面**
-- 51 套配色（38 套浅色，13 套深色），悬停预览，点选保存。其中 24 套取色自摇滚专辑封面，从 *Sgt. Pepper's*（1967）到 *Kid A*（2000），另有一套取自影片 *Zima Blue*；鼠标停在配色卡片上可以看到出处。
+- 241 套配色，分十二个系列，191 套浅色纸，50 套深色纸：账簿原色、摇滚唱片、日本动画、西方古典与文艺复兴绘画、电影、中国古典与日本传统艺术、地域风情、文学、游戏和人物。每套配色有自己的标记（标题旁的小图标）、页边一层很淡的底纹和一段小传。配色页可以按系列、色系、风格、纸色筛选，也可以搜索名称和小传；悬停预览，点选保存。
 - 中文和英文两种界面语言。首次打开时跟随浏览器语言，可在备份与设置里切换。
 
 ## 目录结构
 
 ```
 index.html
-css/            themes.css 为配色，app.css 为全部样式
+css/            app.css 为样式，themes.css 为页边底纹和个别配色的专属规则
 js/
+  palettes.js   配色数据，由 tools/build_palettes.py 生成
   i18n.js       界面文字
   tex.js        把题库文本转成 HTML（KaTeX 加少量文本命令）
   store.js      作答数据的读写，存储后端可替换
@@ -58,6 +59,7 @@ banks/
 templates/bank.template.json   题库模版
 schema/         题库与目录的 JSON Schema
 tools/build.py  校验题库并编译图形
+tools/build_palettes.py        从 tools/palettes/ 的表格生成 js/palettes.js
 docs/CONTRIBUTING.md           接入题库的完整说明
 vendor/katex/   KaTeX 0.16.11 的样式和字体，以及 CDN 无法访问时使用的脚本副本
 ```
@@ -83,13 +85,23 @@ python3 -m http.server 8000
 
 字段说明、文本约定和图形的写法见 [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)。
 
+## 新增配色
+
+一套配色是 `tools/palettes/<系列>.txt` 里的一行：
+
+```
+id | Name | 中文名 | 出处 | 纸色 a b c d | 底纹 | 图标 | 小传
+```
+
+颜色只写五个：纸色和四个主色。运行 `python3 tools/build_palettes.py`，脚本会推出墨色和第五个颜色，把每个颜色调到满足对比度下限，标好筛选用的色系和风格，然后写出 `js/palettes.js`。图标画在 24×24 的格子里，记法写在脚本开头；底纹从脚本列出的名字里选。最早的 51 套配色颜色是手调的，存在 `tools/palettes/seed.json`，标记和小传在 `core.txt`。
+
 ## 数据存储
 
 作答数据经由 `js/store.js` 里的 `QL.store.backend` 读写。默认后端是浏览器的 localStorage，数据只在当前设备上，换设备前请在备份与设置里导出。要接入账号或云端同步，实现一个带 `get`、`set`、`remove` 三个方法的对象并替换 `QL.store.backend` 即可，其余代码不用动。
 
 ## 来源
 
-- 界面的版式、字体和 25 套浅色配色沿用 [Stylish-Calendar](https://github.com/Hatsuyuki017/Stylish-Calendar)（Study Ledger），配色出自 Thomas Shang 的 Tufte-Style Book Template。
+- 界面的版式、字体和最初的 25 套配色沿用 [Stylish-Calendar](https://github.com/Hatsuyuki017/Stylish-Calendar)（Study Ledger），配色出自 Thomas Shang 的 Tufte-Style Book Template。
 - 题库结构和做题流程参考 [26-Xi-quizbank](https://github.com/Hatsuyuki017/26-Xi-quizbank)。
 - 公式渲染使用 [KaTeX](https://katex.org)（MIT License，见 `vendor/katex/LICENSE`）。
 

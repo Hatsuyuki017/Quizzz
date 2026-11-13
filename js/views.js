@@ -12,7 +12,8 @@
     semester: '', selected: [], pick: null, summaryShown: false,
     setup: { scope: 'all', types: null, units: {}, difficulty: null, order: 'seq', limit: 0 },
     wcourse: 'all', scourse: 'all', stype: 'all', sdone: false, spage: 0, hcourse: 'all', hpage: 0,
-    detail: null, template: null
+    detail: null, template: null,
+    pal: { g: 'all', h: 'all', s: 'all', d: 'all', q: '' }
   };
 
   /* ---------- small builders ---------- */
@@ -451,14 +452,75 @@
 
   /* ---------- palette ---------- */
 
+  var HUES = ['neutral', 'brown', 'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple', 'pink'];
+  var HUE_DOT = { neutral: '#8A8A8A', brown: '#7A5230', red: '#C0392B', orange: '#E07B2A', yellow: '#E3B92E', green: '#3F8F55', cyan: '#2FA5A5', blue: '#2F62B8', purple: '#7A4FB0', pink: '#D4588F' };
+  var STYLES = ['mono', 'muted', 'soft', 'vivid'];
+
+  QL.palette = function (id) {
+    var all = QL.PALETTES;
+    for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
+    return all[0];
+  };
+  QL.icon = function (p) { return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + p.icon + '</svg>'; };
+
+  function palName(p) { return QL.lang === 'zh' ? p.z : p.n; }
+  function palAlt(p) { return QL.lang === 'zh' ? (p.n === p.z ? p.src : p.n) : (p.src === p.n ? p.z : p.src); }
+  function palMatch(p) {
+    var f = ui.pal, q = f.q.trim().toLowerCase();
+    if (f.g !== 'all' && p.g !== f.g) return false;
+    if (f.h !== 'all' && p.h !== f.h) return false;
+    if (f.s !== 'all' && p.s !== f.s) return false;
+    if (f.d !== 'all' && p.dark !== (f.d === 'dark')) return false;
+    return !q || (p.z + ' ' + p.n + ' ' + p.src + ' ' + p.bio + ' ' + p.id).toLowerCase().indexOf(q) >= 0;
+  }
+  function palVars(p) {
+    return '--p-bg:' + p.bg + ';--p-ink:' + p.ink + ';--p-a:' + p.cats[0] + ';--p-b:' + p.cats[1] + ';--p-c:' + p.cats[2] + ';--p-d:' + p.cats[3] + ';--p-e:' + p.cats[4];
+  }
+  function palCard(p, cur) {
+    return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '" title="' + h(p.src + ' — ' + p.bio) +
+      '"><span class="pcard__chips"><span class="pcard__plate" style="' + palVars(p) + '">' + QL.icon(p) + '</span>' + p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') +
+      '</span><span class="pcard__head"><span><span class="pcard__name">' + h(palName(p)) + '</span><span class="pcard__alt">' + h(palAlt(p)) + '</span></span>' +
+      (p.id === cur ? '<span class="pcard__tick">✓</span>' : '') + '</span><span class="pcard__bio"' + (QL.lang === 'zh' ? '' : ' lang="zh-CN"') + '>' + h(p.bio) + '</span></button>';
+  }
+  /* The filtered cards, grouped by collection unless one collection is chosen.
+     Kept apart from the view so typing in the search box redraws only this. */
+  QL.paletteList = function () {
+    var cur = QL.store.pref('palette', 'warm'), hit = QL.PALETTES.filter(palMatch), html = '';
+    var groups = ui.pal.g === 'all' ? QL.PALETTE_GROUPS : [ui.pal.g];
+    groups.forEach(function (g) {
+      var ps = hit.filter(function (p) { return p.g === g; });
+      if (!ps.length) return;
+      html += '<section class="pgroup"><header class="pgroup__head"><h3 class="pgroup__name">' + t('pal.g.' + g) + '</h3><span class="pgroup__n num">' + ps.length +
+        '</span></header><div class="pgrid">' + ps.map(function (p) { return palCard(p, cur); }).join('') + '</div></section>';
+    });
+    return { html: html || '<p class="pal__empty">' + t('pal.empty') + '</p>', count: t('pal.count', { n: hit.length, total: QL.PALETTES.length }) };
+  };
+
   function palette() {
-    var cur = QL.store.pref('palette', 'warm');
-    var body = '<div class="pad"><div class="pgrid">' + QL.PALETTES.map(function (p, i) {
-      return '<button type="button" class="pcard' + (p.id === cur ? ' is-on' : '') + '" data-act="palette" data-arg="' + p.id + '" data-preview="' + p.id + '" title="' + h(p.title || p.name) + '"><span class="pcard__chips"><i style="background:' + p.bg +
-        '"></i>' + p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') + '</span><span class="pcard__foot"><span class="pcard__n">' + ('0' + i).slice(-2) +
-        '</span><span class="pcard__name">' + h(p.name) + '</span>' + (p.id === cur ? '<span class="pcard__tick">✓</span>' : '') + '</span></button>';
-    }).join('') + '</div></div>';
-    return { title: t('nav.palette'), sub: t('palette.sub'), right: '', body: body };
+    var p = QL.palette(QL.store.pref('palette', 'warm')), f = ui.pal, list = QL.paletteList();
+    function chips(key, values, label, dot) {
+      return ['all'].concat(values).map(function (v) {
+        var n = key === 'g' && v !== 'all' ? QL.PALETTES.filter(function (x) { return x.g === v; }).length : 0;
+        return '<button type="button" class="fchip" data-act="pal-filter" data-key="' + key + '" data-arg="' + v + '" aria-pressed="' + (f[key] === v) + '">' +
+          (dot && v !== 'all' ? '<i style="background:' + dot[v] + '"></i>' : '') + (v === 'all' ? t('pal.all') : label(v)) + (n ? '<b class="num">' + n + '</b>' : '') + '</button>';
+      }).join('');
+    }
+    var active = f.g !== 'all' || f.h !== 'all' || f.s !== 'all' || f.d !== 'all' || f.q;
+    var now = '<section class="panel pal-now"><div class="pal-now__plate">' + QL.icon(p) + '</div><div class="pal-now__head"><span class="eyebrow">' + t('pal.current') +
+      '</span><h3 class="pal-now__name">' + h(palName(p)) + '</h3><span class="pal-now__alt">' + h(palAlt(p)) + (palAlt(p) !== p.src ? ' · ' + h(p.src) : '') + '</span></div>' +
+      '<div class="pal-now__body"><p class="pal-now__bio"' + (QL.lang === 'zh' ? '' : ' lang="zh-CN"') + '>' + h(p.bio) + '</p><div class="pal-now__meta"><span class="pal-now__sw"><i style="background:' + p.bg + '"></i>' +
+      p.cats.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('') + '</span><span class="tag">' + t('pal.g.' + p.g) + '</span><span class="tag">' + t('pal.h.' + p.h) +
+      '</span><span class="tag">' + t('pal.s.' + p.s) + '</span><span class="tag">' + t(p.dark ? 'pal.dark' : 'pal.light') + '</span></div></div></section>';
+    var filters = '<section class="panel pfilter">' +
+      '<span class="pfilter__k">' + t('pal.group') + '</span><div class="pfilter__v">' + chips('g', QL.PALETTE_GROUPS, function (v) { return t('pal.g.' + v); }) + '</div>' +
+      '<span class="pfilter__k">' + t('pal.hue') + '</span><div class="pfilter__v">' + chips('h', HUES, function (v) { return t('pal.h.' + v); }, HUE_DOT) + '</div>' +
+      '<span class="pfilter__k">' + t('pal.style') + '</span><div class="pfilter__v">' + chips('s', STYLES, function (v) { return t('pal.s.' + v); }) + '</div>' +
+      '<span class="pfilter__k">' + t('pal.paper') + '</span><div class="pfilter__v">' + chips('d', ['light', 'dark'], function (v) { return t('pal.' + v); }) + '</div>' +
+      '<label class="pfilter__k" for="palSearch">' + t('pal.search') + '</label><div class="pfilter__v"><input type="text" class="pfilter__search" id="palSearch" value="' + h(f.q) + '" placeholder="' + h(t('pal.searchPh')) +
+      '" autocomplete="off" spellcheck="false"><span class="pfilter__count num" id="palCount">' + list.count + '</span>' +
+      (active ? '<button type="button" class="linkbtn" data-act="pal-reset">' + t('pal.reset') + '</button>' : '') + '</div></section>';
+    var body = '<div class="pad"><div class="pal">' + now + filters + '<div id="palList">' + list.html + '</div></div></div>';
+    return { title: t('nav.palette'), sub: t('palette.sub', { n: QL.PALETTES.length }) + (t('pal.noteLang') ? ' · ' + t('pal.noteLang') : ''), right: '', body: body };
   }
 
   /* ---------- adding a bank ---------- */

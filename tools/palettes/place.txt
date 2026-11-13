@@ -1,0 +1,11 @@
+# id | Name | 中文名 | source | bg a b c d | texture | icon | 小传
+santorini | Santorini | 圣托里尼 | Cyclades, Greece | #EEF4F8 #1F5FB0 #3F8FC4 #D98A6A #6A7A8A | none | d M5 14a7 7 0 0 1 14 0z; R 4 14 16 7; L 12 7 12 3; L 10 5 14 5 | 石灰刷白的墙，钴蓝的圆顶，脚下是火山口围成的海。傍晚整座岛转成粉色。
+marrakech | Marrakech | 马拉喀什 | Morocco | #F3DDCB #B8532F #2A4FA8 #C9982B #2F7F6A | tiles | d M6 21v-8a6 6 0 1 1 12 0v8; r 3 3 18 18 | 赭红的夯土城墙，马约尔花园的蓝，香料摊上的藏红花。巷子窄得只容一头驴。
+tuscany | Tuscany | 托斯卡纳 | Italy | #F1E6C4 #A8622B #4F6A2F #C9A23A #7A3F2A | none | d M7 19c-2-5-2-11 0-16 2 5 2 11 0 16z; d M2 20c6-4 14-4 20 0; L 7 19 7 21 | 赭石色的农舍，起伏的麦田，丝柏沿着山脊排成一线。夏末的光是蜂蜜色的。
+iceland | Iceland | 冰岛 | North Atlantic | #E3E8E8 #2F5F5A #5E7F3A #3F7FA8 #2A2D30 | none | p 3,21 9,12 12,16 16,10 21,21; d M3 7c4-4 6 2 9-1s5-3 9 0; d M3 3.5c4-3 6 2 9-1s5-2 9 0 | 玄武岩的黑、苔原的绿和冰川的蓝，头顶偶尔有一道极光。几乎没有树。
+patagonia | Patagonia | 巴塔哥尼亚 | Chile and Argentina | #E4EDF0 #1F7F8C #6A6F7A #C9862B #3F5F4A | none | p 2,20 6,10 8,13 10,4 13,12 15,6 18,13 22,20; L 2 20 22 20 | 花岗岩的塔峰立在风里，冰川融水把湖染成乳蓝色。大陆的尽头。
+havana | Havana | 哈瓦那 | Cuba | #F6EBD0 #1F8F9A #D9537A #D9A21B #3F6FB8 | none | d M12 22c0-5 0-9 1-13; d M13 9c-3-3-7-2-9 0M13 9c3-3 7-2 9 0M13 9c-2-4-5-5-8-4M13 9c2-4 5-5 8-4M13 9c0-3 1-5 3-6 | 褪色的殖民建筑漆成松石绿、粉红和柠檬黄，老爷车也是这几种颜色。海堤上总有人在弹琴。
+jaipur | Jaipur | 斋浦尔 | Rajasthan, India | #F6DCD2 #C24A6A #D98A1F #1F7F8A #7A3F8C | none | L 12 22 12 10; e 12 7 4.5 5.5; e 12 7.5 2.2 3; C 12 8 1 | 整座老城刷成粉红，纱丽是藏红花色和孔雀蓝。风之宫有九百多扇小窗。
+jiangnan | Jiangnan Water Towns | 江南水乡 | Lower Yangtze, China | #EEF0EC #2A2F33 #4F7F5A #7A8A8C #A8443A | none | p 2,8 12,3 22,8; L 4 8 4 13; L 20 8 20 13; d M5 18h14l-2 3H7z; L 2 16 22 16 | 粉墙黛瓦，河水是灰绿的，柳树刚发芽。乌篷船从石桥下穿过去，没什么声音。
+tibet | Tibet | 藏地 | Tibetan Plateau | #EEF1F4 #8C2A2F #D9982B #2F6FB8 #3F8A5A | none | d M2 5c7 4 13 4 20 0; P 4,6.5 7,7.6 5.5,12; P 9,8.2 12,8.5 10.5,13@b; P 14,8.4 17,7.8 16,12.5@c; P 19,7 21.5,5.8 20.5,10.5@d | 僧袍的绛红、酥油灯的金黄和高原的蓝天。五色经幡在垭口上被风念诵。
+nordic | Nordic | 北欧 | Scandinavia | #F0EFEA #3F5A6A #C9982B #7A8C7A #A8705A | none | p 3,12 12,4 21,12; r 5 12 14 9; r 10 15 4 6; L 16 6 16 3 | 桦木的浅色、灰蓝的羊毛毯和一点芥末黄。冬天很长，所以屋里要亮、要暖、要少。
