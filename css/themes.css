@@ -85,9 +85,25 @@ html[data-tex="tiles"]  {
 }
 html[data-tex="hatch"]  { --tex: repeating-linear-gradient(135deg, var(--tx-line) 0 1px, transparent 1px 9px); }
 html[data-tex="weave"]  { --tex: repeating-linear-gradient(45deg, var(--tx-line) 0 1px, transparent 1px 11px), repeating-linear-gradient(-45deg, var(--tx-line) 0 1px, transparent 1px 11px); }
+/* Rain is a scatter of short, faint strokes, each drawn as two small ellipses
+   set a little apart so the stroke leans. It has to stay lighter than the
+   motif it falls across. */
 html[data-tex="rain"]   {
-  --tex: linear-gradient(104deg, transparent 47%, var(--tx-dot) 47% 51%, transparent 51%), linear-gradient(104deg, transparent 47%, var(--tx-line) 47% 51%, transparent 51%);
-  --tex-size: 19px 37px, 31px 53px; --tex-pos: 0 0, 9px 17px;
+  --rain-a: color-mix(in srgb, var(--p-ink) 9%, transparent);
+  --rain-b: color-mix(in srgb, var(--p-ink) 6%, transparent);
+  --tex:
+    radial-gradient(ellipse 0.55px 2.4px at 8px 9px, var(--rain-a) 0 100%, transparent 100%),
+    radial-gradient(ellipse 0.55px 2.4px at 7.2px 13px, var(--rain-a) 0 100%, transparent 100%),
+    radial-gradient(ellipse 0.5px 2px at 20px 30px, var(--rain-b) 0 100%, transparent 100%),
+    radial-gradient(ellipse 0.5px 2px at 19.3px 33.4px, var(--rain-b) 0 100%, transparent 100%),
+    radial-gradient(ellipse 0.55px 2.2px at 14px 41px, var(--rain-a) 0 100%, transparent 100%),
+    radial-gradient(ellipse 0.55px 2.2px at 13.2px 44.8px, var(--rain-a) 0 100%, transparent 100%);
+  --tex-size: 29px 53px, 29px 53px, 47px 71px, 47px 71px, 37px 89px, 37px 89px;
+  --tex-pos: 0 0, 0 0, 11px 19px, 11px 19px, 23px 7px, 23px 7px;
+}
+html[data-paper="dark"][data-tex="rain"] {
+  --rain-a: color-mix(in srgb, var(--p-ink) 11%, transparent);
+  --rain-b: color-mix(in srgb, var(--p-ink) 7%, transparent);
 }
 html[data-tex="blinds"] { --tex: repeating-linear-gradient(0deg, var(--tx-band) 0 7px, transparent 7px 17px); }
 html[data-tex="bars"]   { --tex: repeating-linear-gradient(90deg, var(--tx-line) 0 1px, transparent 1px 13px), repeating-linear-gradient(90deg, var(--tx-band) 0 5px, transparent 5px 39px); }
