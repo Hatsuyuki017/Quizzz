@@ -129,8 +129,11 @@
   }
 
   function notesPanel(key, open) {
-    return '<section class="panel notes"><div class="panel__head"><h3 class="panel__title">' + t('quiz.notes') + '</h3></div>' +
-      (open ? '<textarea id="noteText" data-note="' + h(key) + '" placeholder="' + t('quiz.notesPh') + '">' + h(QL.store.note(key)) + '</textarea>'
+    var note = open ? QL.store.note(key) : '';
+    // the note is typed as Markdown with LaTeX and shown rendered underneath, redrawn on every keystroke (app.js)
+    return '<section class="panel notes"><div class="panel__head"><h3 class="panel__title">' + t('quiz.notes') + '</h3><span class="panel__note">Markdown · LaTeX</span></div>' +
+      (open ? '<textarea id="noteText" data-note="' + h(key) + '" placeholder="' + h(t('quiz.notesPh')) + '" spellcheck="false">' + h(note) + '</textarea>' +
+              '<div class="notes__view" id="noteView"' + (note ? '' : ' hidden') + '>' + QL.md(note) + '</div>'
             : '<div class="notes__locked">' + t('quiz.notesLocked') + '</div>') + '</section>';
   }
 

@@ -419,6 +419,8 @@
         $('palList').innerHTML = list.html;
         $('palCount').textContent = list.count;
       } else if (el.hasAttribute('data-note')) {
+        var shown = $('noteView');
+        if (shown) { shown.innerHTML = QL.md(el.value); shown.hidden = !el.value.trim(); }
         root.clearTimeout(noteTimer);
         noteTimer = root.setTimeout(function () { QL.store.setNote(el.getAttribute('data-note'), el.value); }, 250);
       }
