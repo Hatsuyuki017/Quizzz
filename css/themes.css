@@ -47,6 +47,10 @@ html[data-paper="dark"] {
 
 .spine__motif::before,
 .topbar::before { content: ''; position: absolute; pointer-events: none; background-image: var(--tex, none); background-size: var(--tex-size, auto); background-position: var(--tex-pos, 0 0); }
+/* Over a texture the motif needs more weight than on a plain margin. */
+html[data-tex]:not([data-tex="none"]) { --motif-o: .18; }
+html[data-paper="dark"][data-tex]:not([data-tex="none"]) { --motif-o: .22; }
+
 /* Two masks, intersected: the texture's own (if it has one) and a fade at the edges. */
 .spine__motif::before,
 .topbar::before {
