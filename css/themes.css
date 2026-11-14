@@ -47,16 +47,20 @@ html[data-paper="dark"] {
 
 .spine__motif::before,
 .topbar::before { content: ''; position: absolute; pointer-events: none; background-image: var(--tex, none); background-size: var(--tex-size, auto); background-position: var(--tex-pos, 0 0); }
-.spine__motif::before {
-  inset: 0;
-  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
-          mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
-}
+/* Two masks, intersected: the texture's own (if it has one) and a fade at the edges. */
+.spine__motif::before,
 .topbar::before {
-  inset: 0 0 0 62%; opacity: .8;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 70%);
-          mask-image: linear-gradient(90deg, transparent, #000 70%);
+  -webkit-mask-image: var(--tex-mask, linear-gradient(#000, #000)), var(--tex-fade);
+          mask-image: var(--tex-mask, linear-gradient(#000, #000)), var(--tex-fade);
+  -webkit-mask-size: var(--tex-mask-size, auto), 100% 100%;
+          mask-size: var(--tex-mask-size, auto), 100% 100%;
+  -webkit-mask-repeat: repeat, no-repeat;
+          mask-repeat: repeat, no-repeat;
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
 }
+.spine__motif::before { inset: 0; --tex-fade: linear-gradient(transparent, #000 22%, #000 78%, transparent); }
+.topbar::before { inset: 0 0 0 62%; opacity: .8; --tex-fade: linear-gradient(90deg, transparent, #000 70%); }
 
 html[data-tex="stars"] {
   --tex:
@@ -85,26 +89,16 @@ html[data-tex="tiles"]  {
 }
 html[data-tex="hatch"]  { --tex: repeating-linear-gradient(135deg, var(--tx-line) 0 1px, transparent 1px 9px); }
 html[data-tex="weave"]  { --tex: repeating-linear-gradient(45deg, var(--tx-line) 0 1px, transparent 1px 11px), repeating-linear-gradient(-45deg, var(--tx-line) 0 1px, transparent 1px 11px); }
-/* Rain is a scatter of short, faint strokes, each drawn as two small ellipses
-   set a little apart so the stroke leans. It has to stay lighter than the
-   motif it falls across. */
+/* Rain: slanted strokes of uneven length, scattered in loose clusters. The
+   strokes are a mask (a tile drawn once, with each stroke at its own
+   strength) over a flat tint of the ink, so they follow the palette. */
 html[data-tex="rain"]   {
-  --rain-a: color-mix(in srgb, var(--p-ink) 9%, transparent);
-  --rain-b: color-mix(in srgb, var(--p-ink) 6%, transparent);
-  --tex:
-    radial-gradient(ellipse 0.55px 2.4px at 8px 9px, var(--rain-a) 0 100%, transparent 100%),
-    radial-gradient(ellipse 0.55px 2.4px at 7.2px 13px, var(--rain-a) 0 100%, transparent 100%),
-    radial-gradient(ellipse 0.5px 2px at 20px 30px, var(--rain-b) 0 100%, transparent 100%),
-    radial-gradient(ellipse 0.5px 2px at 19.3px 33.4px, var(--rain-b) 0 100%, transparent 100%),
-    radial-gradient(ellipse 0.55px 2.2px at 14px 41px, var(--rain-a) 0 100%, transparent 100%),
-    radial-gradient(ellipse 0.55px 2.2px at 13.2px 44.8px, var(--rain-a) 0 100%, transparent 100%);
-  --tex-size: 29px 53px, 29px 53px, 47px 71px, 47px 71px, 37px 89px, 37px 89px;
-  --tex-pos: 0 0, 0 0, 11px 19px, 11px 19px, 23px 7px, 23px 7px;
+  --rain: color-mix(in srgb, var(--p-ink) 17%, transparent);
+  --tex: linear-gradient(var(--rain), var(--rain));
+  --tex-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22236%22 height=%22272%22 viewBox=%220 0 236 272%22 fill=%22none%22 stroke=%22%23000%22 stroke-linecap=%22round%22%3E%3Cpath d=%22M196.5 177.8L191.5 196.3%22 stroke-opacity=%220.5%22 stroke-width=%220.88%22/%3E%3Cpath d=%22M183.5 16.9L170.5 65.4%22 stroke-opacity=%220.47%22 stroke-width=%220.97%22/%3E%3Cpath d=%22M173.2 174.2L159.9 223.8%22 stroke-opacity=%220.45%22 stroke-width=%220.86%22/%3E%3Cpath d=%22M162.4 32.6L155.9 56.9%22 stroke-opacity=%220.44%22 stroke-width=%220.93%22/%3E%3Cpath d=%22M11.6 228.8L6.5 247.9%22 stroke-opacity=%220.44%22 stroke-width=%220.93%22/%3E%3Cpath d=%22M220.7 148L218.3 156.7%22 stroke-opacity=%220.56%22 stroke-width=%221.01%22/%3E%3Cpath d=%22M78.5 96.1L72.2 119.5%22 stroke-opacity=%220.97%22 stroke-width=%221.15%22/%3E%3Cpath d=%22M200.6 186L195.3 206%22 stroke-opacity=%220.99%22 stroke-width=%221.1%22/%3E%3Cpath d=%22M166.6 61.6L161.3 81.4%22 stroke-opacity=%220.73%22 stroke-width=%221.13%22/%3E%3Cpath d=%22M161.8 120L154.9 145.6%22 stroke-opacity=%220.42%22 stroke-width=%221.14%22/%3E%3Cpath d=%22M2.2 43.6L0 51.6%22 stroke-opacity=%220.91%22 stroke-width=%221.03%22/%3E%3Cpath d=%22M238.2 43.6L236 51.6%22 stroke-opacity=%220.91%22 stroke-width=%221.03%22/%3E%3Cpath d=%22M10.2 118.8L8.5 125.3%22 stroke-opacity=%220.43%22 stroke-width=%221.01%22/%3E%3Cpath d=%22M207.8 -27L195.3 19.9%22 stroke-opacity=%220.5%22 stroke-width=%221.12%22/%3E%3Cpath d=%22M207.8 245L195.3 291.9%22 stroke-opacity=%220.5%22 stroke-width=%221.12%22/%3E%3Cpath d=%22M37.7 155.7L34.5 167.7%22 stroke-opacity=%220.36%22 stroke-width=%221.1%22/%3E%3Cpath d=%22M62.7 219.5L60.4 228.1%22 stroke-opacity=%220.63%22 stroke-width=%221.02%22/%3E%3Cpath d=%22M131.2 24.1L129.3 31.2%22 stroke-opacity=%220.57%22 stroke-width=%220.82%22/%3E%3Cpath d=%22M227.6 38.9L223 55.8%22 stroke-opacity=%220.43%22 stroke-width=%220.86%22/%3E%3Cpath d=%22M227.4 89.9L223.7 103.8%22 stroke-opacity=%220.33%22 stroke-width=%220.89%22/%3E%3Cpath d=%22M26.2 43.1L20.1 66.1%22 stroke-opacity=%220.72%22 stroke-width=%220.93%22/%3E%3Cpath d=%22M96.9 81.5L94.1 92.1%22 stroke-opacity=%220.74%22 stroke-width=%221.1%22/%3E%3Cpath d=%22M218.7 131.3L208.1 170.9%22 stroke-opacity=%220.61%22 stroke-width=%220.94%22/%3E%3Cpath d=%22M162.8 78.7L161.1 85.1%22 stroke-opacity=%220.88%22 stroke-width=%221.02%22/%3E%3Cpath d=%22M103.7 189.2L98.1 209.9%22 stroke-opacity=%220.62%22 stroke-width=%220.96%22/%3E%3Cpath d=%22M80.1 98.1L76.2 112.9%22 stroke-opacity=%220.4%22 stroke-width=%220.99%22/%3E%3Cpath d=%22M27.4 58.5L25.9 64%22 stroke-opacity=%220.63%22 stroke-width=%220.8%22/%3E%3Cpath d=%22M62 185.3L60 192.8%22 stroke-opacity=%220.58%22 stroke-width=%221.14%22/%3E%3Cpath d=%22M199.5 47.4L197.7 54.2%22 stroke-opacity=%220.91%22 stroke-width=%220.84%22/%3E%3Cpath d=%22M14.9 175.6L10 194%22 stroke-opacity=%220.42%22 stroke-width=%221.06%22/%3E%3Cpath d=%22M55.4 26.8L53 35.5%22 stroke-opacity=%220.91%22 stroke-width=%221.07%22/%3E%3Cpath d=%22M77 41.8L74.1 52.8%22 stroke-opacity=%220.59%22 stroke-width=%220.96%22/%3E%3Cpath d=%22M140 206.3L135.6 222.8%22 stroke-opacity=%220.65%22 stroke-width=%221.14%22/%3E%3Cpath d=%22M215.3 95.6L206.5 128.5%22 stroke-opacity=%220.39%22 stroke-width=%221.08%22/%3E%3Cpath d=%22M18.3 249L13.9 265.3%22 stroke-opacity=%220.8%22 stroke-width=%221.03%22/%3E%3Cpath d=%22M192.4 53L188.2 68.7%22 stroke-opacity=%220.56%22 stroke-width=%221.05%22/%3E%3Cpath d=%22M23.2 142.5L11.2 187%22 stroke-opacity=%220.4%22 stroke-width=%220.91%22/%3E%3Cpath d=%22M14.4 37.1L4.3 74.9%22 stroke-opacity=%220.35%22 stroke-width=%221.09%22/%3E%3Cpath d=%22M11.5 -3L6.3 16.4%22 stroke-opacity=%220.93%22 stroke-width=%221.15%22/%3E%3Cpath d=%22M11.5 269L6.3 288.4%22 stroke-opacity=%220.93%22 stroke-width=%221.15%22/%3E%3Cpath d=%22M23 181.5L17.4 202.4%22 stroke-opacity=%220.41%22 stroke-width=%221.07%22/%3E%3Cpath d=%22M3.4 71.4L-2.4 93%22 stroke-opacity=%220.47%22 stroke-width=%220.89%22/%3E%3Cpath d=%22M239.4 71.4L233.6 93%22 stroke-opacity=%220.47%22 stroke-width=%220.89%22/%3E%3Cpath d=%22M58 105L52.5 125.3%22 stroke-opacity=%220.73%22 stroke-width=%220.86%22/%3E%3Cpath d=%22M226.6 109.8L222.6 124.8%22 stroke-opacity=%220.91%22 stroke-width=%221.1%22/%3E%3Cpath d=%22M-0.6 33.5L-3.6 44.7%22 stroke-opacity=%220.39%22 stroke-width=%221.05%22/%3E%3Cpath d=%22M235.4 33.5L232.4 44.7%22 stroke-opacity=%220.39%22 stroke-width=%221.05%22/%3E%3Cpath d=%22M59.6 145.5L56.2 158%22 stroke-opacity=%220.77%22 stroke-width=%220.97%22/%3E%3Cpath d=%22M216.9 -5.6L206.4 33.6%22 stroke-opacity=%220.72%22 stroke-width=%220.88%22/%3E%3Cpath d=%22M216.9 266.4L206.4 305.6%22 stroke-opacity=%220.72%22 stroke-width=%220.88%22/%3E%3Cpath d=%22M46.1 28.2L40.3 49.7%22 stroke-opacity=%220.95%22 stroke-width=%221.01%22/%3E%3Cpath d=%22M-0.6 120.5L-11.4 160.7%22 stroke-opacity=%220.45%22 stroke-width=%220.99%22/%3E%3Cpath d=%22M235.4 120.5L224.6 160.7%22 stroke-opacity=%220.45%22 stroke-width=%220.99%22/%3E%3C/svg%3E");
+  --tex-mask-size: 236px 272px;
 }
-html[data-paper="dark"][data-tex="rain"] {
-  --rain-a: color-mix(in srgb, var(--p-ink) 11%, transparent);
-  --rain-b: color-mix(in srgb, var(--p-ink) 7%, transparent);
-}
+html[data-paper="dark"][data-tex="rain"] { --rain: color-mix(in srgb, var(--p-ink) 20%, transparent); }
 html[data-tex="blinds"] { --tex: repeating-linear-gradient(0deg, var(--tx-band) 0 7px, transparent 7px 17px); }
 html[data-tex="bars"]   { --tex: repeating-linear-gradient(90deg, var(--tx-line) 0 1px, transparent 1px 13px), repeating-linear-gradient(90deg, var(--tx-band) 0 5px, transparent 5px 39px); }
 html[data-tex="checks"] { --tex: conic-gradient(var(--tx-band) 25%, transparent 0 50%, var(--tx-band) 0 75%, transparent 0); --tex-size: 22px 22px; }
